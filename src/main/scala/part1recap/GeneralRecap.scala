@@ -56,6 +56,16 @@ object GeneralRecap extends App {
   }
   aCarnivore eat aDog
 
+  // generics
+  abstract class MyList[+A]
+  // companion objects
+  object MyList
+
+  // case classes
+  case class Person(name: String, age: Int) // a LOT in this course
+
+
+
 
 
 }
