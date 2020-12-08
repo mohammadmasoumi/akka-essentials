@@ -32,4 +32,30 @@ object GeneralRecap extends App {
   }
   println(factorial((5)))
 
+  // OOP
+  class Animal
+  class Dog extends Animal
+  val aDog: Animal = new Dog
+
+  trait Carnivore {
+    def eat(a: Animal): Unit
+  }
+
+  class Crocodile extends Animal with Carnivore {
+    override def eat(a: Animal): Unit = println("NamNamNam!")
+  }
+
+  // method notations
+  val aCroc = new Crocodile
+  aCroc.eat(aDog)
+  aCroc eat aDog
+
+  // anonymous classes
+  val aCarnivore = new Carnivore {
+    override def eat(a: Animal): Unit = println("I eat meat!")
+  }
+  aCarnivore eat aDog
+
+
+
 }
