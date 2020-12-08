@@ -89,5 +89,9 @@ object GeneralRecap extends App {
   val anonymousIncrementer = (x: Int) => x + 1
   // Int => Int === Function1[Int, Int]
 
+  // FP is all about working with functions as first class
+  List(1, 2, 3).map(incrementer)
+  // HOF => High Order Function
+
 
 }
