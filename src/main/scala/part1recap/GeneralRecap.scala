@@ -30,11 +30,14 @@ object GeneralRecap extends App {
     if (num <= 1) acc
     else factorial(num - 1, num * acc)
   }
+
   println(factorial((5)))
 
   // OOP
   class Animal
+
   class Dog extends Animal
+
   val aDog: Animal = new Dog
 
   trait Carnivore {
@@ -58,14 +61,22 @@ object GeneralRecap extends App {
 
   // generics
   abstract class MyList[+A]
+
   // companion objects
   object MyList
 
   // case classes
   case class Person(name: String, age: Int) // a LOT in this course
 
-
-
+  // Exception
+  val aPotentialFailure: Unit = try {
+    throw new RuntimeException("I'm innocent, I swear!") // return Nothing
+  } catch {
+    case e: Exception => println("I caught an exception!")
+  } finally {
+    // side effects
+    println("some logs")
+  }
 
 
 }
