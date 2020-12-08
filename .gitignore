@@ -2,5 +2,8 @@
 *.class
 *.log
 *.iml
+.bsp
+target
+project
 
 
