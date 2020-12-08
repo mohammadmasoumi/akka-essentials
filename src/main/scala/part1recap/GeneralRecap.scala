@@ -93,5 +93,35 @@ object GeneralRecap extends App {
   List(1, 2, 3).map(incrementer)
   // HOF => High Order Function
 
+  // for comprehensions
+  val pairs = for {
+    num <- List(1, 2, 3, 4)
+    char <- List('a', 'b', 'c', 'd')
+  } yield num + "-" + char
+  // List(1, 2, 3, 4).flatMap(num => List('a', 'b', 'c', 'd').map(char => num + "-" + char))
+
+  // Seq, Array, List, Vector, Map, Tuples, Sets
+
+  // "Collections"
+  // Option and Try
+  val anOption = Some(2)
+  val aTry = {
+    throw new RuntimeException
+  }
+
+  // pattern matching
+  val unknown = 2
+  val order = unknown match {
+    case 1 => "first"
+    case 2 => "second"
+    case 3 => "third"
+    case _ => "unknown"
+  }
+
+  val bob = Person("Bob", 22)
+  val greeting = bob match {
+    case Person(n, _) => s"Hi, my name is $n"
+    case _ => "I don't know my name!"
+  }
 
 }
