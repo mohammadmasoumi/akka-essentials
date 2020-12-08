@@ -78,5 +78,16 @@ object GeneralRecap extends App {
     println("some logs")
   }
 
+  // Functional programming
+  val incrementer = new Function[Int, Int] {
+    override def apply(v1: Int): Int = v1 + 1
+  }
+  val incremented = incrementer(42) // 43
+  // incrementer.apply(42)
+  println(incremented)
+
+  val anonymousIncrementer = (x: Int) => x + 1
+  // Int => Int === Function1[Int, Int]
+
 
 }
