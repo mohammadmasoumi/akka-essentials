@@ -15,7 +15,9 @@ object MultiThreadingRecap extends App {
   val threadHello = new Thread(() => (1 to 100).foreach(_ => println("Hello")))
   val threadGoodbye = new Thread(() => (1 to 100).foreach(_ => println("Goodbye")))
 
+  // different ordering - different runs produce different results!
   threadHello.start()
   threadGoodbye.start()
+
 
 }
