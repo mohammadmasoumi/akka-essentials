@@ -1,5 +1,7 @@
 package part1recap
 
+import scala.concurrent.Future
+
 object AdvancedRecap extends App {
 
 
@@ -94,5 +96,13 @@ object AdvancedRecap extends App {
   implicit val inverseOrdering: Ordering[Int] = Ordering.fromLessThan(_ > _)
   List(1, 2, 3, 4).sorted
 
+  // imported scope
+  // import an implicit execution context
+
+  import scala.concurrent.ExecutionContext.Implicits.global
+
+  val future = Future {
+    println("Hello, future!")
+  } // no implicit found for this method
 
 }
