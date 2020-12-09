@@ -46,10 +46,20 @@ object AdvancedRecap extends App {
   try {
     println(pfChain(3))
     println(pfChain(4))
-    println(pfChain(5))
+    println(pfChain(5)) // throw a match error
   } catch {
     case e: MatchError => s"Caught a MatchError: $e"
   }
+
+  // types
+  type ReceiveFunction = PartialFunction[Any, Unit]
+
+  def receive: ReceiveFunction = {
+    case _: Int => println("I've got an Int")
+    case _: String => println("I've got a String")
+    case _ => println("Bye!")
+  }
+  receive(2)
 
 
 }
