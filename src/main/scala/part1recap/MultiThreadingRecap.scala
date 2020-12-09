@@ -10,4 +10,7 @@ object MultiThreadingRecap extends App {
 
   aThread.start()
   aSyntacticSugarThread.start()
+
+
+  val threadHello = new Thread(() => (1 to 100).foreach(_ => println("Hello")))
 }
