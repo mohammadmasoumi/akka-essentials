@@ -39,5 +39,17 @@ object AdvancedRecap extends App {
   println(lifted(2)) // Some(43)
   println(lifted(5000)) // None
 
+  // orElse
+  val pfChain = partialFunction.orElse[Int, Int] {
+    case 4 => 45
+  }
+  try {
+    println(pfChain(3))
+    println(pfChain(4))
+    println(pfChain(5))
+  } catch {
+    case e: MatchError => s"Caught a MatchError: $e"
+  }
+
 
 }
