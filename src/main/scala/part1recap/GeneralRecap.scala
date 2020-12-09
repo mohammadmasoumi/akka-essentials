@@ -17,7 +17,7 @@ object GeneralRecap extends App {
     54 // the value of code block is equal to the last expression. here is 54
   }
 
-  // types
+  // typesI
   // Unit
   val aUnit: Unit = println("Hello, scala") // side affect
 
