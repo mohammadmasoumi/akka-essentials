@@ -51,7 +51,7 @@ object AdvancedRecap extends App {
     case e: MatchError => s"Caught a MatchError: $e"
   }
 
-  // types
+  // types aliases
   type ReceiveFunction = PartialFunction[Any, Unit]
 
   def receive: ReceiveFunction = {
@@ -59,7 +59,14 @@ object AdvancedRecap extends App {
     case _: String => println("I've got a String")
     case _ => println("Bye!")
   }
+
   receive(2)
 
+  // implicits
+  implicit val timeout: Int = 3000
+
+  def setTimeout(f: Int => Int)(implicit timeout: Int): Int = f(timeout)
+
+  println(setTimeout(x => x + 1))
 
 }
