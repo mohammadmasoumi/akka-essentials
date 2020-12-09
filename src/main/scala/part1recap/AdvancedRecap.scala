@@ -26,6 +26,11 @@ object AdvancedRecap extends App {
     case e: MatchError => println(s"Caught a MatchError: $e")
   }
 
+  val modifiedList = List(1, 2, 3, 4).map {
+    case 1 => 42
+    case _ => 0
+  } // partial function
+  println(modifiedList)
 
 
 }
