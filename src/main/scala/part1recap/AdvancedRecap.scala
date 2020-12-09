@@ -78,13 +78,21 @@ object AdvancedRecap extends App {
   implicit def fromStringToPerson(string: String): Person = Person(string)
 
   println("Bob".great)
+
   // this is equivalent to fromStringToPerson("Bob").great - automatically done by compiler!
 
   // 2. implicit classes
   implicit class Dog(name: String) {
     def bark: Unit = println("bark!")
   }
+
   println("k9".bark)
   // under the hood: new Dog("k9").bark
+
+  // Organize - implicit scope
+  // local scope
+  implicit val inverseOrdering: Ordering[Int] = Ordering.fromLessThan(_ > _)
+  List(1, 2, 3, 4).sorted
+
 
 }
