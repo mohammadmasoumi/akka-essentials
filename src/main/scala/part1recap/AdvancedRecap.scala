@@ -88,13 +88,19 @@ object AdvancedRecap extends App {
     def bark: Unit = println("bark!")
   }
 
-  println("k9".bark)
+  "k9".bark
   // under the hood: new Dog("k9").bark
 
   // Organize - implicit scope
+  /*
+    1. local scope
+    2. import scope
+    3. companion object
+   */
+
   // local scope
   implicit val inverseOrdering: Ordering[Int] = Ordering.fromLessThan(_ > _)
-  List(1, 2, 3, 4).sorted
+  println(List(1, 2, 3, 4).sorted)
 
   // imported scope
   // import an implicit execution context
@@ -104,5 +110,13 @@ object AdvancedRecap extends App {
   val future = Future {
     println("Hello, future!")
   } // no implicit found for this method
+  println(future)
+
+  // companion objection
+  object Person {
+    implicit val personOrdering: Ordering[Person] = Ordering.fromLessThan((a, b) => a.name.compareTo(b.name) < 0)
+  }
+
+  println(List(Person("Bob"), Person("Alex")).sorted)
 
 }
