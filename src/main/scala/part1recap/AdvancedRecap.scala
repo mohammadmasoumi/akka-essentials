@@ -32,5 +32,12 @@ object AdvancedRecap extends App {
   } // partial function
   println(modifiedList)
 
+  // partial function features
+
+  // lifting
+  val lifted = partialFunction.lift // total function Int => Option[Int]
+  println(lifted(2)) // Some(43)
+  println(lifted(5000)) // None
+
 
 }
