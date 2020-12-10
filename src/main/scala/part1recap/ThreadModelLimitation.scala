@@ -35,12 +35,41 @@ object ThreadModelLimitation extends App {
   /**
    * delegating something to a thread is a pain
    */
+  // executor service
+  // you have a running thread and you want to pass a runnable to that thread
 
+  var task: Runnable = null
 
+  val runningThread: Thread = new Thread(() => {
+    while (true) {
+      while (task == null) {
+        runningThread.synchronized {
+          println("[background] waiting for a task ...")
+          runningThread.wait()
+        }
+      }
+      task.synchronized {
+        println("[background] I have a task!")
+        task.run()
+        task = null
+      }
+    }
+  })
 
+  def delegateToBackgroundThread(aRunnable: Runnable): Unit = {
+    if (task == null) task = aRunnable
 
+    runningThread.synchronized {
+      println("[background] notifying running thread!")
+      runningThread.notify()
+    }
+  }
 
-
+  runningThread.start()
+  Thread.sleep(1000)
+  delegateToBackgroundThread(() => println("Hello"))
+  Thread.sleep(1000)
+  delegateToBackgroundThread(() => println("GoodBye"))
 
 
 }
