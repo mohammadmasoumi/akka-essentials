@@ -4,6 +4,7 @@ import akka.actor.Status.Success
 
 import scala.concurrent.Future
 import scala.util
+import scala.util.Failure
 
 object MultiThreadingRecap extends App {
 
@@ -59,8 +60,14 @@ object MultiThreadingRecap extends App {
 
   // callbacks
   future.onComplete {
-    case util.Success(42) => println("I found the meaning of the life!")
+    case util.Success(42) => println("I found the meaning of life!")
+    case Failure(_) => println("Something happened with the meaning of life!")
   }
+
+  val aProcessedFuture = future.map(_ + 1) // future with 43
+  val aFlatFuture = future.flatMap {
+    value => Future(value + 2)
+  } // Future with 44
 
 
 }
