@@ -25,10 +25,14 @@ object MultiThreadingRecap extends App {
     def withdraw(money: Int): Unit = amount -= money // not thread safe
 
     def safeWithdraw(money: Int): Unit = this.synchronized {
-      amount += money
+      amount -= money
     }
 
     def deposit(money: Int): Unit = amount += money // not thread safe
+
+    def safeDeposit(money: Int): Unit = this.synchronized {
+      amount += money
+    }
   }
 
 
