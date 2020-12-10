@@ -73,5 +73,13 @@ object ThreadModelLimitation extends App {
   Thread.sleep(1000)
   delegateToBackgroundThread(() => println("GoodBye"))
 
+  /*
+    What we need?
+      - can safely receive messages
+      - can identify the sender
+      - is easily identifiable
+      - can guard against errors
+   */
+
 
 }
