@@ -19,5 +19,17 @@ object MultiThreadingRecap extends App {
   threadHello.start()
   threadGoodbye.start()
 
+  class BankAccount(private var amount: Int = 0) {
+    override def toString: String = "" + amount
+
+    def withdraw(money: Int): Unit = amount -= money // not thread safe
+
+    def safeWithdraw(money: Int): Unit = this.synchronized {
+      amount += money
+    }
+
+    def deposit(money: Int): Unit = amount += money // not thread safe
+  }
+
 
 }
