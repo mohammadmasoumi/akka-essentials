@@ -74,5 +74,6 @@ object MultiThreadingRecap extends App {
     filteredMeaning <- filterFuture
   } yield meaningOfLife + filteredMeaning
 
-
+  // andThen, recover/recoverWith
+  // Promises
 }
