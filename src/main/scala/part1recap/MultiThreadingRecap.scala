@@ -19,7 +19,12 @@ object MultiThreadingRecap extends App {
   threadHello.start()
   threadGoodbye.start()
 
-  class BankAccount(private var amount: Int = 0) {
+  /**
+   *
+   * @param amount: This variable is thread safe in synchronized block
+   * @param aThreadSafeAmount: This variable is thread safe because of volatile annotation
+   */
+  class BankAccount(private var amount: Int = 0, @volatile private var aThreadSafeAmount: Int = 0) {
     override def toString: String = "" + amount
 
     def withdraw(money: Int): Unit = amount -= money // not thread safe
