@@ -40,6 +40,7 @@ object ThreadModelLimitation extends App {
 
   var task: Runnable = null
 
+  // consumer
   val runningThread: Thread = new Thread(() => {
     while (true) {
       while (task == null) {
@@ -56,6 +57,7 @@ object ThreadModelLimitation extends App {
     }
   })
 
+  // producer
   def delegateToBackgroundThread(aRunnable: Runnable): Unit = {
     if (task == null) task = aRunnable
 
