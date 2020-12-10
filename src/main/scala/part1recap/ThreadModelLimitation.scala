@@ -1,5 +1,7 @@
 package part1recap
 
+import scala.concurrent.Future
+
 object ThreadModelLimitation extends App {
 
   /**
@@ -81,5 +83,21 @@ object ThreadModelLimitation extends App {
       - can guard against errors
    */
 
+  /**
+   * tracing and dealing with errors in a multi-threaded env is a PAIN IN THE NECK!
+   */
+  // !M numbers in between 10 threads
+
+  import scala.concurrent.ExecutionContext.Implicits.global
+
+  val futures = (1 to 9)
+    .map(i => 100000 * i until 100000 * (i + 1)) // 0 - 99998, 100000 - 199999, ...
+    .map(range => Future {
+      if (range.contains(546735)) throw new RuntimeException("Invalid Number!")
+      range.sum
+    })
+
+  val sumFuture = Future.reduceLeft(futures)(_ + _) // Future with sum of all the numbers
+  sumFuture.onComplete(println)
 
 }
