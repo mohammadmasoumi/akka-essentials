@@ -1,9 +1,6 @@
 package part1recap
 
-import akka.actor.Status.Success
-
 import scala.concurrent.Future
-import scala.util
 import scala.util.Failure
 
 object MultiThreadingRecap extends App {
@@ -68,6 +65,14 @@ object MultiThreadingRecap extends App {
   val aFlatFuture = future.flatMap {
     value => Future(value + 2)
   } // Future with 44
+
+  val filterFuture = future.filter(_ % 2 == 0) // if it fails it will fail with a NO SUCH ELEMENT
+
+  // cause it supports filer, map and flatmap, it will support for-comprehension too
+  val aNonSenseFuture = for {
+    meaningOfLife <- future
+    filteredMeaning <- filterFuture
+  } yield meaningOfLife + filteredMeaning
 
 
 }
