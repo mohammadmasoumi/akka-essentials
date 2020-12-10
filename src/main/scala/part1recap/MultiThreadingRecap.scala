@@ -1,5 +1,7 @@
 package part1recap
 
+import scala.concurrent.Future
+
 object MultiThreadingRecap extends App {
 
   val aThread = new Thread(new Runnable {
@@ -39,6 +41,18 @@ object MultiThreadingRecap extends App {
       amount += money
     }
   }
+  // inter-thread communication on the JVm
+  // wait - notify mechanism
+
+  // Scala Futures
+  import scala.concurrent.ExecutionContext.Implicits.global
+  val future = Future {
+    // long computation - on a different thread
+    42
+  }
+
+
+
 
 
 }
