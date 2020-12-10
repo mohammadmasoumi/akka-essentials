@@ -1,6 +1,9 @@
 package part1recap
 
+import akka.actor.Status.Success
+
 import scala.concurrent.Future
+import scala.util
 
 object MultiThreadingRecap extends App {
 
@@ -23,8 +26,8 @@ object MultiThreadingRecap extends App {
 
   /**
    *
-   * @param amount: This variable is thread safe in synchronized block
-   * @param aThreadSafeAmount: This variable is thread safe because of volatile annotation
+   * @param amount            : This variable is thread safe in synchronized block
+   * @param aThreadSafeAmount : This variable is thread safe because of volatile annotation
    */
   class BankAccount(private var amount: Int = 0, @volatile private var aThreadSafeAmount: Int = 0) {
     override def toString: String = "" + amount
@@ -41,18 +44,23 @@ object MultiThreadingRecap extends App {
       amount += money
     }
   }
+
   // inter-thread communication on the JVm
   // wait - notify mechanism
 
   // Scala Futures
+
   import scala.concurrent.ExecutionContext.Implicits.global
+
   val future = Future {
     // long computation - on a different thread
     42
   }
 
-
-
+  // callbacks
+  future.onComplete {
+    case util.Success(42) => println("I found the meaning of the life!")
+  }
 
 
 }
