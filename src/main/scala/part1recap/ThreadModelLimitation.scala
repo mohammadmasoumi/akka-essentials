@@ -21,7 +21,24 @@ object ThreadModelLimitation extends App {
   for (_ <- 1 to 100) {
     new Thread(() => account.deposit(1)).start()
   }
-  println(account.getAmount)
+  println(account.getAmount) // OOP encapsulation is broken in the multi-threaded env
+
+  // Synchronization! | Locks to rescue
+  // deadlocks, live-locks
+
+  /*
+    What we need?
+      - fully encapsulated
+      - with no locks
+   */
+
+  /**
+   * delegating something to a thread is a pain
+   */
+
+
+
+
 
 
 
