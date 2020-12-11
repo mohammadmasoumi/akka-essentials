@@ -43,10 +43,18 @@ object ActorsIntro extends App {
   /*
     - you cannot instantiate an actor by NEW
     - the type of instance would be ActorRef
-    - the Actor class is encapsulated and you have to talk through interface
+    - the Actor class is encapsulated and you have to communicate via interface
    */
 
   val wordCounter: ActorRef = actorSystem.actorOf(Props[WordCountActor], "wordCounter")
+
+  // part4 - communicate!
+  /*
+    - communicate via exclamation mark
+    - ! is a function (we can use either dot notation or infix notation)
+   */
+  wordCounter ! "I am learning Akka and it's pretty damn cool!" // infix notation
+  wordCounter.!("I am learning Akka and it's pretty damn cool!") // dot notation
 
 
 }
