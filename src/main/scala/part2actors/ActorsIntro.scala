@@ -34,8 +34,10 @@ object ActorsIntro extends App {
      * @return nothing
      */
     override def receive: Receive = {
-      case message: String => totalWords += message.split(DELIMITER).length
-      case msg: Any => println(s"[word counter] I cannot understand ${msg.toString}")
+      case message: String =>
+        println(s"[word counter]: I have received: $message")
+        totalWords += message.split(DELIMITER).length
+      case msg: Any => println(s"[word counter]: I cannot understand ${msg.toString}")
     }
   }
 
