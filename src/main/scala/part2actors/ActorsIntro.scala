@@ -54,7 +54,7 @@ object ActorsIntro extends App {
   val anotherWordCounter: ActorRef = actorSystem.actorOf(Props[WordCountActor], "anotherWordCounter")
   // part4 - communicate!
   /*
-    - communicate via exclamation mark
+    - communicate via exclamation mark. also called `TELL`
     - ! is a function (we can use either dot notation or infix notation)
    */
   wordCounter ! "I am learning Akka and it's pretty damn cool!" // infix notation
