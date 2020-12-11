@@ -44,8 +44,10 @@ object ActorsIntro extends App {
   // part3 - instantiate our actor
   /*
     - you cannot instantiate an actor by NEW
+      - ERROR: you cannot instantiate an actor explicitly using the constructor [new]
     - the type of instance would be ActorRef
     - the Actor class is encapsulated and you have to communicate via interface
+      - ERROR: actor name [wordCounter] is not unique!
    */
 
   val wordCounter: ActorRef = actorSystem.actorOf(Props[WordCountActor], "wordCounter")
@@ -58,5 +60,8 @@ object ActorsIntro extends App {
   wordCounter ! "I am learning Akka and it's pretty damn cool!" // infix notation
   anotherWordCounter.!("I am learning Akka and it's really damn cool!") // dot notation
   // sending message here is asynchronous!
+
+
+
 
 }
