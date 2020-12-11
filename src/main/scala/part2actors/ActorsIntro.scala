@@ -1,6 +1,6 @@
 package part2actors
 
-import akka.actor.{Actor, ActorSystem}
+import akka.actor.{Actor, ActorRef, ActorSystem, Props}
 
 object ActorsIntro extends App {
 
@@ -35,9 +35,18 @@ object ActorsIntro extends App {
      */
     override def receive: Receive = {
       case message: String => totalWords += message.split(DELIMITER).length
+      case msg: Any => println(s"[word counter] I cannot understand ${msg.toString}")
     }
-
   }
+
+  // part3 - instantiate our actor
+  /*
+    - you cannot instantiate an actor by NEW
+    - the type of instance would be ActorRef
+    - the Actor class is encapsulated and you have to talk through interface
+   */
+
+  val wordCounter: ActorRef = actorSystem.actorOf(Props[WordCountActor], "wordCounter")
 
 
 }
