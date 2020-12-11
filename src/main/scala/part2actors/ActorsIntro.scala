@@ -1,6 +1,6 @@
 package part2actors
 
-import akka.actor.ActorSystem
+import akka.actor.{Actor, ActorSystem}
 
 object ActorsIntro extends App {
 
@@ -15,7 +15,29 @@ object ActorsIntro extends App {
 
   println(actorSystem.name)
 
+  // part2 - create actors
+  /*
+    - actors are uniquely identified(with in the actor system).
+    - messages are synchronous
+    - each actor may respond differently(unique way of communication)
+    - actors are really encapsulated
+   */
 
+  class WordCountActor extends Actor {
+    var totalWords = 0 // internal data
+    val DELIMITER = " "
+
+    /**
+     * the actor behavior is a partial function
+     * type Receive = PartialFunction[Any, Unit]
+     *
+     * @return nothing
+     */
+    override def receive: Receive = {
+      case message: String => totalWords += message.split(DELIMITER).length
+    }
+
+  }
 
 
 }
