@@ -21,6 +21,7 @@ object ActorsIntro extends App {
     - messages are synchronous
     - each actor may respond differently(unique way of communication)
     - actors are really encapsulated
+    - it's own internal data
    */
 
   class WordCountActor extends Actor {
@@ -62,6 +63,20 @@ object ActorsIntro extends App {
   // sending message here is asynchronous!
 
 
+  // How to instantiate an actor with constructor parameters
+  class Person(name: String) extends Actor {
+    override def receive: Receive = {
+      case "hi" => println(s"Hello, I am $name")
+      case "bye" => println("GoodBye")
+      case _ =>
+    }
+  }
 
+  // instantiating with companion object is the best pattern!
+  object Person {
+    def props(name: String) = Props(new Person(name))
+  }
 
+  val personActor: ActorRef = actorSystem.actorOf(Person.props("Bob"))
+  personActor ! "hi"
 }
