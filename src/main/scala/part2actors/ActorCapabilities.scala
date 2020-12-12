@@ -15,6 +15,7 @@ object ActorCapabilities extends App {
       case message: String => println(s"[${context.self.path}] I have received `$message`")
       case number: Int => println(s"[${context.self}] I have received a NUMBER: `$number`")
       case SpecialMessage(contents) => println(s"[${self}] I have received sth SPECIAL: `$contents`")
+      case SendMessageToYourself(content) => self ! content // not practical
     }
   }
 
@@ -40,5 +41,8 @@ object ActorCapabilities extends App {
   // 2. actors have information about their context and about themselves
   // context.self === `this` in OOP
 
+  case class SendMessageToYourself(content: String)
+
+  simpleActor ! SendMessageToYourself("I am an actor and I am proud of it")
 
 }
