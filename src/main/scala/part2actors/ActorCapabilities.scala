@@ -1,6 +1,6 @@
 package part2actors
 
-import akka.actor.{Actor, ActorSystem, Props}
+import akka.actor.{Actor, ActorRef, ActorSystem, Props}
 
 object ActorCapabilities extends App {
 
@@ -44,5 +44,12 @@ object ActorCapabilities extends App {
   case class SendMessageToYourself(content: String)
 
   simpleActor ! SendMessageToYourself("I am an actor and I am proud of it")
+
+  // 3. actors can REPLY to messages
+  val alice = system.actorOf(Props[SimpleActor], "alice")
+  val bob = system.actorOf(Props[SimpleActor], "bob")
+
+  case class SayHiTo(ref: ActorRef) // ActorRef: which actor to send messages to
+
 
 }
