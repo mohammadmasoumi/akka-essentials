@@ -18,6 +18,10 @@ object ActorCapabilities extends App {
   simpleActor ! "Hello, actor"
 
   // 1. messages can be of any type
+  /*
+      a) messages must be IMMUTABLE
+      b) messages must be SERIALIZABLE - JVm can cast it to BYTE-STREAM and send it to another JVM
+   */
   simpleActor ! 42
 
   // any type
