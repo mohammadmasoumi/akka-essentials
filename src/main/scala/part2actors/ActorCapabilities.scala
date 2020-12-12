@@ -12,6 +12,7 @@ object ActorCapabilities extends App {
     // context.self === self
 
     override def receive: Receive = {
+      case "Hi!" => context.sender() ! "Hello, there!" // context.sender(): ActorRef
       case message: String => println(s"[${context.self.path}] I have received `$message`")
       case number: Int => println(s"[${context.self}] I have received a NUMBER: `$number`")
       case SpecialMessage(contents) => println(s"[${self}] I have received sth SPECIAL: `$contents`")
