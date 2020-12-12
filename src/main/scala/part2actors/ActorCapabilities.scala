@@ -22,6 +22,8 @@ object ActorCapabilities extends App {
       a) messages must be IMMUTABLE
       b) messages must be SERIALIZABLE - JVm can cast it to BYTE-STREAM and send it to another JVM
    */
+
+  // in practice: use case classes and case objects
   simpleActor ! 42
 
   // any type
