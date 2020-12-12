@@ -16,6 +16,7 @@ object ActorCapabilities extends App {
       case number: Int => println(s"[${context.self}] I have received a NUMBER: `$number`")
       case SpecialMessage(contents) => println(s"[${self}] I have received sth SPECIAL: `$contents`")
       case SendMessageToYourself(content) => self ! content // not practical
+      case SayHiTo(ref) => ref ! "Hi!"
     }
   }
 
@@ -50,6 +51,6 @@ object ActorCapabilities extends App {
   val bob = system.actorOf(Props[SimpleActor], "bob")
 
   case class SayHiTo(ref: ActorRef) // ActorRef: which actor to send messages to
-
+  alice ! SayHiTo(bob)
 
 }
