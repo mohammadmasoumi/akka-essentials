@@ -7,6 +7,7 @@ object ActorCapabilities extends App {
   class SimpleActor extends Actor {
     override def receive: Receive = {
       case message: String => println(s"[simple actor] I have received `$message`")
+      case number: Int => println(s"[simple actor] I have received a NUMBER: `$number`")
     }
   }
 
@@ -14,6 +15,9 @@ object ActorCapabilities extends App {
   val simpleActor = system.actorOf(Props[SimpleActor], "simpleActor")
 
   simpleActor ! "Hello, actor"
+
+  // 1. messages can be of any type
+
 
 
 }
