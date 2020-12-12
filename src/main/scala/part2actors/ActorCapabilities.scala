@@ -57,6 +57,7 @@ object ActorCapabilities extends App {
   /*
     [dead-letter]: garbage pool
     dead letter handle not delivered messages
+    IF THERE IS NO SENDER => reply go to dead letter
    */
   alice ! "Hi!" // reply to "me"
 
