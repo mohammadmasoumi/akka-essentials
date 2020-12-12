@@ -18,6 +18,7 @@ object ActorCapabilities extends App {
       case SpecialMessage(contents) => println(s"[${self}] I have received sth SPECIAL: `$contents`")
       case SendMessageToYourself(content) => self ! content // not practical
       case SayHiTo(ref) => ref ! "Hi!" // equivalent to (ref ! "Hi!")(self) | self === implicit value
+      case WirelessPhoneMessage(content, ref) => ref forward (content + "s") // I keep the original sender
     }
   }
 
@@ -54,6 +55,7 @@ object ActorCapabilities extends App {
   case class SayHiTo(ref: ActorRef) // ActorRef: which actor to send messages to
   alice ! SayHiTo(bob)
 
+  // 4. dead letters
   /*
     [dead-letter]: garbage pool
     dead letter handle not delivered messages
@@ -61,4 +63,10 @@ object ActorCapabilities extends App {
    */
   alice ! "Hi!" // reply to "me"
 
+  // 5. forwarding messages
+  // D -> A -> B
+  // forwarding
+  case class WirelessPhoneMessage(content: String, ref: ActorRef)
+
+  alice ! WirelessPhoneMessage("Hi", bob) // the original sender is no sender[dead letters]
 }
