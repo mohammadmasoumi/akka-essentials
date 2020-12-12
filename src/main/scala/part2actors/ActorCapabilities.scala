@@ -7,12 +7,14 @@ object ActorCapabilities extends App {
   class SimpleActor extends Actor {
     // actor context
     // context.system
-    // context.self -> actor reference == this(OOP)
+    // context.self -> actor reference === this(OOP)
+    // we can also send message to ourselves! pretty damn cool!
+    // context.self === self
 
     override def receive: Receive = {
-      case message: String => println(s"[${context.self}] I have received `$message`")
+      case message: String => println(s"[${context.self.path}] I have received `$message`")
       case number: Int => println(s"[${context.self}] I have received a NUMBER: `$number`")
-      case SpecialMessage(contents) => println(s"[${context.self}] I have received sth SPECIAL: `$contents`")
+      case SpecialMessage(contents) => println(s"[${self}] I have received sth SPECIAL: `$contents`")
     }
   }
 
@@ -36,6 +38,7 @@ object ActorCapabilities extends App {
   simpleActor ! SpecialMessage("some special contents!")
 
   // 2. actors have information about their context and about themselves
+  // context.self === `this` in OOP
 
 
 }
