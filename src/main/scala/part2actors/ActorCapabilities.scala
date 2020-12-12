@@ -5,10 +5,14 @@ import akka.actor.{Actor, ActorSystem, Props}
 object ActorCapabilities extends App {
 
   class SimpleActor extends Actor {
+    // actor context
+    // context.system
+    // context.self -> actor reference == this(OOP)
+
     override def receive: Receive = {
-      case message: String => println(s"[simple actor] I have received `$message`")
-      case number: Int => println(s"[simple actor] I have received a NUMBER: `$number`")
-      case SpecialMessage(contents) => println(s"[simple actor] I have received sth SPECIAL: `$contents`")
+      case message: String => println(s"[${context.self}] I have received `$message`")
+      case number: Int => println(s"[${context.self}] I have received a NUMBER: `$number`")
+      case SpecialMessage(contents) => println(s"[${context.self}] I have received sth SPECIAL: `$contents`")
     }
   }
 
@@ -30,6 +34,8 @@ object ActorCapabilities extends App {
   case class SpecialMessage(contents: String)
 
   simpleActor ! SpecialMessage("some special contents!")
+
+  // 2. actors have information about their context and about themselves
 
 
 }
