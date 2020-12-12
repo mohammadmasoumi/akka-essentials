@@ -33,7 +33,7 @@ object ActorCapabilities extends App {
    */
 
   // in practice: use case classes and case objects
-  simpleActor ! 42
+  simpleActor ! 42 // [GOOD QUESTION] Who is the sender? null
 
   // any type
   case class SpecialMessage(contents: String)
@@ -53,5 +53,11 @@ object ActorCapabilities extends App {
 
   case class SayHiTo(ref: ActorRef) // ActorRef: which actor to send messages to
   alice ! SayHiTo(bob)
+
+  /*
+    [dead-letter]: garbage pool
+    dead letter handle not delivered messages
+   */
+  alice ! "Hi!" // reply to "me"
 
 }
