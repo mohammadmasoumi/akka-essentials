@@ -17,6 +17,10 @@ object ActorCapabilities extends App {
   simpleActor ! "Hello, actor"
 
   // 1. messages can be of any type
+  simpleActor ! 42
+
+
+
 
 
 
