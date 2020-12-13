@@ -140,8 +140,13 @@ object ActorCapabilities extends App {
       case CounterPrint => println(count)
     }
   }
+
+  import Counter._
+
   val counter = system.actorOf(Props[Counter], "myCounter")
-  (1 to 5).foreach()
+  (1 to 5).foreach(_ => counter ! CounterIncrement)
+  (1 to 5).foreach(_ => counter ! CounterDecrement)
+  counter ! CounterPrint
 
 
 }
