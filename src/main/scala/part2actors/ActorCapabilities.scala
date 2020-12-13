@@ -78,13 +78,15 @@ object ActorCapabilities extends App {
    *  - Print
    *
    * 2. a Bank account as an actor
+   *  receive
    *  - Deposit an account
    *  - Withdraw an account
    *  - Statement
+   *  replies with
+   *  - success
+   *  - failure
    *
-   *
-   *
-   *
+   *  hint; interact with some other kind of actor
    */
 
   case class Increment(count: Int)
