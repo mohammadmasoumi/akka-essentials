@@ -160,15 +160,22 @@ object ActorCapabilities extends App {
 
     case object Statement
 
+    case class TransactionSuccess(message: String)
+
+    case class TransactionFailure(message: String)
+
   }
 
   class BankAccount extends Actor {
+
     import BankAccount._
+
     var funds = 0
 
     override def receive: Receive = {
-      case Deposit =>
-      case Withdraw =>
+      case Deposit(amount) =>
+        if (amount < 0)
+      case Withdraw(amount) =>
       case Statement =>
     }
   }
