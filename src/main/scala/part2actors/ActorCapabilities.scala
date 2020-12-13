@@ -78,15 +78,15 @@ object ActorCapabilities extends App {
    *  - Print
    *
    * 2. a Bank account as an actor
-   *  receive
+   * receive
    *  - Deposit an account
    *  - Withdraw an account
    *  - Statement
-   *  replies with
+   *    replies with
    *  - success
    *  - failure
    *
-   *  hint; interact with some other kind of actor
+   * hint; interact with some other kind of actor
    */
 
   case class Increment(count: Int)
@@ -109,10 +109,25 @@ object ActorCapabilities extends App {
     def props(initialNumber: Int = 0) = Props(new aCounterActor(initialNumber))
   }
 
-  val counter = system.actorOf(aCounterActor.props())
+  val aCounter = system.actorOf(aCounterActor.props())
 
-  counter ! Increment(10)
-  counter ! Decrement(10)
-  counter ! "print"
+  aCounter ! Increment(10)
+  aCounter ! Decrement(10)
+  aCounter ! "print"
+
+  // -- Daniel solution
+
+  object Counter {
+    case object Increment
+    case object Decrement
+    case object Print
+  }
+
+  class Counter extends Actor {
+    var count = 0
+
+    override def receive: Receive = ???
+  }
+
 
 }
