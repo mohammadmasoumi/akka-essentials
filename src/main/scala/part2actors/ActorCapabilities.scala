@@ -190,4 +190,19 @@ object ActorCapabilities extends App {
     }
   }
 
+  object Person {
+
+    case class LiveTheLife(account: ActorRef)
+
+  }
+
+  class Person extends Actor {
+    import Person._
+    import BankAccount._
+
+    override def receive: Receive = {
+      case LiveTheLife(account) =>
+    }
+  }
+
 }
