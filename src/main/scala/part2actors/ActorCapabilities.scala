@@ -79,4 +79,9 @@ object ActorCapabilities extends App {
    *
    *
    */
+  case class Increment(count: Int)
+
+  case class Decrement(count: Int)
+
+
 }
