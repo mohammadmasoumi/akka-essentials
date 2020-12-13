@@ -93,7 +93,7 @@ object ActorCapabilities extends App {
   }
 
   object aCounterActor {
-    def props(initialNumber: Int = 0): aCounterActor = Props(new aCounterActor(initialNumber))
+    def props(initialNumber: Int = 0) = Props(new aCounterActor(initialNumber))
   }
 
   val host = system.actorOf(aCounterActor.props())
