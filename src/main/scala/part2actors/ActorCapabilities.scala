@@ -174,9 +174,19 @@ object ActorCapabilities extends App {
 
     override def receive: Receive = {
       case Deposit(amount) =>
-        if (amount < 0)
+        if (amount < 0) sender() ! TransactionFailure("invalid deposit amount")
+        else {
+          funds += amount
+          sender() ! TransactionSuccess(s"successfully deposited $amount")
+        }
       case Withdraw(amount) =>
-      case Statement =>
+        if (amount < 0) sender() ! TransactionFailure("invalid withdraw amount")
+        else if (amount > funds) sender() ! TransactionFailure("insufficient funds")
+        else {
+          funds -= amount
+          sender() ! TransactionSuccess(s"successfully withdrew $amount")
+        }
+      case Statement => sender() ! s"Your balance is $funds"
     }
   }
 
