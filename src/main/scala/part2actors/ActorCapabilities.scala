@@ -77,6 +77,13 @@ object ActorCapabilities extends App {
    *  - Decrement
    *  - Print
    *
+   * 2. a Bank account as an actor
+   *  - Deposit an account
+   *  - Withdraw an account
+   *  - Statement
+   *
+   *
+   *
    *
    */
 
