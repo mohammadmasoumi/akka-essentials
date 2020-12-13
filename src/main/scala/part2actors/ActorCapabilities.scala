@@ -79,9 +79,14 @@ object ActorCapabilities extends App {
    *
    *
    */
+
   case class Increment(count: Int)
 
   case class Decrement(count: Int)
+
+  class aCounterActor extends Actor {
+    override def receive: Receive = ???
+  }
 
 
 }
