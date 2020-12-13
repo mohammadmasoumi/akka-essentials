@@ -117,7 +117,7 @@ object ActorCapabilities extends App {
 
   // -- Daniel solution
 
-  // companion actor object
+  // companion actor object - COUNTER DOMAIN
   object Counter {
 
     case object CounterIncrement
@@ -148,5 +148,29 @@ object ActorCapabilities extends App {
   (1 to 5).foreach(_ => counter ! CounterDecrement)
   counter ! CounterPrint
 
+
+  // bank account
+
+
+  object BankAccount {
+
+    case class Deposit(amount: Int)
+
+    case class Withdraw(amount: Int)
+
+    case object Statement
+
+  }
+
+  class BankAccount extends Actor {
+    import BankAccount._
+    var funds = 0
+
+    override def receive: Receive = {
+      case Deposit =>
+      case Withdraw =>
+      case Statement =>
+    }
+  }
 
 }
