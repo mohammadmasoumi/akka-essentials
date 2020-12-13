@@ -109,7 +109,7 @@ object ActorCapabilities extends App {
     def props(initialNumber: Int = 0) = Props(new aCounterActor(initialNumber))
   }
 
-  val aCounter = system.actorOf(aCounterActor.props())
+  val aCounter = system.actorOf(aCounterActor.props(), "aCounter")
 
   aCounter ! Increment(10)
   aCounter ! Decrement(10)
@@ -140,6 +140,8 @@ object ActorCapabilities extends App {
       case CounterPrint => println(count)
     }
   }
+  val counter = system.actorOf(Props[Counter], "myCounter")
+  (1 to 5).foreach()
 
 
 }
