@@ -87,11 +87,11 @@ object ActorCapabilities extends App {
   class aCounterActor(var initialNumber: Int) extends Actor {
     override def receive: Receive = {
       case Increment(number: Int) =>
-        println(s"Incremented by $number | current: $initialNumber")
         initialNumber += number
+        println(s"Incremented by $number | current: $initialNumber")
       case Decrement(number: Int) =>
-        println(s"Decremented by $number | current: $initialNumber")
         initialNumber -= number
+        println(s"Decremented by $number | current: $initialNumber")
       case "print" => println(s"my current number is: $initialNumber")
     }
   }
