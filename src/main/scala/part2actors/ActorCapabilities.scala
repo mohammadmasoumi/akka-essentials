@@ -69,4 +69,14 @@ object ActorCapabilities extends App {
   case class WirelessPhoneMessage(content: String, ref: ActorRef)
 
   alice ! WirelessPhoneMessage("Hi", bob) // the original sender is no sender[dead letters]
+
+  /**
+   * Exercise
+   * 1. a Coutor actor
+   *  - Increment
+   *  - Decrement
+   *  - Print
+   *
+   *
+   */
 }
