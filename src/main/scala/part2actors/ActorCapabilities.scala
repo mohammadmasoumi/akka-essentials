@@ -117,16 +117,28 @@ object ActorCapabilities extends App {
 
   // -- Daniel solution
 
+  // companion actor object
   object Counter {
-    case object Increment
-    case object Decrement
-    case object Print
+
+    case object CounterIncrement
+
+    case object CounterDecrement
+
+    case object CounterPrint
+
   }
 
   class Counter extends Actor {
+
+    import Counter._
+
     var count = 0
 
-    override def receive: Receive = ???
+    override def receive: Receive = {
+      case CounterIncrement => count += 1
+      case CounterDecrement => count += 1
+      case CounterPrint => println(count)
+    }
   }
 
 
