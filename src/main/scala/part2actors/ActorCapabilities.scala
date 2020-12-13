@@ -100,7 +100,10 @@ object ActorCapabilities extends App {
     def props(initialNumber: Int = 0) = Props(new aCounterActor(initialNumber))
   }
 
-  val host = system.actorOf(aCounterActor.props())
+  val counter = system.actorOf(aCounterActor.props())
 
+  counter ! Increment(10)
+  counter ! Decrement(10)
+  counter ! "print"
 
 }
