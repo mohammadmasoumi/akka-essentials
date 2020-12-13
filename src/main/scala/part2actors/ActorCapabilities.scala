@@ -72,7 +72,7 @@ object ActorCapabilities extends App {
 
   /**
    * Exercise
-   * 1. a Coutor actor
+   * 1. a Counter actor
    *  - Increment
    *  - Decrement
    *  - Print
