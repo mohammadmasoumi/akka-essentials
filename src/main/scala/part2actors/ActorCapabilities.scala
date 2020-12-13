@@ -25,7 +25,7 @@ object ActorCapabilities extends App {
   val system = ActorSystem("actorCapabilitiesDemo")
   val simpleActor = system.actorOf(Props[SimpleActor], "simpleActor")
 
-  simpleActor ! "Hello, actor"
+  // simpleActor ! "Hello, actor"
 
   // 1. messages can be of any type
   /*
@@ -34,26 +34,26 @@ object ActorCapabilities extends App {
    */
 
   // in practice: use case classes and case objects
-  simpleActor ! 42 // [GOOD QUESTION] Who is the sender? null
+  // simpleActor ! 42 // [GOOD QUESTION] Who is the sender? null
 
   // any type
   case class SpecialMessage(contents: String)
 
-  simpleActor ! SpecialMessage("some special contents!")
+  // simpleActor ! SpecialMessage("some special contents!")
 
   // 2. actors have information about their context and about themselves
   // context.self === `this` in OOP
 
   case class SendMessageToYourself(content: String)
 
-  simpleActor ! SendMessageToYourself("I am an actor and I am proud of it")
+  // simpleActor ! SendMessageToYourself("I am an actor and I am proud of it")
 
   // 3. actors can REPLY to messages
   val alice = system.actorOf(Props[SimpleActor], "alice")
   val bob = system.actorOf(Props[SimpleActor], "bob")
 
   case class SayHiTo(ref: ActorRef) // ActorRef: which actor to send messages to
-  alice ! SayHiTo(bob)
+  // alice ! SayHiTo(bob)
 
   // 4. dead letters
   /*
@@ -61,14 +61,14 @@ object ActorCapabilities extends App {
     dead letter handle not delivered messages
     IF THERE IS NO SENDER => reply go to dead letter
    */
-  alice ! "Hi!" // reply to "me"
+  // alice ! "Hi!" // reply to "me"
 
   // 5. forwarding messages
   // D -> A -> B
   // forwarding
   case class WirelessPhoneMessage(content: String, ref: ActorRef)
 
-  alice ! WirelessPhoneMessage("Hi", bob) // the original sender is no sender[dead letters]
+  // alice ! WirelessPhoneMessage("Hi", bob) // the original sender is no sender[dead letters]
 
   /**
    * Exercise
@@ -87,10 +87,10 @@ object ActorCapabilities extends App {
   class aCounterActor(var initialNumber: Int) extends Actor {
     override def receive: Receive = {
       case Increment(number: Int) =>
-        println(s"Incremented by $number")
+        println(s"Incremented by $number | current: $initialNumber")
         initialNumber += number
       case Decrement(number: Int) =>
-        println(s"Decremented by $number")
+        println(s"Decremented by $number | current: $initialNumber")
         initialNumber -= number
       case "print" => println(s"my current number is: $initialNumber")
     }
