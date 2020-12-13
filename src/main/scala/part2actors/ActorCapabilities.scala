@@ -202,7 +202,15 @@ object ActorCapabilities extends App {
 
     override def receive: Receive = {
       case LiveTheLife(account) =>
+        account ! Deposit(10000)
+        account ! Withdraw(10000)
+        account ! Deposit(10000)
+        account ! Withdraw(10000)
+        account ! Statement
+      case message => println(message.toString)
     }
   }
+
+
 
 }
