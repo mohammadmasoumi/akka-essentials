@@ -84,9 +84,19 @@ object ActorCapabilities extends App {
 
   case class Decrement(count: Int)
 
-  class aCounterActor extends Actor {
-    override def receive: Receive = ???
+  class aCounterActor(var initialNumber: Int) extends Actor {
+    override def receive: Receive = {
+      case Increment(number: Int) => initialNumber += number
+      case Decrement(number: Int) => initialNumber -= number
+      case "print" => println(s"my current number is: $initialNumber")
+    }
   }
+
+  object aCounterActor {
+    def props(initialNumber: Int = 0): aCounterActor = Props(new aCounterActor(initialNumber))
+  }
+
+  val host = system.actorOf(aCounterActor.props())
 
 
 }
