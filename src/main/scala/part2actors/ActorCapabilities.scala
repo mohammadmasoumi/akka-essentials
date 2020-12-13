@@ -1,6 +1,7 @@
 package part2actors
 
 import akka.actor.{Actor, ActorRef, ActorSystem, Props}
+import part2actors.ActorCapabilities.Person.LiveTheLife
 
 object ActorCapabilities extends App {
 
@@ -197,13 +198,16 @@ object ActorCapabilities extends App {
   }
 
   class Person extends Actor {
-    import Person._
+
     import BankAccount._
+    import Person._
 
     override def receive: Receive = {
       case LiveTheLife(account) =>
         account ! Deposit(10000)
-        account ! Withdraw(10000)
+        account ! Withdraw(100000)
+        account ! Deposit(10000)
+        account ! Deposit(10000)
         account ! Deposit(10000)
         account ! Withdraw(10000)
         account ! Statement
@@ -211,6 +215,8 @@ object ActorCapabilities extends App {
     }
   }
 
+  val account = system.actorOf(Props[BankAccount], "bankAccount")
+  val person = system.actorOf(Props[Person], "billionaire")
 
-
+  person ! LiveTheLife(account)
 }
