@@ -1,6 +1,6 @@
 package part2actors
 
-import akka.actor.Actor
+import akka.actor.{Actor, ActorRef}
 
 object ChangingActorBehavior extends App {
 
@@ -33,12 +33,16 @@ object ChangingActorBehavior extends App {
   object Mom {
     val VEGETABLE = "veggies"
     val CHOCOLATE = "chocolate"
+
+    case class MomStart(kidReference: ActorRef)
     case class Food(food: String)
     case class Ask(message: String) // questions like: do you want to play?
   }
 
   class Mom extends Actor {
-    override def receive: Receive = ???
+    override def receive: Receive = {
+
+    }
   }
 
 }
