@@ -1,6 +1,7 @@
 package part2actors
 
 import akka.actor.Actor
+import part2actors.ChangingActorBehavior.FussyKid.HAPPY
 
 object ChangingActorBehavior extends App {
 
@@ -13,6 +14,10 @@ object ChangingActorBehavior extends App {
   }
 
   class FussyKid extends Actor {
+    import FussyKid._
+
+    // internal state of the kid
+    var state = HAPPY
     override def receive: Receive = ???
   }
 
