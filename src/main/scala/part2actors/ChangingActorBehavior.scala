@@ -40,8 +40,13 @@ object ChangingActorBehavior extends App {
   }
 
   class Mom extends Actor {
-    override def receive: Receive = {
+    import Mom._
 
+    override def receive: Receive = {
+      case MomStart(kid: ActorRef) =>
+        // test our interaction
+        kid ! Food(VEGETABLE)
+        kid ! Ask("do you want to play?")
     }
   }
 
