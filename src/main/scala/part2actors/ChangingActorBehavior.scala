@@ -13,6 +13,7 @@ object ChangingActorBehavior extends App {
   object Mom {
 
     case class Food(food: String)
+    case class Ask(message: String) // questions like: do you want to play?
 
   }
 
