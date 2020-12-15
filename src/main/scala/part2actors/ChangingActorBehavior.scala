@@ -52,8 +52,15 @@ object ChangingActorBehavior extends App {
     def props(name: String) = Props(new Mom(name))
   }
 
+  object StatelessFussyKid {
+
+  }
+
   class StatelessFussyKid(name: String) extends Actor {
     override def receive: Receive = ???
+
+    def happyReceive: Receive = ???
+    def sadReceive: Receive = ???
   }
 
   class Mom(name: String) extends Actor {
