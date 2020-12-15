@@ -1,6 +1,6 @@
 package part2actors
 
-import akka.actor.{Actor, ActorRef}
+import akka.actor.{Actor, ActorRef, ActorSystem, Props}
 
 object ChangingActorBehavior extends App {
 
@@ -13,9 +13,10 @@ object ChangingActorBehavior extends App {
 
     case object KidReject
 
+    def props(name: String) = Props(new FussyKid(name))
   }
 
-  class FussyKid extends Actor {
+  class FussyKid(name: String) extends Actor {
 
     import FussyKid._
     import Mom._
@@ -24,8 +25,12 @@ object ChangingActorBehavior extends App {
     var state = HAPPY
 
     override def receive: Receive = {
-      case Food(VEGETABLE) => state = SAD
-      case Food(CHOCOLATE) => state = HAPPY
+      case Food(VEGETABLE) =>
+        state = SAD
+        println(s"[$name]: I'm $state")
+      case Food(CHOCOLATE) =>
+        state = HAPPY
+        println(s"[$name]: I'm $state")
       case Ask(_) =>
         if (state == HAPPY) sender() ! KidAccept
         else sender() ! KidReject
@@ -42,9 +47,11 @@ object ChangingActorBehavior extends App {
     case class Food(food: String)
 
     case class Ask(message: String) // questions like: do you want to play?
+
+    def props(name: String) = Props(new Mom(name))
   }
 
-  class Mom extends Actor {
+  class Mom(name: String) extends Actor {
 
     import FussyKid._
     import Mom._
@@ -53,10 +60,16 @@ object ChangingActorBehavior extends App {
       case MomStart(kid: ActorRef) =>
         // test our interaction
         kid ! Food(VEGETABLE)
-        kid ! Ask("do you want to play?")
-      case KidAccept => println("Yeah, my kid is happy!")
-      case KidReject => println("My kid is sad. but as he's healthy")
+        kid ! Ask(s"[$name]: do you want to play?")
+      case KidAccept =>
+        println(s"[$name]: Yeah, my kid is happy!")
+      case KidReject =>
+        println(s"[$name]: My kid is sad. but as he's healthy")
     }
   }
+
+  val system = ActorSystem("ChangingActorBehaviorDemo")
+
+  val bob = system.actorOf()
 
 }
