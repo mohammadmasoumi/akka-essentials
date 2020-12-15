@@ -8,5 +8,9 @@ object ChangingActorBehavior extends App {
     override def receive: Receive = ???
   }
 
+  class Mom extends Actor {
+    override def receive: Receive = ???
+  }
+
 
 }
