@@ -57,13 +57,23 @@ object ChangingActorBehavior extends App {
   }
 
   class StatelessFussyKid(name: String) extends Actor {
+
     import FussyKid._
     import Mom._
 
     override def receive: Receive = ???
 
-    def happyReceive: Receive = ???
-    def sadReceive: Receive = ???
+    def happyReceive: Receive = {
+      case Food(VEGETABLE) => // change my receive handler to SadReceive
+      case Food(CHOCOLATE) =>
+      case Ask(_) => KidAccept
+    }
+
+    def sadReceive: Receive = {
+      case Food(VEGETABLE) =>
+      case Food(CHOCOLATE) => // change my receive handler to HappyReceive
+      case Ask(_) => KidAccept
+    }
   }
 
   class Mom(name: String) extends Actor {
