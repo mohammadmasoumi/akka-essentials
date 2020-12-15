@@ -4,6 +4,11 @@ import akka.actor.Actor
 
 object ChangingActorBehavior extends App {
 
+  // object companion class
+  object FussyKid {
+    case object KidAccept
+    case object KidReject
+  }
 
   class FussyKid extends Actor {
     override def receive: Receive = ???
