@@ -54,6 +54,7 @@ object ChangingActorBehavior extends App {
 
   object StatelessFussyKid {
 
+    def props(name: String) = Props(new StatelessFussyKid(name))
   }
 
   class StatelessFussyKid(name: String) extends Actor {
@@ -101,7 +102,8 @@ object ChangingActorBehavior extends App {
 
   val bob = system.actorOf(FussyKid.props("bob"))
   val marry = system.actorOf(Mom.props("marry"))
+  val statelessFussyKid = system.actorOf(StatelessFussyKid.props("statelessName"))
 
-  marry ! MomStart(bob)
+  marry ! MomStart(statelessFussyKid)
 
 }
