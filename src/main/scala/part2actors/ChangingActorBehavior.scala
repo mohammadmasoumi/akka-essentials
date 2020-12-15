@@ -69,7 +69,10 @@ object ChangingActorBehavior extends App {
         // change my receive handler to SadReceive
         context.become(sadReceive)
       case Food(CHOCOLATE) =>
-      case Ask(_) => KidAccept
+      case Ask(message) =>
+        println(s"${sender()} asked: $message")
+        println(s"$name replied: Yes")
+        sender() ! KidAccept
     }
 
     def sadReceive: Receive = {
@@ -77,7 +80,10 @@ object ChangingActorBehavior extends App {
       case Food(CHOCOLATE) =>
         // change my receive handler to HappyReceive
         context.become(happyReceive)
-      case Ask(_) => KidAccept
+      case Ask(message) =>
+        println(s"[${sender()}] asked: $message")
+        println(s"$name replied: No")
+        sender() ! KidReject
     }
   }
 
@@ -102,8 +108,8 @@ object ChangingActorBehavior extends App {
 
   val bob = system.actorOf(FussyKid.props("bob"))
   val marry = system.actorOf(Mom.props("marry"))
-  val statelessFussyKid = system.actorOf(StatelessFussyKid.props("statelessName"))
+  val david = system.actorOf(StatelessFussyKid.props("david"))
 
-  marry ! MomStart(statelessFussyKid)
+  marry ! MomStart(david)
 
 }
