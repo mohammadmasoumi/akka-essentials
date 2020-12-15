@@ -16,10 +16,8 @@ object ChangingActorBehavior extends App {
 
   // object companion class
   object Mom {
-
     case class Food(food: String)
     case class Ask(message: String) // questions like: do you want to play?
-
   }
 
   class Mom extends Actor {
