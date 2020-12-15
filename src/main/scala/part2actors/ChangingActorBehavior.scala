@@ -20,8 +20,8 @@ object ChangingActorBehavior extends App {
     // internal state of the kid
     var state = HAPPY
     override def receive: Receive = {
-      case Food(VEGETABLE) =>
-      case Food(CHOCOLATE) =>
+      case Food(VEGETABLE) => state = SAD
+      case Food(CHOCOLATE) => state = HAPPY
       case Ask(message: String) =>
     }
   }
