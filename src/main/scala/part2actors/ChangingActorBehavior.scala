@@ -15,10 +15,15 @@ object ChangingActorBehavior extends App {
 
   class FussyKid extends Actor {
     import FussyKid._
+    import Mom._
 
     // internal state of the kid
     var state = HAPPY
-    override def receive: Receive = ???
+    override def receive: Receive = {
+      case Food(VEGETABLE) =>
+      case Food(CHOCOLATE) =>
+      case Ask(message: String) =>
+    }
   }
 
   // object companion class
