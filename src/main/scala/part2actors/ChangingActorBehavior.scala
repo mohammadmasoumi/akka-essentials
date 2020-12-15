@@ -8,6 +8,8 @@ object ChangingActorBehavior extends App {
   object FussyKid {
     case object KidAccept
     case object KidReject
+    val HAPPY = "happy"
+    val SAD = "sad"
   }
 
   class FussyKid extends Actor {
@@ -25,6 +27,5 @@ object ChangingActorBehavior extends App {
   class Mom extends Actor {
     override def receive: Receive = ???
   }
-
 
 }
