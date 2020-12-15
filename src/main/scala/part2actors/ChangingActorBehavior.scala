@@ -61,17 +61,21 @@ object ChangingActorBehavior extends App {
     import FussyKid._
     import Mom._
 
-    override def receive: Receive = ???
+    override def receive: Receive = happyReceive // call no parameter method
 
     def happyReceive: Receive = {
-      case Food(VEGETABLE) => // change my receive handler to SadReceive
+      case Food(VEGETABLE) =>
+        // change my receive handler to SadReceive
+        context.become(sadReceive)
       case Food(CHOCOLATE) =>
       case Ask(_) => KidAccept
     }
 
     def sadReceive: Receive = {
       case Food(VEGETABLE) =>
-      case Food(CHOCOLATE) => // change my receive handler to HappyReceive
+      case Food(CHOCOLATE) =>
+        // change my receive handler to HappyReceive
+        context.become(happyReceive)
       case Ask(_) => KidAccept
     }
   }
