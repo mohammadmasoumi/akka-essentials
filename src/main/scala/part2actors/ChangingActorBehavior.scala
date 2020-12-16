@@ -67,7 +67,7 @@ object ChangingActorBehavior extends App {
     def happyReceive: Receive = {
       case Food(VEGETABLE) =>
         // change my receive handler to SadReceive
-        context.become(sadReceive)
+        context.become(sadReceive, false)
       case Food(CHOCOLATE) =>
       case Ask(message) =>
         println(s"${sender()} asked: $message")
@@ -79,7 +79,7 @@ object ChangingActorBehavior extends App {
       case Food(VEGETABLE) =>
       case Food(CHOCOLATE) =>
         // change my receive handler to HappyReceive
-        context.become(happyReceive)
+        context.become(happyReceive, false)
       case Ask(message) =>
         println(s"[${sender()}] asked: $message")
         println(s"$name replied: No")
