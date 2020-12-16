@@ -182,6 +182,8 @@ object ChangingActorBehavior extends App {
 
   case class AggregateVotes(citizens: Set[ActorRef])
 
+  case object VoteStatusRequest
+
   class VoteAggregator extends Actor {
     override def receive: Receive = ???
   }
