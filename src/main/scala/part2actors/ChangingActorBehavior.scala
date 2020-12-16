@@ -73,15 +73,25 @@ object ChangingActorBehavior extends App {
     Stack:
       1. happyReceive
       2. sadReceive
-      2. happyReceive
+      3. happyReceive
+
+    * with context become
+
+    - Food(veg) => stack.push(sadReceive)
+    - Food(veg) => stack.push(sadReceive)
+    - Food(Chocolate) => stack.push(happyReceive)
+
+    Stack:
+      1. sadReceive (popped)
+      2. sadReceive
+      3. happyReceive
      */
 
     def happyReceive: Receive = {
       case Food(VEGETABLE) =>
         // change my receive handler to SadReceive
-        context.unbecome()
+        context.become(sadReceive, discardOld = false)
       case Food(CHOCOLATE) =>
-        context.become(happyReceive, discardOld = false)
       case Ask(message) =>
         println(s"${sender()} asked: $message")
         println(s"$name replied: Yes")
