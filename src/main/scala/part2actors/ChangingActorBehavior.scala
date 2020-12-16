@@ -140,4 +140,11 @@ object ChangingActorBehavior extends App {
 
   marry ! MomStart(david)
 
+
+  /**
+   * Exercise:
+   * 1- recreate the Counter Actor with context.become and NO MUTABLE STATE.
+   *
+   */
+
 }
