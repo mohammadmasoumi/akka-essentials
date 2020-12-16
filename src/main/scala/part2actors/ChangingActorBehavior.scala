@@ -140,27 +140,30 @@ object ChangingActorBehavior extends App {
 
   marry ! MomStart(david)
 
-
   /**
-   * First Exercise:
-   * recreate the Counter Actor with context.become and NO MUTABLE STATE.
+   * Exercise 1 - recreate the Counter Actor with context.become and NO MUTABLE STATE.
    */
 
   // companion actor object - COUNTER DOMAIN
   object Counter {
+
     case object CounterIncrement
+
     case object CounterDecrement
+
     case object CounterPrint
+
   }
 
   class Counter extends Actor {
-    import Counter._
+
     var count = 0
 
     override def receive: Receive = ???
   }
 
   import Counter._
+
   val counter = system.actorOf(Props[Counter], "myCounter")
 
   (1 to 5).foreach(_ => counter ! CounterIncrement)
@@ -168,8 +171,7 @@ object ChangingActorBehavior extends App {
   counter ! CounterPrint
 
   /**
-   * Second Exercise:
-   * Simplified voting system.
+   * Exercise 2 - a simplified voting system.
    */
 
 }
