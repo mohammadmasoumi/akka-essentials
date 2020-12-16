@@ -121,6 +121,9 @@ object ChangingActorBehavior extends App {
       case MomStart(kid: ActorRef) =>
         // test our interaction
         kid ! Food(VEGETABLE)
+        kid ! Food(VEGETABLE)
+        kid ! Food(CHOCOLATE)
+        kid ! Food(CHOCOLATE) // latest: kis is happy!
         kid ! Ask(s"[$name]: do you want to play?")
       case KidAccept =>
         println(s"[$name]: Yeah, my kid is happy!")
