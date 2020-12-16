@@ -64,6 +64,18 @@ object ChangingActorBehavior extends App {
 
     override def receive: Receive = happyReceive // call no parameter method
 
+    /*
+    How it works
+
+    - Food(veg) => stack.push(sadReceive)
+    - Food(Chocolate) => stack.push(happyReceive)
+
+    Stack:
+      1. happyReceive
+      2. sadReceive
+      2. happyReceive
+     */
+
     def happyReceive: Receive = {
       case Food(VEGETABLE) =>
         // change my receive handler to SadReceive
