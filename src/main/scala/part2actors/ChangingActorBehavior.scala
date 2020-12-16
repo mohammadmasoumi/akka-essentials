@@ -173,6 +173,8 @@ object ChangingActorBehavior extends App {
   /**
    * Exercise 2 - a simplified voting system.
    */
+  case class Vote(candidate: String)
+
   class Citizen extends Actor {
     override def receive: Receive = ???
   }
