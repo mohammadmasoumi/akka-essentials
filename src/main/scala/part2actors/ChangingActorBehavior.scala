@@ -173,5 +173,12 @@ object ChangingActorBehavior extends App {
   /**
    * Exercise 2 - a simplified voting system.
    */
+  class Citizen extends Actor {
+    override def receive: Receive = ???
+  }
+
+  class VoteAggregator extends Actor {
+    override def receive: Receive = ???
+  }
 
 }
