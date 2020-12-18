@@ -23,7 +23,7 @@ object ChildActors extends App {
         val childRef = context.actorOf(Child.props(name), name)
         context.become(parentHandler(children + childRef))
       case TellChildren(message) =>
-        children.foreach(child => child ! message)
+        children.foreach(child => child forward  message)
     }
   }
 
