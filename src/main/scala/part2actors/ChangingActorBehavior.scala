@@ -14,7 +14,7 @@ object ChangingActorBehavior extends App {
 
     case object KidReject
 
-    def props(name: String) = Props(new FussyKid(name))
+    def props(name: String): Props = Props(new FussyKid(name))
   }
 
   class FussyKid(name: String) extends Actor {
@@ -23,7 +23,7 @@ object ChangingActorBehavior extends App {
     import Mom._
 
     // internal state of the kid
-    var state = HAPPY
+    var state: String = HAPPY
 
     override def receive: Receive = {
       case Food(VEGETABLE) =>
@@ -49,12 +49,12 @@ object ChangingActorBehavior extends App {
 
     case class Ask(message: String) // questions like: do you want to play?
 
-    def props(name: String) = Props(new Mom(name))
+    def props(name: String): Props = Props(new Mom(name))
   }
 
   object StatelessFussyKid {
 
-    def props(name: String) = Props(new StatelessFussyKid(name))
+    def props(name: String): Props = Props(new StatelessFussyKid(name))
   }
 
   class StatelessFussyKid(name: String) extends Actor {
@@ -134,7 +134,7 @@ object ChangingActorBehavior extends App {
 
   val system = ActorSystem("ChangingActorBehaviorDemo")
 
-  val bob = system.actorOf(FussyKid.props("bob"))
+  val tom = system.actorOf(FussyKid.props("tom"))
   val marry = system.actorOf(Mom.props("marry"))
   val david = system.actorOf(StatelessFussyKid.props("david"))
 
@@ -200,5 +200,15 @@ object ChangingActorBehavior extends App {
   class VoteAggregator extends Actor {
     override def receive: Receive = ??? // TODO
   }
+
+  val alice = system.actorOf(Props[Citizen])
+  val bob = system.actorOf(Props[Citizen])
+  val charlie = system.actorOf(Props[Citizen])
+  val daniel = system.actorOf(Props[Citizen])
+
+  alice ! Vote("Martin")
+  bob ! Vote("Jonas")
+  charlie ! Vote("Roland")
+  daniel ! Vote("Roland")
 
 }
