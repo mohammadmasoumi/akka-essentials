@@ -152,41 +152,31 @@ object ChangingActorBehavior extends App {
 
   // companion actor object - COUNTER DOMAIN
   object Counter {
-
-    case object CounterIncrement
-
-    case object CounterDecrement
-
-    case object CounterPrint
-
+    case object Increment
+    case object Decrement
+    case object Print
   }
 
   class Counter extends Actor {
 
     import Counter._
+    override def receive: Receive = countReceive(0)
 
-    override def receive: Receive = increase
-
-    def increase: Receive = {
-      case CounterIncrement =>
-      case CounterDecrement =>
-      case CounterPrint =>
+    def countReceive(currentCount: Int): Receive = {
+      case Increment => context.become(countReceive(currentCount + 1))
+      case Decrement => context.become(countReceive(currentCount - 1))
+      case Print => println(s"[${self}]: current count is: $currentCount")
     }
 
-    def decrease: Receive = {
-      case CounterIncrement =>
-      case CounterDecrement =>
-      case CounterPrint =>
-    }
   }
 
   import Counter._
 
   val counter = system.actorOf(Props[Counter], "myCounter")
 
-  (1 to 5).foreach(_ => counter ! CounterIncrement)
-  (1 to 5).foreach(_ => counter ! CounterDecrement)
-  counter ! CounterPrint
+  (1 to 5).foreach(_ => counter ! Increment)
+  (1 to 5).foreach(_ => counter ! Decrement)
+  counter ! Print
 
   /**
    * Exercise 2 - a simplified voting system.
