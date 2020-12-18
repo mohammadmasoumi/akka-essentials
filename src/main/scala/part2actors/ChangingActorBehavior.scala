@@ -207,17 +207,22 @@ object ChangingActorBehavior extends App {
     import Citizen._
     import VoteAggregator._
 
-    override def receive: Receive = voteHandler(candidate)
+    override def receive: Receive = voteHandler()
 
-    def voteHandler(candidate: Option[String] = ): Receive = {
-      case Vote(candidate) => println(s"${sender()} voted for $candidate")
-      case VoteStatusRequest => sender() ! VoteStatusReply
+    def voteHandler(candidate: Option[String] = None): Receive = {
+      case Vote(c) =>
+        println(s"${sender()} voted for $c")
+        context.become(voteHandler(Some(c)))
+      case VoteStatusRequest => sender() ! VoteStatusReply(candidate)
     }
   }
 
   object VoteAggregator {
+
     case class AggregateVotes(citizens: Set[ActorRef])
+
     case class VoteStatusReply(candidate: Option[String])
+
   }
 
   class VoteAggregator extends Actor {
