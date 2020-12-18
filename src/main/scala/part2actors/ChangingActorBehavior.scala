@@ -199,7 +199,6 @@ object ChangingActorBehavior extends App {
   }
 
   class Citizen(name: String) extends Actor {
-
     import Citizen._
     import VoteAggregator._
 
@@ -220,7 +219,6 @@ object ChangingActorBehavior extends App {
   }
 
   class VoteAggregator extends Actor {
-
     import Citizen._
     import VoteAggregator._
 
