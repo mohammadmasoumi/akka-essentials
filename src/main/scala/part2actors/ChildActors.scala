@@ -67,6 +67,8 @@ object ChildActors extends App {
   val childSelection: ActorSelection = system.actorSelection("/user/$a/daniel")
   childSelection ! "I found you baby"
 
+  val childSelectionWithInvalidPath: ActorSelection = system.actorSelection("/user/$a/daniel")
+  childSelectionWithInvalidPath ! "I found you baby" // this message will be sent to dead letter
 
 
 }
