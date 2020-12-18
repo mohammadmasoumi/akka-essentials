@@ -168,9 +168,13 @@ object ChangingActorBehavior extends App {
     override def receive: Receive = countReceive(0)
 
     def countReceive(currentCount: Int): Receive = {
-      case Increment => context.become(countReceive(currentCount + 1))
-      case Decrement => context.become(countReceive(currentCount - 1))
-      case Print => println(s"[${self}]: current count is: $currentCount")
+      case Increment =>
+        println(s"[Counter]: current count is: $currentCount | Incrementing ...")
+        context.become(countReceive(currentCount + 1))
+      case Decrement =>
+        println(s"[Counter]: current count is: $currentCount | Decrementing ...")
+        context.become(countReceive(currentCount - 1))
+      case Print => println(s"[Counter]: current count is: $currentCount")
     }
 
   }
@@ -202,18 +206,18 @@ object ChangingActorBehavior extends App {
     override def receive: Receive = ??? // TODO
   }
 
-  val alice = system.actorOf(Props[Citizen])
-  val bob = system.actorOf(Props[Citizen])
-  val charlie = system.actorOf(Props[Citizen])
-  val daniel = system.actorOf(Props[Citizen])
-
-  alice ! Vote("Martin")
-  bob ! Vote("Jonas")
-  charlie ! Vote("Roland")
-  daniel ! Vote("Roland")
-
-  val voteAggregator = system.actorOf(Props[VoteAggregator])
-  voteAggregator ! AggregateVotes(Set(alice, bob, charlie, daniel))
+  //  val alice = system.actorOf(Props[Citizen])
+  //  val bob = system.actorOf(Props[Citizen])
+  //  val charlie = system.actorOf(Props[Citizen])
+  //  val daniel = system.actorOf(Props[Citizen])
+  //
+  //  alice ! Vote("Martin")
+  //  bob ! Vote("Jonas")
+  //  charlie ! Vote("Roland")
+  //  daniel ! Vote("Roland")
+  //
+  //  val voteAggregator = system.actorOf(Props[VoteAggregator])
+  //  voteAggregator ! AggregateVotes(Set(alice, bob, charlie, daniel))
 
   /*
     print the status of the votes
