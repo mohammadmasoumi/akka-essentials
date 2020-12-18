@@ -140,6 +140,12 @@ object ChangingActorBehavior extends App {
 
   marry ! MomStart(david)
 
+  // -------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------
+  // ------------------------------------------ Assignments ------------------------------------------
+  // -------------------------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------------
+
   /**
    * Exercise 1 - recreate the Counter Actor with context.become and NO MUTABLE STATE.
    */
@@ -210,5 +216,15 @@ object ChangingActorBehavior extends App {
   bob ! Vote("Jonas")
   charlie ! Vote("Roland")
   daniel ! Vote("Roland")
+
+  val voteAggregator = system.actorOf(Props[VoteAggregator])
+  voteAggregator ! AggregateVotes(Set(alice, bob, charlie, daniel))
+
+  /*
+    print the status of the votes
+      Martin -> 1
+      Jonas -> 1
+      Roland -> 2
+   */
 
 }
