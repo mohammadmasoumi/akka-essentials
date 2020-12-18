@@ -6,8 +6,15 @@ object ChildActors extends App {
 
   // Actors can create other actors
 
+  object Parent {
+    case class CreateChild(name: String)
+    case class TellChild(name: String)
+  }
+
   class Parent extends Actor {
+    import Parent._
     override def receive: Receive = ???
   }
+
 
 }
