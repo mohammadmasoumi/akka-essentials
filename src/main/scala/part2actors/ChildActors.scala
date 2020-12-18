@@ -1,6 +1,6 @@
 package part2actors
 
-import akka.actor.{Actor, ActorRef, Props}
+import akka.actor.{Actor, ActorRef, ActorSystem, Props}
 
 object ChildActors extends App {
 
@@ -8,9 +8,10 @@ object ChildActors extends App {
   object Parent {
     case class CreateChild(name: String)
     case class TellChildren(message: String)
+    def props(name: String): Props = Props(new Parent(name))
   }
 
-  class Parent extends Actor {
+  class Parent(parentName: String) extends Actor {
 
     import Parent._
 
@@ -18,7 +19,7 @@ object ChildActors extends App {
 
     def parentHandler(children: Set[ActorRef] = Set()): Receive = {
       case CreateChild(name) =>
-        println(s"${self.path} creating child ...")
+        println(s"[$parentName]: ${self.path} creating child ...")
         // create a new actor right HERE
         val childRef = context.actorOf(Child.props(name), name)
         context.become(parentHandler(children + childRef))
@@ -36,5 +37,14 @@ object ChildActors extends App {
       case message: String => println(s"[$name]: ${self.path} I got: $message")
     }
   }
+  import Parent._
+
+  val system = ActorSystem("ParentChildDemo")
+  val parent = system.actorOf(Parent.props("parent"))
+  parent ! CreateChild("marry")
+  parent ! CreateChild("john")
+  parent ! CreateChild("daniel")
+  parent ! TellChildren("mom and dad love you all.")
+
 
 }
