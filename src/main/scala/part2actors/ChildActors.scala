@@ -41,6 +41,7 @@ object ChildActors extends App {
 
   val system = ActorSystem("ParentChildDemo")
   val parent = system.actorOf(Parent.props("parent"))
+
   parent ! CreateChild("marry")
   parent ! CreateChild("john")
   parent ! CreateChild("daniel")
