@@ -1,7 +1,7 @@
 package part2actors
 
 import akka.actor.{Actor, ActorRef, ActorSystem, Props}
-import part2actors.ChangingActorBehavior.Mom.MomStart
+
 
 object ChangingActorBehavior extends App {
 
@@ -138,7 +138,7 @@ object ChangingActorBehavior extends App {
   val marry = system.actorOf(Mom.props("marry"))
   val david = system.actorOf(StatelessFussyKid.props("david"))
 
-  marry ! MomStart(david)
+  // marry ! MomStart(david)
 
   // -------------------------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------------------------
@@ -152,14 +152,19 @@ object ChangingActorBehavior extends App {
 
   // companion actor object - COUNTER DOMAIN
   object Counter {
+
     case object Increment
+
     case object Decrement
+
     case object Print
+
   }
 
   class Counter extends Actor {
 
     import Counter._
+
     override def receive: Receive = countReceive(0)
 
     def countReceive(currentCount: Int): Receive = {
