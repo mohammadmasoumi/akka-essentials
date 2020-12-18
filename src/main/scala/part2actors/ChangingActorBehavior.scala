@@ -193,11 +193,8 @@ object ChangingActorBehavior extends App {
    */
 
   object Citizen {
-
     case class Vote(candidate: String)
-
     case object VoteStatusRequest
-
     def props(name: String): Props = Props(new Citizen(name))
   }
 
@@ -218,11 +215,8 @@ object ChangingActorBehavior extends App {
   }
 
   object VoteAggregator {
-
     case class AggregateVotes(citizens: Set[ActorRef])
-
     case class VoteStatusReply(candidate: Option[String])
-
   }
 
   class VoteAggregator extends Actor {
@@ -233,16 +227,16 @@ object ChangingActorBehavior extends App {
     override def receive: Receive = voteAggregatorHandler()
 
     def voteAggregatorHandler(currentStatus: Map[String, Int] = Map(), citizens: Set[ActorRef] = Set()): Receive = {
-      case AggregateVotes(citizens) =>
-        citizens.foreach(citizen => citizen ! VoteStatusRequest)
-        println(currentStatus)
+      case AggregateVotes(newCitizens) =>
+        context.become(voteAggregatorHandler(citizens=newCitizens))
+        newCitizens.foreach(citizen => citizen ! VoteStatusRequest)
       case VoteStatusReply(None) =>
         println("candidate haven't voted yet!")
       case VoteStatusReply(Some(candidate)) =>
         val newVoteStatus = currentStatus + (candidate -> (currentStatus.getOrElse(candidate, 0) + 1))
         val newCitizens = citizens - sender()
         if (newCitizens.isEmpty)
-          println(newVoteStatus)
+          println(s"voteStatus: $newVoteStatus")
         context.become(voteAggregatorHandler(newVoteStatus, newCitizens))
     }
   }
