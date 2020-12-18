@@ -161,6 +161,10 @@ object ChangingActorBehavior extends App {
 
   }
 
+  /**
+   * stateless actor
+   * state => receiver input arguments
+   */
   class Counter extends Actor {
 
     import Counter._
