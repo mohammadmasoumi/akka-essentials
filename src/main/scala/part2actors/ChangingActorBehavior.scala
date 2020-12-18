@@ -157,9 +157,21 @@ object ChangingActorBehavior extends App {
 
   class Counter extends Actor {
 
-    var count = 0
+    import Counter._
 
-    override def receive: Receive = ???
+    override def receive: Receive = increase
+
+    def increase: Receive = {
+      case CounterIncrement =>
+      case CounterDecrement =>
+      case CounterPrint =>
+    }
+
+    def decrease: Receive = {
+      case CounterIncrement =>
+      case CounterDecrement =>
+      case CounterPrint =>
+    }
   }
 
   import Counter._
@@ -175,17 +187,18 @@ object ChangingActorBehavior extends App {
    */
   case class Vote(candidate: String)
 
-  class Citizen extends Actor {
-    override def receive: Receive = ???
-  }
+  case object VoteStatusRequest
 
+  case class VoteStatusReply(candidate: Option[String])
+
+  class Citizen extends Actor {
+    override def receive: Receive = ??? // TODO
+  }
 
   case class AggregateVotes(citizens: Set[ActorRef])
 
-  case object VoteStatusRequest
-
   class VoteAggregator extends Actor {
-    override def receive: Receive = ???
+    override def receive: Receive = ??? // TODO
   }
 
 }
