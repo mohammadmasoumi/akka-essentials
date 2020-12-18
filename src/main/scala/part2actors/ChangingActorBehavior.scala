@@ -182,8 +182,6 @@ object ChangingActorBehavior extends App {
     }
   }
 
-  import Counter._
-
   val counter = system.actorOf(Props[Counter], "myCounter")
 
   //  (1 to 5).foreach(_ => counter ! Increment)
@@ -200,9 +198,10 @@ object ChangingActorBehavior extends App {
 
     case object VoteStatusRequest
 
+    def props(name: String): Props = Props(new Citizen(name))
   }
 
-  class Citizen extends Actor {
+  class Citizen(name: String) extends Actor {
 
     import Citizen._
     import VoteAggregator._
@@ -211,9 +210,10 @@ object ChangingActorBehavior extends App {
 
     def voteHandler(candidate: Option[String] = None): Receive = {
       case Vote(c) =>
-        println(s"${sender()} voted for $c")
-        context.become(voteHandler(Some(c)))
-      case VoteStatusRequest => sender() ! VoteStatusReply(candidate)
+        println(s"[Citizen]: $name voted for $c")
+        context.become(voteHandler(Some(c)), discardOld = true)
+      case VoteStatusRequest =>
+        sender() ! VoteStatusReply(candidate)
     }
   }
 
@@ -227,29 +227,33 @@ object ChangingActorBehavior extends App {
 
   class VoteAggregator extends Actor {
 
-    import VoteAggregator._
     import Citizen._
+    import VoteAggregator._
 
     override def receive: Receive = voteAggregatorHandler()
 
-    def voteAggregatorHandler(currentStatus: Map[String, Int] = Map()): Receive = {
+    def voteAggregatorHandler(currentStatus: Map[String, Int] = Map(), citizens: Set[ActorRef] = Set()): Receive = {
       case AggregateVotes(citizens) =>
         citizens.foreach(citizen => citizen ! VoteStatusRequest)
         println(currentStatus)
       case VoteStatusReply(None) =>
+        println("candidate haven't voted yet!")
       case VoteStatusReply(Some(candidate)) =>
-        val currentVotesOfCandidate = currentStatus.getOrElse(candidate, 0)
-        context.become(voteAggregatorHandler(currentStatus + (candidate -> (currentVotesOfCandidate + 1))))
+        val newVoteStatus = currentStatus + (candidate -> (currentStatus.getOrElse(candidate, 0) + 1))
+        val newCitizens = citizens - sender()
+        if (newCitizens.isEmpty)
+          println(newVoteStatus)
+        context.become(voteAggregatorHandler(newVoteStatus, newCitizens))
     }
   }
 
   import Citizen._
   import VoteAggregator._
 
-  val alice = system.actorOf(Props[Citizen])
-  val bob = system.actorOf(Props[Citizen])
-  val charlie = system.actorOf(Props[Citizen])
-  val daniel = system.actorOf(Props[Citizen])
+  val alice = system.actorOf(Citizen.props("alice"))
+  val bob = system.actorOf(Citizen.props("bob"))
+  val charlie = system.actorOf(Citizen.props("charlie"))
+  val daniel = system.actorOf(Citizen.props("daniel"))
 
   alice ! Vote("Martin")
   bob ! Vote("Jonas")
