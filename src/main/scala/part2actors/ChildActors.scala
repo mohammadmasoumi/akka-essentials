@@ -85,9 +85,21 @@ object ChildActors extends App {
   }
 
   class NaiveBankAccount extends Actor {
-    override def receive: Receive = ???
+    import NaiveBankAccount._
+    import CreditCard._
+
+    var amount = 0
+    override def receive: Receive = {
+      case InitializeAccount =>
+        val creditCardRed = context.actorOf(Props[CreditCard])
+        creditCardRed ! AttachToAccount(this) // !!
+    }
   }
 
+  object CreditCard {
+    case class AttachToAccount(bankAccount: NaiveBankAccount) // !!
+    case object CheckStatus
+  }
   class CreditCard extends Actor {
     override def receive: Receive = ???
   }
