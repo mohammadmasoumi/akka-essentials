@@ -78,6 +78,8 @@ object ChildActors extends App {
    * NEVER IN YOUR LIFE
    */
 
-
+  class NaiveBankAccount extends Actor {
+    override def receive: Receive = ???
+  }
 
 }
