@@ -1,6 +1,7 @@
 package part2actors
 
 import akka.actor.{Actor, ActorRef, ActorSelection, ActorSystem, Props}
+import part2actors.ChildActors.CreditCard.AttachToAccount
 
 object ChildActors extends App {
 
@@ -106,7 +107,12 @@ object ChildActors extends App {
     case object CheckStatus
   }
   class CreditCard extends Actor {
-    override def receive: Receive = ???
+    import CreditCard._
+
+    override def receive: Receive = {
+      case AttachToAccount(account) => context.become(attachTo(account))
+      case CheckStatus =>
+    }
   }
 
 }
