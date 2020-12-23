@@ -113,6 +113,7 @@ object ChildActors extends App {
       case AttachToAccount(account) => context.become(attachTo(account))
       case CheckStatus =>
     }
+    def attachTo(account: NaiveBankAccount) = ???
   }
 
 }
