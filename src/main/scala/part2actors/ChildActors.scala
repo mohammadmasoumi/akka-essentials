@@ -70,5 +70,14 @@ object ChildActors extends App {
   val childSelectionWithInvalidPath: ActorSelection = system.actorSelection("/user/$a/daniel")
   childSelectionWithInvalidPath ! "I found you baby" // this message will be sent to dead letter
 
+  /**
+   * Danger!
+   *
+   * NEVER PASS MUTABLE ACTOR STATE, OR THE `THIS` REFERENCE, TO CHILD ACTORS.
+   *
+   * NEVER IN YOUR LIFE
+   */
+
+
 
 }
