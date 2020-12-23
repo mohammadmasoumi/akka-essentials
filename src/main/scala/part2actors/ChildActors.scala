@@ -93,7 +93,12 @@ object ChildActors extends App {
       case InitializeAccount =>
         val creditCardRed = context.actorOf(Props[CreditCard])
         creditCardRed ! AttachToAccount(this) // !!
+      case Deposit(funds) => deposit(funds)
+      case Withdraw(funds) => withdraw(funds)
     }
+
+    def deposit(funds: Int): Unit = amount += funds
+    def withdraw(funds: Int): Unit = amount -= funds
   }
 
   object CreditCard {
