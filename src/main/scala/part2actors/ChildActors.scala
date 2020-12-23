@@ -88,4 +88,8 @@ object ChildActors extends App {
     override def receive: Receive = ???
   }
 
+  class CreditCard extends Actor {
+    override def receive: Receive = ???
+  }
+
 }
