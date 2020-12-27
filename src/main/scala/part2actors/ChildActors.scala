@@ -116,7 +116,7 @@ object ChildActors extends App {
     def attachedTo(account: NaiveBankAccount): Receive = {
       case CheckStatus =>
         println(s"${self.path} your message has been processed!")
-        account.withdraw(1)
+        account.withdraw(1) // because I can
     }
   }
 
