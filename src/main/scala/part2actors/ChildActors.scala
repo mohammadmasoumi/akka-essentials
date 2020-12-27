@@ -114,7 +114,8 @@ object ChildActors extends App {
       case CheckStatus =>
     }
     def attachedTo(account: NaiveBankAccount): Receive = {
-      case _ => 
+      case CheckStatus =>
+        println(s"${self.path} your message has been processed!")
     }
   }
 
