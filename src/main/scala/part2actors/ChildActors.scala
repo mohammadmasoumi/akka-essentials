@@ -126,4 +126,6 @@ object ChildActors extends App {
   val bankAccountRef = system.actorOf(Props[NaiveBankAccount])
   bankAccountRef ! InitializeAccount
 
+  val ccSelection = system.actorSelection("/user/")
+
 }
