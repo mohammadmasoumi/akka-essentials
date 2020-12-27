@@ -110,10 +110,12 @@ object ChildActors extends App {
     import CreditCard._
 
     override def receive: Receive = {
-      case AttachToAccount(account) => context.become(attachTo(account))
+      case AttachToAccount(account) => context.become(attachedTo(account))
       case CheckStatus =>
     }
-    def attachTo(account: NaiveBankAccount) = ???
+    def attachedTo(account: NaiveBankAccount): Receive = {
+      case _ => 
+    }
   }
 
 }
