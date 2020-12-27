@@ -123,4 +123,6 @@ object ChildActors extends App {
   import NaiveBankAccount._
   import CreditCard._
 
+  val bankAccountRef = system.actorOf(Props[NaiveBankAccount])
+
 }
