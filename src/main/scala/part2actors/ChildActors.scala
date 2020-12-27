@@ -120,4 +120,7 @@ object ChildActors extends App {
     }
   }
 
+  import NaiveBankAccount._
+  import CreditCard._
+
 }
