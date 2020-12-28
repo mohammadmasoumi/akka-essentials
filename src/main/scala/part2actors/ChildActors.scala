@@ -92,7 +92,7 @@ object ChildActors extends App {
     var amount = 0
     override def receive: Receive = {
       case InitializeAccount =>
-        val creditCardRed = context.actorOf(Props[CreditCard])
+        val creditCardRed = context.actorOf(Props[CreditCard], "card")
         creditCardRed ! AttachToAccount(this) // !!
       case Deposit(funds) => deposit(funds)
       case Withdraw(funds) => withdraw(funds)
@@ -123,9 +123,10 @@ object ChildActors extends App {
   import NaiveBankAccount._
   import CreditCard._
 
-  val bankAccountRef = system.actorOf(Props[NaiveBankAccount])
+  val bankAccountRef = system.actorOf(Props[NaiveBankAccount], "account")
   bankAccountRef ! InitializeAccount
 
   val ccSelection = system.actorSelection("/user/")
+  ccSelection ! CheckStatus
 
 }
