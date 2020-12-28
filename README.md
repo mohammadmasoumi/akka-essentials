@@ -24,6 +24,11 @@ therefore I've created this project to share what I've learned.
  ```
  /user/parent/child
  ```
+ - actor selections
+ ```scala
+ system.actorSelection("/user/parent/child")
+ context.actorSelection("/user/parent/child")
+ ```
 
 
 ### Courses
