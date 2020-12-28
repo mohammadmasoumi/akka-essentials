@@ -12,8 +12,14 @@ therefore I've created this project to share what I've learned.
 
 ## Child actor(recap)
 
- - Actor can create other actors
-
+ - actors can create other actors
+ ```scala
+ context.actorOf(Props[MyActor], "child")
+ ```
+ - top-level supervisors(guardians)
+    - /system
+    - /user
+    - the root guardian / 
  
 
 
