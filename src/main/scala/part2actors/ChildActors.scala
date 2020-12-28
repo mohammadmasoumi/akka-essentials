@@ -127,7 +127,7 @@ object ChildActors extends App {
   bankAccountRef ! InitializeAccount
 
   Thread.sleep(500)
-  val ccSelection = system.actorSelection("/user/")
+  val ccSelection = system.actorSelection("/user/account/card")
   ccSelection ! CheckStatus
 
 
