@@ -98,8 +98,14 @@ object ChildActors extends App {
       case Withdraw(funds) => withdraw(funds)
     }
 
-    def deposit(funds: Int): Unit = amount += funds
-    def withdraw(funds: Int): Unit = amount -= funds
+    def deposit(funds: Int): Unit = {
+      println(s"${self.path} depositing $funds on top of $amount")
+      amount += funds
+    }
+    def withdraw(funds: Int): Unit = {
+      println(s"${self.path} withdrawing $funds from $amount")
+      amount -= funds
+    }
   }
 
   object CreditCard {
