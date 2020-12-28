@@ -109,7 +109,8 @@ object ChildActors extends App {
   }
 
   object CreditCard {
-    case class AttachToAccount(bankAccount: NaiveBankAccount) // !!
+//    case class AttachToAccount(bankAccount: NaiveBankAccount) // !!
+    case class AttachToAccount(bankAccount: ActorRef) // we should change it with ActorRef
     case object CheckStatus
   }
   class CreditCard extends Actor {
@@ -123,7 +124,7 @@ object ChildActors extends App {
       case CheckStatus =>
         println(s"${self.path} your message has been processed!")
         // extremely hard to debug
-        // bad behavior
+        // CLOSING OVER
         // NEVER USE THIS APPROACH
         account.withdraw(1) // because I can
     }
