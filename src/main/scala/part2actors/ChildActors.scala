@@ -125,7 +125,7 @@ object ChildActors extends App {
         println(s"${self.path} your message has been processed!")
         // extremely hard to debug
         // CLOSING OVER
-        // NEVER USE THIS APPROACH
+        // NEVER CLOSE OVER MUTABLE STATE OR `THIS`
         account.withdraw(1) // because I can
     }
   }
