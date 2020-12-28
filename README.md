@@ -10,7 +10,7 @@ therefore I've created this project to share what I've learned.
  - [introduction to actors][5]
 
 
-## Child actor(recap)
+## child actor(recap)
 
  - actors can create other actors
  ```scala
@@ -20,7 +20,10 @@ therefore I've created this project to share what I've learned.
     - /system
     - /user
     - the root guardian / 
- 
+ - actor paths
+ ```
+ /user/parent/child
+ ```
 
 
 ### Courses
