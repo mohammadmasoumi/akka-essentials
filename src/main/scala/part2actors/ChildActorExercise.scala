@@ -1,6 +1,6 @@
 package part2actors
 
-import akka.actor.Actor
+import akka.actor.{Actor, ActorSystem}
 
 object ChildActorExercise extends App {
 
@@ -18,6 +18,8 @@ object ChildActorExercise extends App {
   class WordCounterWorker extends Actor {
     override def receive: Receive = ???
   }
+
+  val system = ActorSystem("WordCounterSystem")
 
   /*
     create WordCounterMaster
