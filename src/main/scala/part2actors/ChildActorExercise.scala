@@ -6,9 +6,13 @@ object ChildActorExercise extends App {
 
   // distributed word counting
   object WordCounterMaster {
+
     case class Initialize(nChildren: Int)
-    case class WordCountTask(text: String)
-    case class WordCountReply(count: Int)
+
+    case class WordCountTask(/* TODO */ text: String)
+
+    case class WordCountReply /* TODO */ (count: Int)
+
   }
 
   class WordCounterMaster extends Actor {
@@ -33,7 +37,6 @@ object ChildActorExercise extends App {
   // round robin logic
   // 1.2.3.4.5 and 7 tasks
   // 1.2.3.4.5,1,2
-
 
 
 }
