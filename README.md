@@ -30,7 +30,6 @@ therefore I've created this project to share what I've learned.
  context.actorSelection("/user/parent/child")
  ```
 
-
 ### Courses
 
  - [**akka-essentials**][3]
