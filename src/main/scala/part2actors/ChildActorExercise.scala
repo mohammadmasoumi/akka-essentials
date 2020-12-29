@@ -22,14 +22,15 @@ object ChildActorExercise extends App {
 
     override def receive: Receive = receiveHandler()
 
-    def receiveHandler(children: List[ActorRef] = List()): Receive = {
+    def receiveHandler(children: List[ActorRef] = List(), currentChildIndex: Int = 0): Receive = {
       case Initialize(nChildren: Int) =>
         (1 to nChildren).foreach(nthChild => {
           val wordCounterWorker = system.actorOf(WordCounterWorker.props(s"worker-$nthChild"))
           val newChildren: List[ActorRef] = children :+ wordCounterWorker
-          context.become(receiveHandler(newChildren))
+          context.become(receiveHandler(newChildren, currentChildIndex))
         })
-      case
+      case text: String =>
+        val task = WordCountTask(text)
 
     }
   }
