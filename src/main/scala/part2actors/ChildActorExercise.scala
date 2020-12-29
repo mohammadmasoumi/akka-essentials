@@ -10,4 +10,8 @@ object ChildActorExercise extends App {
     override def receive: Receive = ???
   }
 
+  class WordCounterWorker extends Actor {
+    override def receive: Receive = ???
+  }
+
 }
