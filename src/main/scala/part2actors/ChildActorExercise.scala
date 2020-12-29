@@ -1,6 +1,6 @@
 package part2actors
 
-import akka.actor.{Actor, ActorSystem, Props}
+import akka.actor.{Actor, ActorRef, ActorSystem, Props}
 
 object ChildActorExercise extends App {
 
@@ -17,7 +17,21 @@ object ChildActorExercise extends App {
   }
 
   class WordCounterMaster(name: String) extends Actor {
-    override def receive: Receive = ???
+
+    import WordCounterMaster._
+
+    override def receive: Receive = receiveHandler()
+
+    def receiveHandler(children: List[ActorRef] = List()): Receive = {
+      case Initialize(nChildren: Int) =>
+        (1 to nChildren).foreach(nthChild => {
+          val wordCounterWorker = system.actorOf(WordCounterWorker.props(s"worker-$nthChild"))
+          val newChildren: List[ActorRef] = children :+ wordCounterWorker
+          context.become(receiveHandler(newChildren))
+        })
+      case
+
+    }
   }
 
   object WordCounterWorker {
