@@ -9,7 +9,6 @@ object ChildActorExercise extends App {
     case class Initialize(nChildren: Int)
     case class WordCountTask(text: String)
     case class WordCountReply(count: Int)
-
   }
 
   class WordCounterMaster extends Actor {
@@ -19,5 +18,17 @@ object ChildActorExercise extends App {
   class WordCounterWorker extends Actor {
     override def receive: Receive = ???
   }
+
+  /*
+    create WordCounterMaster
+    send Initialize(10) to wordCounterMaster
+    send "Akka is awesome" to wordCounterMaster
+    wordCounterMaster will send a WordCountTask("...") to one of its children
+    child replies with a wordCountReply(3) to the master
+    wordCounterMaster replies with 3 to the sender
+
+    requester -> wcm -> wcw
+            r <- wcm <-
+   */
 
 }
