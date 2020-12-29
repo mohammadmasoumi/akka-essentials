@@ -6,8 +6,9 @@ object ChildActorExercise extends App {
 
   // distributed word counting
   object WordCounterMaster {
-
     case class Initialize(nChildren: Int)
+    case class WordCountTask(text: String)
+    case class WordCountReply(count: Int)
 
   }
 
