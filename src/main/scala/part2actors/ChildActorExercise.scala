@@ -9,7 +9,6 @@ object ChildActorExercise extends App {
     case class Initialize(nChildren: Int)
     case class WordCountTask(/* TODO */ text: String)
     case class WordCountReply /* TODO */ (count: Int)
-
   }
 
   class WordCounterMaster extends Actor {
