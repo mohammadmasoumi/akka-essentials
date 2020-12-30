@@ -16,32 +16,38 @@ object ChildActorExercise extends App {
 
   }
 
-  type ChildrenReds = List[ActorRef]
+  type ChildrenRefsType = List[ActorRef]
+  type ReqMapType = Map[Int, ActorRef]
 
   class WordCounterMaster(name: String) extends Actor {
 
     import WordCounterMaster._
 
-    override def receive: Receive = receiveHandler(List(), 0, 0)
+    override def receive: Receive = receiveHandler(List(), 0, 0, Map())
 
-    def receiveHandler(childrenRefs: ChildrenReds, currentChildIndex: Int, currentTaskId: Int): Receive = {
+    def receiveHandler(childrenRefs: ChildrenRefsType, currentChildIndex: Int, currentTaskId: Int,
+                       requestMap: ReqMapType): Receive = {
       case Initialize(nChildren: Int) =>
         (1 to nChildren).foreach(nthChild => {
           val wordCounterWorker = system.actorOf(WordCounterWorker.props(s"worker-$nthChild"))
           val newChildren: List[ActorRef] = childrenRefs :+ wordCounterWorker
-          context.become(receiveHandler(newChildren, currentChildIndex, currentTaskId))
+          context.become(receiveHandler(newChildren, currentChildIndex, currentTaskId, requestMap))
         })
-      case WordCountReply(count) => ???
+      case WordCountReply(taskId, count) =>
+        val actualSender = requestMap(taskId)
+        actualSender ! count
       case text: String =>
         // dispatch task preparation
         val task = WordCountTask(currentTaskId, text)
         val childRef = childrenRefs(currentChildIndex)
+        val originalSender = sender()
+        val newRefMap = requestMap + (currentTaskId -> originalSender)
         // dispatching task
         childRef ! task
         // update parameters
         val newChildIndex = (currentChildIndex + 1) % childrenRefs.length
         val newTaskId = currentTaskId + 1
-        context.become(receiveHandler(childrenRefs, newChildIndex, newTaskId))
+        context.become(receiveHandler(childrenRefs, newChildIndex, newTaskId, newRefMap))
     }
   }
 
