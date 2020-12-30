@@ -16,25 +16,32 @@ object ChildActorExercise extends App {
 
   }
 
+  type ChildrenReds = List[ActorRef]
+
   class WordCounterMaster(name: String) extends Actor {
 
     import WordCounterMaster._
 
-    override def receive: Receive = receiveHandler()
+    override def receive: Receive = receiveHandler(List(), 0, 0)
 
-    def receiveHandler(childrenRefs: List[ActorRef] = List(), currentChildIndex: Int = 0): Receive = {
+    def receiveHandler(childrenRefs: ChildrenReds, currentChildIndex: Int, currentTaskId: Int): Receive = {
       case Initialize(nChildren: Int) =>
         (1 to nChildren).foreach(nthChild => {
           val wordCounterWorker = system.actorOf(WordCounterWorker.props(s"worker-$nthChild"))
           val newChildren: List[ActorRef] = childrenRefs :+ wordCounterWorker
-          context.become(receiveHandler(newChildren, currentChildIndex))
+          context.become(receiveHandler(newChildren, currentChildIndex, currentTaskId))
         })
       case WordCountReply(count) => ???
       case text: String =>
-        val task = WordCountTask(text)
+        // dispatch task preparation
+        val task = WordCountTask(currentTaskId, text)
         val childRef = childrenRefs(currentChildIndex)
+        // dispatching task
         childRef ! task
-        context.become(receiveHandler(childrenRefs, (currentChildIndex + 1) % childrenRefs.length))
+        // update parameters
+        val newChildIndex = (currentChildIndex + 1) % childrenRefs.length
+        val newTaskId = currentTaskId + 1
+        context.become(receiveHandler(childrenRefs, newChildIndex, newTaskId))
     }
   }
 
@@ -47,7 +54,7 @@ object ChildActorExercise extends App {
     import WordCounterMaster._
 
     override def receive: Receive = {
-      case WordCountTask(text: String) => sender() ! WordCountReply(text.split("").length)
+      case WordCountTask(taskId: Int, text: String) => sender() ! WordCountReply(text.split("").length)
     }
   }
 
