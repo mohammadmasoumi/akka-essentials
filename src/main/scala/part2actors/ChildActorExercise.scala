@@ -28,6 +28,7 @@ object ChildActorExercise extends App {
     def receiveHandler(childrenRefs: ChildrenRefsType, currentChildIndex: Int, currentTaskId: Int,
                        requestMap: ReqMapType): Receive = {
       case Initialize(nChildren: Int) =>
+        println("Master initializing ...")
         (1 to nChildren).foreach(nthChild => {
           val wordCounterWorker = system.actorOf(WordCounterWorker.props(s"worker-$nthChild"))
           val newChildren: List[ActorRef] = childrenRefs :+ wordCounterWorker
