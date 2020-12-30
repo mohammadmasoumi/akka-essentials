@@ -29,6 +29,7 @@ object ChildActorExercise extends App {
           val newChildren: List[ActorRef] = childrenRefs :+ wordCounterWorker
           context.become(receiveHandler(newChildren, currentChildIndex))
         })
+      case WordCountReply(count) => ???
       case text: String =>
         val task = WordCountTask(text)
         val childRef = childrenRefs(currentChildIndex)
