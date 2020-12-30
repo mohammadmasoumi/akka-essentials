@@ -54,7 +54,7 @@ object ChildActorExercise extends App {
     import WordCounterMaster._
 
     override def receive: Receive = {
-      case WordCountTask(taskId: Int, text: String) => sender() ! WordCountReply(text.split("").length)
+      case WordCountTask(taskId: Int, text: String) => sender() ! WordCountReply(taskId, text.split("").length)
     }
   }
 
