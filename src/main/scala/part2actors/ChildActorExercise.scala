@@ -36,6 +36,7 @@ object ChildActorExercise extends App {
       case WordCountReply(taskId, count) =>
         val actualSender = requestMap(taskId)
         actualSender ! count
+        context.become(receiveHandler(childrenRefs, currentChildIndex, currentTaskId, requestMap - taskId))
       case text: String =>
         // dispatch task preparation
         val task = WordCountTask(currentTaskId, text)
