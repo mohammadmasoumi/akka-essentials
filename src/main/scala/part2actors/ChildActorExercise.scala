@@ -16,7 +16,7 @@ object ChildActorExercise extends App {
 
   }
 
-  type ChildrenRefsType = List[ActorRef]
+  type ChildrenRefsType = Seq[ActorRef]
   type ReqMapType = Map[Int, ActorRef]
 
   class WordCounterMaster(name: String) extends Actor {
@@ -25,16 +25,13 @@ object ChildActorExercise extends App {
 
     override def receive: Receive = receiveHandler(List(), 0, 0, Map())
 
-    def receiveHandler(childrenRefs: ChildrenRefsType, currentChildIndex: Int, currentTaskId: Int,
-                       requestMap: ReqMapType): Receive = {
-      case Initialize(nChildren: Int) =>
+    def receiveHandler(childrenRefs: ChildrenRefsType, currentChildIndex: Int, currentTaskId: Int, requestMap: ReqMapType): Receive = {
+      case Initialize(nChildren: Int) => {
         println(s"[$name master] initializing ...")
-        (1 to nChildren).foreach(nthChild => {
-          val wordCounterWorker = system.actorOf(WordCounterWorker.props(s"worker-$nthChild"))
-          val newChildren: List[ActorRef] = childrenRefs :+ wordCounterWorker
-          context.become(receiveHandler(newChildren, currentChildIndex, currentTaskId, requestMap))
-        })
-
+        val newChildrenRefs: ChildrenRefsType = for (idx <- 1 to nChildren)
+          yield system.actorOf(WordCounterWorker.props(s"worker-$idx"))
+        context.become(receiveHandler(newChildrenRefs, currentChildIndex, currentTaskId, requestMap))
+      }
       case text: String =>
         println(s"[$name master] I have received: $text - I will send it to child $currentChildIndex")
         // dispatch task preparation
@@ -47,6 +44,10 @@ object ChildActorExercise extends App {
         // update parameters
         val newChildIndex = (currentChildIndex + 1) % childrenRefs.length
         val newTaskId = currentTaskId + 1
+//        println(
+//          s"logger: newChildIndex: $newChildIndex | currentChildIndex: $currentChildIndex | newTaskId: $newTaskId " +
+//            s"| len: ${childrenRefs.length}"
+//        )
         context.become(receiveHandler(childrenRefs, newChildIndex, newTaskId, newRefMap))
 
       case WordCountReply(id, count) =>
