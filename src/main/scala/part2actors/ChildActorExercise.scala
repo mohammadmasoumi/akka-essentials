@@ -38,7 +38,7 @@ object ChildActorExercise extends App {
         println(s"[master] I have received: $text - I will send it to child $currentChildIndex")
         // dispatch task preparation
         val task = WordCountTask(currentTaskId, text)
-        val childRef = childrenRefs(currentChildIndin
+        val childRef = childrenRefs(currentChildIndex)
         val originalSender = sender()
         val newRefMap = requestMap + (currentTaskId -> originalSender)
         // dispatching task
@@ -47,10 +47,11 @@ object ChildActorExercise extends App {
         val newChildIndex = (currentChildIndex + 1) % childrenRefs.length
         val newTaskId = currentTaskId + 1
         context.become(receiveHandler(childrenRefs, newChildIndex, newTaskId, newRefMap))
-      case WordCountReply(taskId, count) =>
-        val actualSender = requestMap(taskId)
+      case WordCountReply(id, count) =>
+        println(s"[master] I've received a reply for task id: $id with $count")
+        val actualSender = requestMap(id)
         actualSender ! count
-        context.become(receiveHandler(childrenRefs, currentChildIndex, currentTaskId, requestMap - taskId))
+        context.become(receiveHandler(childrenRefs, currentChildIndex, currentTaskId, requestMap - id))
     }
   }
 
@@ -64,7 +65,7 @@ object ChildActorExercise extends App {
 
     override def receive: Receive = {
       case WordCountTask(taskId: Int, text: String) =>
-        println(s"[worker] ${self.path} I've received a task with ${text}")
+        println(s"[worker] ${self.path} I've received a task $id with $text")
         sender() ! WordCountReply(taskId, text.split("").length)
     }
   }
