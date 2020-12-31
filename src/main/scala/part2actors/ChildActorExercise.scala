@@ -44,10 +44,6 @@ object ChildActorExercise extends App {
         // update parameters
         val newChildIndex = (currentChildIndex + 1) % childrenRefs.length
         val newTaskId = currentTaskId + 1
-//        println(
-//          s"logger: newChildIndex: $newChildIndex | currentChildIndex: $currentChildIndex | newTaskId: $newTaskId " +
-//            s"| len: ${childrenRefs.length}"
-//        )
         context.become(receiveHandler(childrenRefs, newChildIndex, newTaskId, newRefMap))
 
       case WordCountReply(id, count) =>
