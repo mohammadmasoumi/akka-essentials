@@ -78,7 +78,15 @@ object ChildActorExercise extends App {
   //  wordCounterMaster ! Initialize(10)
 
   class TestActor extends Actor {
-    override def receive: Receive = ???
+
+    import WordCounterMaster._
+
+    override def receive: Receive = {
+      case "go" =>
+        val master = context.actorOf(WordCounterMaster.props("master"), "master")
+        master ! Initialize(3)
+
+    }
   }
 
 
