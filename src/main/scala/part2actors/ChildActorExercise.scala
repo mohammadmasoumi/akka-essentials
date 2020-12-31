@@ -1,6 +1,6 @@
 package part2actors
 
-import akka.actor.{Actor, ActorRef, ActorSystem, Props}
+import akka.actor.{Actor, ActorRef, Props}
 
 object ChildActorExercise extends App {
 
@@ -70,15 +70,15 @@ object ChildActorExercise extends App {
     }
   }
 
-//  import WordCounterMaster._
-//
-//  val system = ActorSystem("WordCounterSystem")
-//  val wordCounterMaster = system.actorOf(WordCounterMaster.props("master"))
-//
-//  wordCounterMaster ! Initialize(10)
+  //  import WordCounterMaster._
+  //
+  //  val system = ActorSystem("WordCounterSystem")
+  //  val wordCounterMaster = system.actorOf(WordCounterMaster.props("master"))
+  //
+  //  wordCounterMaster ! Initialize(10)
 
   class TestActor extends Actor {
-    override def receive: Receive =
+    override def receive: Receive = ???
   }
 
 
