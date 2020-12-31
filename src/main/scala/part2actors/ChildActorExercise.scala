@@ -65,7 +65,7 @@ object ChildActorExercise extends App {
     override def receive: Receive = {
       case WordCountTask(id: Int, text: String) =>
         println(s"[$name worker] ${self.path} I've received a task $id with $text")
-        sender() ! WordCountReply(id, text.split("").length)
+        sender() ! WordCountReply(id, text.split(" ").length)
     }
   }
 
