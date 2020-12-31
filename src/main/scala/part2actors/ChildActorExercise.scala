@@ -38,7 +38,7 @@ object ChildActorExercise extends App {
         println(s"[master] I have received: $text - I will send it to child $currentChildIndex")
         // dispatch task preparation
         val task = WordCountTask(currentTaskId, text)
-        val childRef = childrenRefs(currentChildIndex)
+        val childRef = childrenRefs(currentChildIndin
         val originalSender = sender()
         val newRefMap = requestMap + (currentTaskId -> originalSender)
         // dispatching task
@@ -63,7 +63,9 @@ object ChildActorExercise extends App {
     import WordCounterMaster._
 
     override def receive: Receive = {
-      case WordCountTask(taskId: Int, text: String) => sender() ! WordCountReply(taskId, text.split("").length)
+      case WordCountTask(taskId: Int, text: String) =>
+        println(s"[worker] ${self.path} I've received a task with ${text}")
+        sender() ! WordCountReply(taskId, text.split("").length)
     }
   }
 
