@@ -1,6 +1,6 @@
 package part2actors
 
-import akka.actor.{Actor, ActorRef, Props}
+import akka.actor.{Actor, ActorRef, ActorSystem, Props}
 
 object ChildActorExercise extends App {
 
@@ -28,14 +28,15 @@ object ChildActorExercise extends App {
     def receiveHandler(childrenRefs: ChildrenRefsType, currentChildIndex: Int, currentTaskId: Int,
                        requestMap: ReqMapType): Receive = {
       case Initialize(nChildren: Int) =>
-        println("[master] initializing ...")
+        println(s"[$name master] initializing ...")
         (1 to nChildren).foreach(nthChild => {
           val wordCounterWorker = system.actorOf(WordCounterWorker.props(s"worker-$nthChild"))
           val newChildren: List[ActorRef] = childrenRefs :+ wordCounterWorker
           context.become(receiveHandler(newChildren, currentChildIndex, currentTaskId, requestMap))
         })
+
       case text: String =>
-        println(s"[master] I have received: $text - I will send it to child $currentChildIndex")
+        println(s"[$name master] I have received: $text - I will send it to child $currentChildIndex")
         // dispatch task preparation
         val task = WordCountTask(currentTaskId, text)
         val childRef = childrenRefs(currentChildIndex)
@@ -47,8 +48,9 @@ object ChildActorExercise extends App {
         val newChildIndex = (currentChildIndex + 1) % childrenRefs.length
         val newTaskId = currentTaskId + 1
         context.become(receiveHandler(childrenRefs, newChildIndex, newTaskId, newRefMap))
+
       case WordCountReply(id, count) =>
-        println(s"[master] I've received a reply for task id: $id with $count")
+        println(s"[$name master] I've received a reply for task id: $id with $count")
         val actualSender = requestMap(id)
         actualSender ! count
         context.become(receiveHandler(childrenRefs, currentChildIndex, currentTaskId, requestMap - id))
@@ -59,14 +61,14 @@ object ChildActorExercise extends App {
     def props(name: String): Props = Props(new WordCounterWorker(name))
   }
 
-  class WordCounterWorker extends Actor {
+  class WordCounterWorker(name: String) extends Actor {
 
     import WordCounterMaster._
 
     override def receive: Receive = {
-      case WordCountTask(taskId: Int, text: String) =>
-        println(s"[worker] ${self.path} I've received a task $id with $text")
-        sender() ! WordCountReply(taskId, text.split("").length)
+      case WordCountTask(id: Int, text: String) =>
+        println(s"[$name worker] ${self.path} I've received a task $id with $text")
+        sender() ! WordCountReply(id, text.split("").length)
     }
   }
 
@@ -88,10 +90,14 @@ object ChildActorExercise extends App {
         val texts = List("I love Akka", "Scala is super dope", "yes", "me too")
         texts.foreach(text => master ! text)
       case count: Int =>
-        println(s"[test actor] I received a reply; $count ")
+        println(s"[test actor] I received a reply; $count")
     }
   }
 
+  val system = ActorSystem("RoundRobinWordCountExercise")
+  val testActor = system.actorOf(Props[TestActor], "testActor")
+
+  testActor ! "go"
 
   /*
     create WordCounterMaster

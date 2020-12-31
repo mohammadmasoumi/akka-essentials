@@ -110,7 +110,7 @@ object ChildActors extends App {
 
   object CreditCard {
 //    case class AttachToAccount(bankAccount: NaiveBankAccount) // !!
-    case class AttachToAccount(bankAccount: ActorRef) // we should change it with ActorRef
+    case class AttachToAccount(bankAccount: NaiveBankAccount) // we should change it with ActorRef
     case object CheckStatus
   }
   class CreditCard extends Actor {
