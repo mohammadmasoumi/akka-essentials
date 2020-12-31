@@ -85,7 +85,10 @@ object ChildActorExercise extends App {
       case "go" =>
         val master = context.actorOf(WordCounterMaster.props("master"), "master")
         master ! Initialize(3)
-
+        val texts = List("I love Akka", "Scala is super dope", "yes", "me too")
+        texts.foreach(text => master ! text)
+      case count: Int =>
+        println(s"[test actor] I received a reply; $count ")
     }
   }
 
