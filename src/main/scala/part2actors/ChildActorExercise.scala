@@ -70,12 +70,17 @@ object ChildActorExercise extends App {
     }
   }
 
-  import WordCounterMaster._
+//  import WordCounterMaster._
+//
+//  val system = ActorSystem("WordCounterSystem")
+//  val wordCounterMaster = system.actorOf(WordCounterMaster.props("master"))
+//
+//  wordCounterMaster ! Initialize(10)
 
-  val system = ActorSystem("WordCounterSystem")
-  val wordCounterMaster = system.actorOf(WordCounterMaster.props("master"))
+  class TestActor extends Actor {
+    override def receive: Receive =
+  }
 
-  wordCounterMaster ! Initialize(10)
 
   /*
     create WordCounterMaster
