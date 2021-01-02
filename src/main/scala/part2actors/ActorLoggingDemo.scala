@@ -37,4 +37,9 @@ object ActorLoggingDemo extends App {
   actor2 ! "Logging a simple message"
   actor2 ! (2, 3)
 
+ /**
+  1- Logging is asynchronous
+  2- Akka logging is done with actors!
+  */
+
 }
