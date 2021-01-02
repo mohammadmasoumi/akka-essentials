@@ -19,7 +19,7 @@ object IntroAkkaConfig extends App {
   val configString =
     """
       | akka {
-      |   loglevel = "DEBUG"
+      |   loglevel = "INFO"
       | }
       |""".stripMargin
 
