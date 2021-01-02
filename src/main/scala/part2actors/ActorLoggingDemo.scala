@@ -1,13 +1,13 @@
 package part2actors
 
 import akka.actor.{Actor, ActorLogging, ActorSystem, Props}
-import akka.event.Logging
+import akka.event.{Logging, LoggingAdapter}
 
-object ActorLogging extends App {
+object ActorLoggingDemo extends App {
 
   // #1 - explicit logging
   class SimpleActorWithExplicitLogger extends Actor {
-    val logger = Logging(context.system, this)
+    val logger: LoggingAdapter = Logging(context.system, this)
 
     override def receive: Receive = {
       case message => // log it?
