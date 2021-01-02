@@ -35,6 +35,6 @@ object ActorLogging extends App {
   }
   val actor2 = system.actorOf(Props[ActorWithLogging], "actorWithLogging")
   actor2 ! "Logging a simple message"
-
+  actor2 ! (2, 3)
 
 }
