@@ -29,6 +29,7 @@ object ActorLogging extends App {
   // #2 - ActorLogging
   class ActorWithLogging extends Actor with ActorLogging {
     override def receive: Receive = {
+      case (a, b) =>
       case message: String => log.info(s"message: $message")
     }
   }
