@@ -1,5 +1,7 @@
 package part2actors
 
+import com.typesafe.config.ConfigFactory
+
 object IntroAkkaConfig extends App {
 
   /**
@@ -13,5 +15,7 @@ object IntroAkkaConfig extends App {
       |   loglevel = "DEBUG"
       | }
       |""".stripMargin
+
+  val config = ConfigFactory.parseString(configString)
 
 }
