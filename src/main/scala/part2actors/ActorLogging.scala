@@ -1,6 +1,6 @@
 package part2actors
 
-import akka.actor.Actor
+import akka.actor.{Actor, ActorSystem, Props}
 import akka.event.Logging
 
 object ActorLogging extends App {
@@ -19,5 +19,8 @@ object ActorLogging extends App {
         logger.info(s"message: $message")
     }
   }
+  val system = ActorSystem("LoggingDemo")
+  val actor = system.actorOf(Props[SimpleActorWithExplicitLogger], "loggingActor")
+  actor ! "Logging a simple message"
 
 }
