@@ -29,6 +29,9 @@ object IntroAkkaConfig extends App {
 
   actor ! "A message to remember!"
 
+  /**
+   * Akka automatically assign the config file to the current ActorSystem!
+   */
 
   val defaultConfigFileSystem = ActorSystem("DefaultFileConfigDemo")
   val defaultConfigActor = defaultConfigFileSystem.actorOf(Props[SimpleLoggingActor])
