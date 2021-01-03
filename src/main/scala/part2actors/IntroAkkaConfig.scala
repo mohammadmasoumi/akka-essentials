@@ -37,7 +37,7 @@ object IntroAkkaConfig extends App {
   val defaultConfigFileSystem = ActorSystem("DefaultFileConfigDemo")
   val defaultConfigActor = defaultConfigFileSystem.actorOf(Props[SimpleLoggingActor])
 
-  actor ! "Remember me!"
+  defaultConfigActor ! "Remember me!"
 
   /**
    * 3 - separate configuration in the same file
@@ -46,7 +46,7 @@ object IntroAkkaConfig extends App {
   val specialConfigSystem = ActorSystem("specialConfigSystemDemo", specialConfig)
   val specialConfigActor = specialConfigSystem.actorOf(Props[SimpleLoggingActor])
 
-  actor ! "Remember me! I'm special!"
+  specialConfigActor ! "Remember me! I'm special!"
 
 
 }
