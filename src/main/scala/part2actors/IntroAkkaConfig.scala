@@ -51,7 +51,11 @@ object IntroAkkaConfig extends App {
   /**
    * 4 - separate configuration in the another file
    */
+  val secretConfig = ConfigFactory.load("secretFolder/secretConfiguration.conf")
+  val secretConfigSystem = ActorSystem("specialConfigSystemDemo", secretConfig)
+  val secretConfigActor = secretConfigSystem.actorOf(Props[SimpleLoggingActor])
 
+  secretConfigActor ! "Remember me! I'm secret!"
 
 
 }
