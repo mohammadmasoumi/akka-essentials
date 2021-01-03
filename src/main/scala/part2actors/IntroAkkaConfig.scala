@@ -29,4 +29,11 @@ object IntroAkkaConfig extends App {
 
   actor ! "A message to remember!"
 
+
+  val defaultConfigFileSystem = ActorSystem("DefaultFileConfigDemo")
+  val defaultConfigActor = defaultConfigFileSystem.actorOf(Props[SimpleLoggingActor])
+
+  actor ! "Remember me!"
+
+
 }
