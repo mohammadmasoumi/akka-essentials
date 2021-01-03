@@ -42,5 +42,8 @@ object IntroAkkaConfig extends App {
   /**
    * 3 - separate configuration in the same file
    */
+  val specialConfig = ConfigFactory.load().getConfig("mySpecialConfig")
+  val specialConfigSystem = ActorSystem("specialConfigSystemDemo", specialConfig)
+
 
 }
