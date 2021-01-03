@@ -29,6 +29,7 @@ object IntroAkkaConfig extends App {
   actor ! "A message to remember!"
 
   /**
+   * 2 - configuration from the file
    * Akka automatically assign the config file to the current ActorSystem!
    * /src/main/resources/application.conf
    */
