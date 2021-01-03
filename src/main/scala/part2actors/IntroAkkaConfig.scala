@@ -13,7 +13,6 @@ object IntroAkkaConfig extends App {
 
   /**
    * 1 - inline configuration
-   *
    */
 
   val configString =
@@ -39,5 +38,8 @@ object IntroAkkaConfig extends App {
 
   actor ! "Remember me!"
 
+  /**
+   * 3 - separate configuration in the same file
+   */
 
 }
