@@ -44,6 +44,9 @@ object IntroAkkaConfig extends App {
    */
   val specialConfig = ConfigFactory.load().getConfig("mySpecialConfig")
   val specialConfigSystem = ActorSystem("specialConfigSystemDemo", specialConfig)
+  val specialConfigActor = specialConfigSystem.actorOf(Props[SimpleLoggingActor])
+
+  actor ! "Remember me! I'm special!"
 
 
 }
