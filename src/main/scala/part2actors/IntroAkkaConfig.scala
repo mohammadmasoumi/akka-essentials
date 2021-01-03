@@ -48,5 +48,10 @@ object IntroAkkaConfig extends App {
 
   specialConfigActor ! "Remember me! I'm special!"
 
+  /**
+   * 4 - separate configuration in the another file
+   */
+
+
 
 }
