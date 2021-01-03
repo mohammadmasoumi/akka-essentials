@@ -31,6 +31,7 @@ object IntroAkkaConfig extends App {
 
   /**
    * Akka automatically assign the config file to the current ActorSystem!
+   * /src/main/resources/application.conf
    */
 
   val defaultConfigFileSystem = ActorSystem("DefaultFileConfigDemo")
