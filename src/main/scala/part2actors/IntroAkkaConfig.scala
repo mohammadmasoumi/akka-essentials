@@ -55,6 +55,7 @@ object IntroAkkaConfig extends App {
   val secretConfigSystem = ActorSystem("specialConfigSystemDemo", secretConfig)
   val secretConfigActor = secretConfigSystem.actorOf(Props[SimpleLoggingActor])
 
+  println(s"separate config log level: ${secretConfig.getString("akka.loglevel")}")
   secretConfigActor ! "Remember me! I'm secret!"
 
 
