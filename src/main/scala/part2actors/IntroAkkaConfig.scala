@@ -75,8 +75,8 @@ object IntroAkkaConfig extends App {
   val propertiesConfigSystem = ActorSystem("propsConfigSystemDemo", propertiesConfig)
   val propertiesConfigActor = propertiesConfigSystem.actorOf(Props[SimpleLoggingActor])
 
-  println(s"properties config: ${jsonConfig.getString("my.simpleProperty")}")
-  println(s"properties config: ${jsonConfig.getString("akka.loglevel")}")
+  println(s"properties config: ${propertiesConfig.getString("my.simpleProperty")}")
+  println(s"properties config: ${propertiesConfig.getString("akka.loglevel")}")
   propertiesConfigActor ! "property config actor!"
 
 }
