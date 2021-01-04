@@ -71,4 +71,5 @@ object IntroAkkaConfig extends App {
   println(s"json config: ${jsonConfig.getString("akka.loglevel")}")
   jsonConfigActor ! "json config actor!"
 
+  val
 }
