@@ -10,5 +10,17 @@ class BasicSpec extends TestKit(ActorSystem("BasicSpec"))
   with WordSpecLike
   with BeforeAndAfterAll {
 
+  // setup
+  override def afterAll(): Unit = {
+    TestKit.shutdownActorSystem(system) // system is a member of test kit.
+  }
+  "The thing being tested" should { // test suit
+    "do this" in { // testcase-1
+      // testing scenario
+    }
+    "do another thing" in { // testcase-2
+      // testing scenario
+    }
+  }
 
 }
