@@ -52,7 +52,7 @@ object IntroAkkaConfig extends App {
    * 4 - separate configuration in the another file
    */
   val secretConfig = ConfigFactory.load("secretFolder/secretConfiguration.conf")
-  val secretConfigSystem = ActorSystem("specialConfigSystemDemo", secretConfig)
+  val secretConfigSystem = ActorSystem("secretConfigSystemDemo", secretConfig)
   val secretConfigActor = secretConfigSystem.actorOf(Props[SimpleLoggingActor])
 
   println(s"separate config log level: ${secretConfig.getString("akka.loglevel")}")
@@ -63,6 +63,11 @@ object IntroAkkaConfig extends App {
    * 5 - different file formats
    * JSON, Properties
    */
+  val jsonConfig = ConfigFactory.load("json/jsonConfig.json")
+  val jsonConfigSystem = ActorSystem("jsonConfigSystemDemo", jsonConfig)
+  val jsonConfigActor = jsonConfigSystem.actorOf(Props[SimpleLoggingActor])
 
+  println(s"json config: ${jsonConfig.getString("aJsonProperty")}")
+  jsonConfigActor ! "json config actor!"
 
 }
