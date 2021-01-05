@@ -11,6 +11,12 @@ class BasicSpec extends TestKit(ActorSystem("BasicSpec"))
   with WordSpecLike
   with BeforeAndAfterAll {
 
+  /**
+   * Q: Who is the sender?
+   * A: testActor - that's what the ImplicitSender does
+   *
+   */
+
   // setup - tear down
   override def afterAll(): Unit = {
     TestKit.shutdownActorSystem(system) // system is a member of test kit.
