@@ -19,13 +19,25 @@ class BasicSpec extends TestKit(ActorSystem("BasicSpec"))
 
   // test suit
   "A simple actor" should {
-
     // testcase-1
-    "do this" in {
+    "send back the same message" in {
       // testing scenario
       val echoActor = system.actorOf(Props[SimpleActor])
       val message = "hello test"
       echoActor ! message
+
+      expectMsg(message)
+    }
+  }
+
+  // test suit
+  "A blackhole actor" should {
+    // testcase-1
+    "send back the same message" in {
+      // testing scenario
+      val blackholeActor = system.actorOf(Props[SimpleActor])
+      val message = "hello test"
+      blackholeActor ! message
 
       expectMsg(message)
     }
@@ -38,5 +50,8 @@ object BasicSpec {
     override def receive: Receive = {
       case message => sender() ! message
     }
+  }
+  class BlackHole extends Actor {
+    override def receive: Receive = Actor.emptyBehavior
   }
 }
