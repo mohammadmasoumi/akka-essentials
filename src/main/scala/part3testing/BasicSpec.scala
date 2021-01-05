@@ -1,8 +1,9 @@
 package part3testing
 
-import akka.actor.{Actor, ActorSystem}
+import akka.actor.{Actor, ActorSystem, Props}
 import akka.testkit.{ImplicitSender, TestKit}
 import org.scalatest.{BeforeAndAfterAll, WordSpecLike}
+import part3testing.BasicSpec.SimpleActor
 
 // BEST PATTERN: end with `Spec` key
 class BasicSpec extends TestKit(ActorSystem("BasicSpec"))
@@ -14,9 +15,19 @@ class BasicSpec extends TestKit(ActorSystem("BasicSpec"))
   override def afterAll(): Unit = {
     TestKit.shutdownActorSystem(system) // system is a member of test kit.
   }
-  "A simple actor" should { // test suit
-    "do this" in { // testcase-1
+  import BasicSpec._
+
+  // test suit
+  "A simple actor" should {
+
+    // testcase-1
+    "do this" in {
       // testing scenario
+      val echoActor = system.actorOf(Props[SimpleActor])
+      val message = "hello test"
+      echoActor ! message
+
+      expectMsg(message)
     }
   }
 }
