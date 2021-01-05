@@ -22,6 +22,7 @@ class BasicSpec extends TestKit(ActorSystem("BasicSpec"))
     TestKit.shutdownActorSystem(system) // system is a member of test kit.
   }
 
+  // test section
   import BasicSpec._
 
   // test suit
@@ -32,7 +33,6 @@ class BasicSpec extends TestKit(ActorSystem("BasicSpec"))
       val echoActor = system.actorOf(Props[SimpleActor])
       val message = "hello test"
       echoActor ! message
-
       expectMsg(message) // akka.test.single-expect-default
     }
   }
@@ -45,10 +45,22 @@ class BasicSpec extends TestKit(ActorSystem("BasicSpec"))
       val blackholeActor = system.actorOf(Props[BlackHole])
       val message = "hello test"
       blackholeActor ! message
-
       expectNoMessage(1 second)
     }
   }
+
+  // message assertion
+  "A lab test actor" should {
+    // if you have stateful actor, it's recommended to create your actor inside the test-case
+    val labTestActor = system.actorOf(Props[LabTestActor])
+
+    "turn a string into uppercase" in {
+
+    }
+  }
+
+
+
 }
 
 object BasicSpec {
@@ -61,6 +73,12 @@ object BasicSpec {
 
   class BlackHole extends Actor {
     override def receive: Receive = Actor.emptyBehavior
+  }
+
+  class LabTestActor extends Actor {
+    override def receive: Receive = {
+      case message: String => sender() ! message.toUpperCase()
+    }
   }
 
 }
