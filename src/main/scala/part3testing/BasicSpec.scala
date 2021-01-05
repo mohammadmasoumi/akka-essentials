@@ -3,7 +3,6 @@ package part3testing
 import akka.actor.{Actor, ActorSystem, Props}
 import akka.testkit.{ImplicitSender, TestKit}
 import org.scalatest.{BeforeAndAfterAll, WordSpecLike}
-import part3testing.BasicSpec.SimpleActor
 
 // BEST PATTERN: end with `Spec` key
 class BasicSpec extends TestKit(ActorSystem("BasicSpec"))
@@ -15,6 +14,7 @@ class BasicSpec extends TestKit(ActorSystem("BasicSpec"))
   override def afterAll(): Unit = {
     TestKit.shutdownActorSystem(system) // system is a member of test kit.
   }
+
   import BasicSpec._
 
   // test suit
@@ -33,7 +33,7 @@ class BasicSpec extends TestKit(ActorSystem("BasicSpec"))
   // test suit
   "A blackhole actor" should {
     // testcase-1
-    "send back the same message" in {
+    "send back some message" in {
       // testing scenario
       val blackholeActor = system.actorOf(Props[SimpleActor])
       val message = "hello test"
@@ -51,7 +51,9 @@ object BasicSpec {
       case message => sender() ! message
     }
   }
+
   class BlackHole extends Actor {
     override def receive: Receive = Actor.emptyBehavior
   }
+
 }
