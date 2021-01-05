@@ -36,11 +36,11 @@ class BasicSpec extends TestKit(ActorSystem("BasicSpec"))
     // testcase-1
     "send back some message" in {
       // testing scenario
-      val blackholeActor = system.actorOf(Props[SimpleActor])
+      val blackholeActor = system.actorOf(Props[BlackHole])
       val message = "hello test"
       blackholeActor ! message
 
-      expectMsg(message)
+      expectNoMessage(1 second)
     }
   }
 }
