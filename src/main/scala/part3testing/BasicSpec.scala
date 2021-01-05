@@ -1,6 +1,6 @@
 package part3testing
 
-import akka.actor.ActorSystem
+import akka.actor.{Actor, ActorSystem}
 import akka.testkit.{ImplicitSender, TestKit}
 import org.scalatest.{BeforeAndAfterAll, WordSpecLike}
 
@@ -10,17 +10,22 @@ class BasicSpec extends TestKit(ActorSystem("BasicSpec"))
   with WordSpecLike
   with BeforeAndAfterAll {
 
-  // setup
+  // setup - tear down
   override def afterAll(): Unit = {
     TestKit.shutdownActorSystem(system) // system is a member of test kit.
   }
-  "The thing being tested" should { // test suit
+  "A simple actor" should { // test suit
     "do this" in { // testcase-1
       // testing scenario
     }
-    "do another thing" in { // testcase-2
-      // testing scenario
+  }
+}
+
+object BasicSpec {
+
+  class SimpleActor extends Actor {
+    override def receive: Receive = {
+      case message => sender() ! message
     }
   }
-
 }
