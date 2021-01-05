@@ -3,6 +3,7 @@ package part3testing
 import akka.actor.{Actor, ActorSystem, Props}
 import akka.testkit.{ImplicitSender, TestKit}
 import org.scalatest.{BeforeAndAfterAll, WordSpecLike}
+import scala.concurrent.duration._
 
 // BEST PATTERN: end with `Spec` key
 class BasicSpec extends TestKit(ActorSystem("BasicSpec"))
@@ -26,7 +27,7 @@ class BasicSpec extends TestKit(ActorSystem("BasicSpec"))
       val message = "hello test"
       echoActor ! message
 
-      expectMsg(message)
+      expectMsg(message) // akka.test.single-expect-default
     }
   }
 
