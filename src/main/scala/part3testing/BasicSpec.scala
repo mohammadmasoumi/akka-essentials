@@ -85,6 +85,10 @@ class BasicSpec extends TestKit(ActorSystem("BasicSpec"))
 
     "reply with coll tech in a different way" in {
       labTestActor ! "favoriteTech"
+      val messages = receiveN(2) // Sqa[Any]
+
+      println(s"message: $messages")
+      // free to do more complicated assertion
     }
   }
 
