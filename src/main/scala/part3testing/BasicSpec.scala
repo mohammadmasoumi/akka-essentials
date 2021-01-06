@@ -3,6 +3,7 @@ package part3testing
 import akka.actor.{Actor, ActorSystem, Props}
 import akka.testkit.{ImplicitSender, TestKit}
 import org.scalatest.{BeforeAndAfterAll, WordSpecLike}
+
 import scala.concurrent.duration._
 
 // BEST PATTERN: end with `Spec` key
@@ -23,6 +24,7 @@ class BasicSpec extends TestKit(ActorSystem("BasicSpec"))
   }
 
   // test section
+
   import BasicSpec._
 
   // test suit
@@ -56,10 +58,15 @@ class BasicSpec extends TestKit(ActorSystem("BasicSpec"))
 
     "turn a string into uppercase" in {
       labTestActor ! "I love Akka"
+
+      // Assertion
       expectMsg("I LOVE AKKA")
+      // Or
+      val reply = expectMsgType[String]
+      assert(reply == "I LOVE AKKA")
+
     }
   }
-
 
 
 }
