@@ -60,8 +60,14 @@ class BasicSpec extends TestKit(ActorSystem("BasicSpec"))
     "turn a string into uppercase" in {
       labTestActor ! "I love Akka"
 
-      // Assertion
-      expectMsg("I LOVE AKKA")
+      /**
+       * expectMsg("I LOVE AKKA")
+       * Or
+       * val reply = expectMsgType[String]
+       * assert(reply == "I LOVE AKKA")
+       */
+
+      // expectMsg("I LOVE AKKA")
       // Or
       val reply = expectMsgType[String]
       assert(reply == "I LOVE AKKA")
@@ -70,6 +76,11 @@ class BasicSpec extends TestKit(ActorSystem("BasicSpec"))
     "reply to a greeting" in {
       labTestActor ! "greeting"
       expectMsgAnyOf("hi", "hello")
+    }
+
+    "reply with favorite tech" in {
+      labTestActor ! "favoriteTech"
+      expectMsgAllOf("Scala", "Akka")
     }
   }
 
