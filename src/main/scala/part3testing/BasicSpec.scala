@@ -65,7 +65,11 @@ class BasicSpec extends TestKit(ActorSystem("BasicSpec"))
       // Or
       val reply = expectMsgType[String]
       assert(reply == "I LOVE AKKA")
+    }
 
+    "reply to a greeting" in {
+      labTestActor ! "greeting"
+      expectMsgAnyOf("hi", "hello")
     }
   }
 
@@ -88,8 +92,11 @@ object BasicSpec {
     val random = new Random()
 
     override def receive: Receive = {
-      case "GREETING" =>
+      case "greeting" =>
         if (random.nextBoolean()) sender() ! "hi" else sender() ! "hello"
+      case "favoriteTech" =>
+        sender() ! "Scala"
+        sender() ! "Akka"
       case message: String => sender() ! message.toUpperCase()
     }
   }
