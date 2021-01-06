@@ -5,6 +5,7 @@ import akka.testkit.{ImplicitSender, TestKit}
 import org.scalatest.{BeforeAndAfterAll, WordSpecLike}
 
 import scala.concurrent.duration._
+import scala.util.Random
 
 // BEST PATTERN: end with `Spec` key
 class BasicSpec extends TestKit(ActorSystem("BasicSpec"))
@@ -84,7 +85,11 @@ object BasicSpec {
   }
 
   class LabTestActor extends Actor {
+    val random = new Random()
+
     override def receive: Receive = {
+      case "GREETING" =>
+        if (random.nextBoolean()) sender() ! "hi" else sender() ! "hello"
       case message: String => sender() ! message.toUpperCase()
     }
   }
