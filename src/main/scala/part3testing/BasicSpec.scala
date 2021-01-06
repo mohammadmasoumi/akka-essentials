@@ -82,6 +82,10 @@ class BasicSpec extends TestKit(ActorSystem("BasicSpec"))
       labTestActor ! "favoriteTech"
       expectMsgAllOf("Scala", "Akka")
     }
+
+    "reply with coll tech in a different way" in {
+
+    }
   }
 
 
