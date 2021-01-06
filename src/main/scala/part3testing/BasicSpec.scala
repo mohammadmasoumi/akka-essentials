@@ -55,7 +55,8 @@ class BasicSpec extends TestKit(ActorSystem("BasicSpec"))
     val labTestActor = system.actorOf(Props[LabTestActor])
 
     "turn a string into uppercase" in {
-
+      labTestActor ! "I love Akka"
+      expectMsg("I LOVE AKKA")
     }
   }
 
