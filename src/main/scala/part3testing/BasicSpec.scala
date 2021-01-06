@@ -90,6 +90,16 @@ class BasicSpec extends TestKit(ActorSystem("BasicSpec"))
       println(s"message: $messages")
       // free to do more complicated assertion
     }
+
+    "reply with cool tech in a fancy way" in {
+      labTestActor ! "favoriteTech"
+      expectMsgPF() {
+        case "Scala" => // only care that the PF defined
+        case "Akka" =>
+      }
+    }
+
+
   }
 
 
