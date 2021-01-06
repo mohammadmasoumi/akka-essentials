@@ -84,7 +84,7 @@ class BasicSpec extends TestKit(ActorSystem("BasicSpec"))
     }
 
     "reply with coll tech in a different way" in {
-
+      labTestActor ! "favoriteTech"
     }
   }
 
