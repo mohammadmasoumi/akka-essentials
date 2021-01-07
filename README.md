@@ -18,6 +18,7 @@ therefore I've created this project to share what I've learned.
 
  - **Section 4**
     - [BasicSpecRecap][110]
+    - [TestProbeSpecRecap][111]
 
 
 ### Courses
@@ -33,7 +34,7 @@ therefore I've created this project to share what I've learned.
 [5]: https://github.com/mohammadmasoumi/akka-essentials/tree/main/src/main/scala/part2actors
 [6]: https://github.com/mohammadmasoumi/akka-essentials/tree/main/src/main/scala/part3testing
 
-
-
 [100]: https://github.com/mohammadmasoumi/akka-essentials/blob/main/src/main/scala/part2actors/ChildActorRecap.md
+
 [110]: https://github.com/mohammadmasoumi/akka-essentials/blob/main/src/main/scala/part3testing/BasicSpecRecap.md
+[111]: https://github.com/mohammadmasoumi/akka-essentials/blob/main/src/main/scala/part3testing/TestProbeSpecRecap.md
