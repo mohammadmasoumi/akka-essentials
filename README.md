@@ -12,10 +12,12 @@ therefore I've created this project to share what I've learned.
 
 
 ## Recap
+    
+ - **Section 3**
+   - [ChildActorRecap][100]
 
  - **Section 4**
-    - [BasicSpecRecap][20]
-
+    - [BasicSpecRecap][110]
 
 
 ### Courses
@@ -33,4 +35,5 @@ therefore I've created this project to share what I've learned.
 
 
 
-[20]: https://google.com
+[100]: https://github.com/mohammadmasoumi/akka-essentials/blob/main/src/main/scala/part2actors/ChildActorRecap.md
+[110]: https://github.com/mohammadmasoumi/akka-essentials/blob/main/src/main/scala/part3testing/BasicSpecRecap.md
