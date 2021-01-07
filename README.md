@@ -6,29 +6,17 @@ therefore I've created this project to share what I've learned.
 
 ## subjects
 
- - [advanced scala and multithreading recap][4]
- - [introduction to actors][5]
+ - [Section 2: Scala and Parallel Programming Recap][4]
+ - [Section 3: Akka Actors][5]
+ - [Section 4: Testing Akka Actors][6]
 
 
-## child actor(recap)
+## Recap
 
- - actors can create other actors
- ```scala
- context.actorOf(Props[MyActor], "child")
- ```
- - top-level supervisors(guardians)
-    - /system
-    - /user
-    - the root guardian / 
- - actor paths
- ```
- /user/parent/child
- ```
- - actor selections
- ```scala
- system.actorSelection("/user/parent/child")
- context.actorSelection("/user/parent/child")
- ```
+ - **Section 4**
+    - [BasicSpecRecap][20]
+
+
 
 ### Courses
 
@@ -41,3 +29,8 @@ therefore I've created this project to share what I've learned.
 [3]: https://www.udemy.com/course/rock-the-jvm-scala-for-beginners/learn/lecture/7660552#overview
 [4]: https://github.com/mohammadmasoumi/akka-essentials/tree/main/src/main/scala/part1recap
 [5]: https://github.com/mohammadmasoumi/akka-essentials/tree/main/src/main/scala/part2actors
+[6]: https://github.com/mohammadmasoumi/akka-essentials/tree/main/src/main/scala/part3testing
+
+
+
+[20]: https://google.com
