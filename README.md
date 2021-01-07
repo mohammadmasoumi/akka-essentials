@@ -38,4 +38,4 @@ therefore I've created this project to share what I've learned.
 
 [110]: https://github.com/mohammadmasoumi/akka-essentials/blob/main/src/main/scala/part3testing/BasicSpecRecap.md
 [111]: https://github.com/mohammadmasoumi/akka-essentials/blob/main/src/main/scala/part3testing/TestProbeSpecRecap.md
-[111]: https://github.com/mohammadmasoumi/akka-essentials/blob/main/src/main/scala/part3testing/TimedAssertionSpecRecap.md
+[112]: https://github.com/mohammadmasoumi/akka-essentials/blob/main/src/main/scala/part3testing/TimedAssertionSpecRecap.md
