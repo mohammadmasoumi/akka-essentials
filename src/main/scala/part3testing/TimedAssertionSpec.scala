@@ -51,8 +51,6 @@ class TimedAssertionSpec extends TestKit(
         probe.expectMsg(WorkResult(42)) // timeout of 0.3 seconds
       }
     }
-
-
   }
 }
 
