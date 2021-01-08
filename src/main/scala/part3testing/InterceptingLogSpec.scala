@@ -29,6 +29,7 @@ object InterceptingLogSpec {
     def awaitingCheckout: Receive = {
       case Checkout(item, creditCard) =>
         paymentManager ! AuthorizeCard(creditCard)
+        context.become(pending)
     }
   }
 
