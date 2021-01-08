@@ -17,8 +17,8 @@ class InterceptingLogSpec extends TestKit(ActorSystem("InterceptingLogSpec"))
 object InterceptingLogSpec {
 
   case class Checkout(item: String, creditCard: String)
-
   case class AuthorizeCard(creditCard: String)
+  case object PaymentAccepted
 
   class CheckOutActor extends Actor {
     private val paymentManager = context.actorOf(Props[PaymentManager])
