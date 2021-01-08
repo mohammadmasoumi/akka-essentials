@@ -37,7 +37,7 @@ object InterceptingLogSpec {
     }
 
     def pendingPayment(item: String): Receive = {
-
+      case PaymentAccepted =>
     }
   }
 
