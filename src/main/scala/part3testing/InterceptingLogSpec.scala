@@ -20,6 +20,8 @@ object InterceptingLogSpec {
 
   case class AuthorizeCard(creditCard: String)
 
+  case class DispatchOrder(item: String)
+
   case object PaymentAccepted
 
   case object PaymentDenied
@@ -38,6 +40,7 @@ object InterceptingLogSpec {
 
     def pendingPayment(item: String): Receive = {
       case PaymentAccepted =>
+        fulfillmentManager ! DispatchOrder(item)
     }
   }
 
