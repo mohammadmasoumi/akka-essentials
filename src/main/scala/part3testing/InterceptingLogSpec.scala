@@ -19,6 +19,7 @@ object InterceptingLogSpec {
   case class Checkout(item: String, creditCard: String)
   case class AuthorizeCard(creditCard: String)
   case object PaymentAccepted
+  case object PaymentDenied
 
   class CheckOutActor extends Actor {
     private val paymentManager = context.actorOf(Props[PaymentManager])
