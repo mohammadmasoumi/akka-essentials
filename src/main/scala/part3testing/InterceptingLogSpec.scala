@@ -17,8 +17,11 @@ class InterceptingLogSpec extends TestKit(ActorSystem("InterceptingLogSpec"))
 object InterceptingLogSpec {
 
   case class Checkout(item: String, creditCard: String)
+
   case class AuthorizeCard(creditCard: String)
+
   case object PaymentAccepted
+
   case object PaymentDenied
 
   class CheckOutActor extends Actor {
@@ -30,7 +33,11 @@ object InterceptingLogSpec {
     def awaitingCheckout: Receive = {
       case Checkout(item, creditCard) =>
         paymentManager ! AuthorizeCard(creditCard)
-        context.become(pending)
+        context.become(pendingPayment(item))
+    }
+
+    def pendingPayment(item: String): Receive = {
+
     }
   }
 
