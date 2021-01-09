@@ -26,7 +26,7 @@ object InterceptingLogSpec {
 
   case object PaymentDenied
 
-  case object orderConfirmed
+  case object OrderConfirmed
 
   class CheckOutActor extends Actor {
     private val paymentManager = context.actorOf(Props[PaymentManager])
@@ -73,6 +73,7 @@ object InterceptingLogSpec {
     def FulfillmentHandler(orderId: Int = 0): Receive = {
       case DispatchOrder(item: String) =>
         val newOrderId = orderId + 1
+        sender() ! OrderConfirmed
         context.become(FulfillmentHandler(newOrderId))
     }
   }
