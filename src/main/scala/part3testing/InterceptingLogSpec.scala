@@ -1,7 +1,7 @@
 package part3testing
 
 import akka.actor.{Actor, ActorLogging, ActorSystem, Props}
-import akka.testkit.{ImplicitSender, TestKit}
+import akka.testkit.{EventFilter, ImplicitSender, TestKit}
 import org.scalatest.{BeforeAndAfterAll, WordSpecLike}
 
 class InterceptingLogSpec extends TestKit(ActorSystem("InterceptingLogSpec"))
@@ -12,6 +12,16 @@ class InterceptingLogSpec extends TestKit(ActorSystem("InterceptingLogSpec"))
   override def afterAll(): Unit = {
     TestKit.shutdownActorSystem(system)
   }
+
+  import InterceptingLogSpec._
+
+  "A checkout flow" should {
+    "correctly log the dispatch of an order" in {
+      EventFilter.info(pattern = s"Order: ")
+    }
+
+  }
+
 }
 
 object InterceptingLogSpec {
@@ -43,11 +53,11 @@ object InterceptingLogSpec {
 
     def pendingPayment(item: String): Receive = {
       case PaymentAccepted =>
-        log.info(s"Payment for item: $item has been done successfully!")
+        log.info(s"Payment for item $item has been done successfully!")
         fulfillmentManager ! DispatchOrder(item)
         context.become(pendingFulfillment(item))
       case PaymentDenied =>
-        log.info(s"Payment for item: $item has been failed!")
+        log.info(s"Payment for item $item has been failed!")
         context.become(awaitingCheckout)
     }
 
@@ -63,10 +73,10 @@ object InterceptingLogSpec {
       case AuthorizeCard(card: String) =>
         log.info(s"Authorizing card: $card")
         if (card.startsWith("0")) {
-          log.info(s"Card: $card has been authorized successfully!")
+          log.info(s"Card $card has been authorized successfully!")
           sender() ! PaymentDenied
         } else {
-          log.info(s"Card: $card is unauthorized!")
+          log.info(s"Card $card is unauthorized!")
           sender() ! PaymentAccepted
         }
     }
@@ -80,7 +90,7 @@ object InterceptingLogSpec {
     def FulfillmentHandler(orderId: Int = 0): Receive = {
       case DispatchOrder(item: String) =>
         val newOrderId = orderId + 1
-        log.info(s"Order: $newOrderId for item: $item has been dispatched!")
+        log.info(s"Order $newOrderId for item $item has been dispatched!")
 
         sender() ! OrderConfirmed
         context.become(FulfillmentHandler(newOrderId))
