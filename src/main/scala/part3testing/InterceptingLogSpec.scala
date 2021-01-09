@@ -64,12 +64,16 @@ object InterceptingLogSpec {
 
   class FulfillmentManager extends Actor {
     var orderId = 0
+
     override def receive: Receive = {
       case DispatchOrder(item: String) =>
         orderId += 1
     }
-    def FulfillmentHandler(orderId: Int = 0): Receive = {
 
+    def FulfillmentHandler(orderId: Int = 0): Receive = {
+      case DispatchOrder(item: String) =>
+        val newOrderId = orderId + 1
+        context.become(FulfillmentHandler(newOrderId))
     }
   }
 
