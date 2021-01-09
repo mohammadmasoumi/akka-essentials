@@ -26,7 +26,7 @@ object InterceptingLogSpec {
 
   case object PaymentDenied
 
-  case object orderConfirm
+  case object orderConfirmed
 
   class CheckOutActor extends Actor {
     private val paymentManager = context.actorOf(Props[PaymentManager])
@@ -48,15 +48,29 @@ object InterceptingLogSpec {
 
     def pendingFulfillment(item: String): Receive = {
       case DispatchOrder =>
+
     }
   }
 
   class PaymentManager extends Actor {
-    override def receive: Receive = ???
+    override def receive: Receive = {
+      case AuthorizeCard(card: String) =>
+        if (card.startsWith("0"))
+          sender() ! PaymentDenied
+        else
+          sender() ! PaymentAccepted
+    }
   }
 
   class FulfillmentManager extends Actor {
-    override def receive: Receive = ???
+    var orderId = 0
+    override def receive: Receive = {
+      case DispatchOrder(item: String) =>
+        orderId += 1
+    }
+    def FulfillmentHandler(orderId: Int = 0): Receive = {
+
+    }
   }
 
 }
