@@ -32,7 +32,7 @@ object InterceptingLogSpec {
     private val paymentManager = context.actorOf(Props[PaymentManager])
     private val fulfillmentManager = context.actorOf(Props[FulfillmentManager])
 
-    override def receive: Receive = ???
+    override def receive: Receive = awaitingCheckout
 
     def awaitingCheckout: Receive = {
       case Checkout(item, creditCard) =>
