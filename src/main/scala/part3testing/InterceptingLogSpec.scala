@@ -44,7 +44,10 @@ object InterceptingLogSpec {
       case PaymentAccepted =>
         fulfillmentManager ! DispatchOrder(item)
         context.become(pendingFulfillment(item))
+      case PaymentDenied =>
+        context.become(awaitingCheckout)
     }
+
 
     def pendingFulfillment(item: String): Receive = {
       case OrderConfirmed => context.become(awaitingCheckout)
