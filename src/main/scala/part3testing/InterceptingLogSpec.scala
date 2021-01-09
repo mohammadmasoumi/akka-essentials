@@ -2,9 +2,10 @@ package part3testing
 
 import akka.actor.{Actor, ActorLogging, ActorSystem, Props}
 import akka.testkit.{EventFilter, ImplicitSender, TestKit}
+import com.typesafe.config.ConfigFactory
 import org.scalatest.{BeforeAndAfterAll, WordSpecLike}
 
-class InterceptingLogSpec extends TestKit(ActorSystem("InterceptingLogSpec"))
+class InterceptingLogSpec extends TestKit(ActorSystem("InterceptingLogSpec", ConfigFactory.load().getConfig("interceptingLogMessaging")))
   with ImplicitSender
   with WordSpecLike
   with BeforeAndAfterAll {
