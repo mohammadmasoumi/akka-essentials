@@ -47,7 +47,7 @@ object InterceptingLogSpec {
     }
 
     def pendingFulfillment(item: String): Receive = {
-      case DispatchOrder =>
+      case OrderConfirmed => context.become(awaitingCheckout)
 
     }
   }
