@@ -1,6 +1,6 @@
 package part3testing
 
-import akka.actor.{Actor, ActorSystem, Props}
+import akka.actor.{Actor, ActorLogging, ActorSystem, Props}
 import akka.testkit.{ImplicitSender, TestKit}
 import org.scalatest.{BeforeAndAfterAll, WordSpecLike}
 
@@ -28,7 +28,7 @@ object InterceptingLogSpec {
 
   case object OrderConfirmed
 
-  class CheckOutActor extends Actor {
+  class CheckOutActor extends Actor with ActorLogging {
     private val paymentManager = context.actorOf(Props[PaymentManager])
     private val fulfillmentManager = context.actorOf(Props[FulfillmentManager])
 
@@ -36,15 +36,18 @@ object InterceptingLogSpec {
 
     def awaitingCheckout: Receive = {
       case Checkout(item, creditCard) =>
+        log.info(s"Checkout processing for item: $item has been initialized successfully!")
         paymentManager ! AuthorizeCard(creditCard)
         context.become(pendingPayment(item))
     }
 
     def pendingPayment(item: String): Receive = {
       case PaymentAccepted =>
+        log.info(s"Payment for item: $item has been done successfully!")
         fulfillmentManager ! DispatchOrder(item)
         context.become(pendingFulfillment(item))
       case PaymentDenied =>
+        log.info(s"Payment for item: $item has been failed!")
         context.become(awaitingCheckout)
     }
 
@@ -55,17 +58,21 @@ object InterceptingLogSpec {
     }
   }
 
-  class PaymentManager extends Actor {
+  class PaymentManager extends Actor with ActorLogging {
     override def receive: Receive = {
       case AuthorizeCard(card: String) =>
-        if (card.startsWith("0"))
+        log.info(s"Authorizing card: $card")
+        if (card.startsWith("0")) {
+          log.info(s"Card: $card has been authorized successfully!")
           sender() ! PaymentDenied
-        else
+        } else {
+          log.info(s"Card: $card is unauthorized!")
           sender() ! PaymentAccepted
+        }
     }
   }
 
-  class FulfillmentManager extends Actor {
+  class FulfillmentManager extends Actor with ActorLogging {
     var orderId = 0
 
     override def receive: Receive = FulfillmentHandler()
@@ -73,6 +80,8 @@ object InterceptingLogSpec {
     def FulfillmentHandler(orderId: Int = 0): Receive = {
       case DispatchOrder(item: String) =>
         val newOrderId = orderId + 1
+        log.info(s"Order: $newOrderId for item: $item has been dispatched!")
+
         sender() ! OrderConfirmed
         context.become(FulfillmentHandler(newOrderId))
     }
