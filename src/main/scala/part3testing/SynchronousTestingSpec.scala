@@ -1,7 +1,7 @@
 package part3testing
 
 import akka.actor.{Actor, ActorLogging, ActorSystem, Props}
-import akka.testkit.TestActorRef
+import akka.testkit.{CallingThreadDispatcher, TestActorRef, TestProbe}
 import org.scalatest.{BeforeAndAfterAll, WordSpecLike}
 
 class SynchronousTestingSpec extends WordSpecLike with BeforeAndAfterAll {
@@ -19,14 +19,21 @@ class SynchronousTestingSpec extends WordSpecLike with BeforeAndAfterAll {
     "synchronously increase its counter" in {
       val counter = TestActorRef[Counter](Props[Counter])
       counter ! Inc // counter has already received the message
+      counter ! Read
     }
     "synchronously increase its counter at the call of the receive function" in {
       val counter = TestActorRef[Counter](Props[Counter])
       counter.receive(Inc)
     }
 
-  }
+    "work on the calling thread dispatcher" in {
+      val counter = system.actorOf(Props[Counter].withDispatcher(CallingThreadDispatcher.Id))
+      val probe = TestProbe()
 
+      probe.send(counter, Read)
+      probe.expectMsg(0)
+    }
+  }
 }
 
 object SynchronousTestingSpec {
