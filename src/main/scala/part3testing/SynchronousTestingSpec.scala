@@ -1,8 +1,7 @@
 package part3testing
 
-import akka.actor.ActorSystem
-import akka.testkit.TestKit
+import org.scalatest.{BeforeAndAfterAll, WordSpecLike}
 
-class SynchronousTestingSpec extends TestKit(ActorSystem("SynchronousTestingSpec")) {
+class SynchronousTestingSpec extends WordSpecLike with BeforeAndAfterAll {
 
 }
