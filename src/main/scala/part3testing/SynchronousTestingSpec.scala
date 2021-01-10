@@ -4,6 +4,8 @@ import akka.actor.{Actor, ActorLogging, ActorSystem, Props}
 import akka.testkit.{CallingThreadDispatcher, TestActorRef, TestProbe}
 import org.scalatest.{BeforeAndAfterAll, WordSpecLike}
 
+import scala.concurrent.duration._
+
 class SynchronousTestingSpec extends WordSpecLike with BeforeAndAfterAll {
 
   implicit val system = ActorSystem("SynchronousTestingSpec")
@@ -21,9 +23,11 @@ class SynchronousTestingSpec extends WordSpecLike with BeforeAndAfterAll {
       counter ! Inc // counter has already received the message
       counter ! Read
     }
+
     "synchronously increase its counter at the call of the receive function" in {
       val counter = TestActorRef[Counter](Props[Counter])
       counter.receive(Inc)
+      counter.receive(Read)
     }
 
     "work on the calling thread dispatcher" in {
@@ -31,7 +35,7 @@ class SynchronousTestingSpec extends WordSpecLike with BeforeAndAfterAll {
       val probe = TestProbe()
 
       probe.send(counter, Read)
-      probe.expectMsg(0)
+      probe.expectMsg(Duration.Zero, 0) //  probe has ALREADY RECEIVED THE MESSAGE 0
     }
   }
 }
