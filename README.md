@@ -21,6 +21,7 @@ therefore I've created this project to share what I've learned.
     - [TestProbeSpecRecap][111]
     - [TimedAssertionSpecRecap][112]
     - [InterceptingLogSpecRecap][113]
+    - [SynchronousTestingSpecRecap][114]
 
 
 ### Courses
@@ -41,3 +42,4 @@ therefore I've created this project to share what I've learned.
 [111]: https://github.com/mohammadmasoumi/akka-essentials/blob/main/src/main/scala/part3testing/TestProbeSpecRecap.md
 [112]: https://github.com/mohammadmasoumi/akka-essentials/blob/main/src/main/scala/part3testing/TimedAssertionSpecRecap.md
 [113]: https://github.com/mohammadmasoumi/akka-essentials/blob/main/src/main/scala/part3testing/InterceptingLogSpecRecap.md
+[114]: https://github.com/mohammadmasoumi/akka-essentials/blob/main/src/main/scala/part3testing/SynchronousTestingSpecRecap.md
