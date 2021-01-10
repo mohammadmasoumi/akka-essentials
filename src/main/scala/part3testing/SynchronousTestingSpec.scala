@@ -1,9 +1,15 @@
 package part3testing
 
-import akka.actor.{Actor, ActorLogging}
+import akka.actor.{Actor, ActorLogging, ActorSystem}
 import org.scalatest.{BeforeAndAfterAll, WordSpecLike}
 
 class SynchronousTestingSpec extends WordSpecLike with BeforeAndAfterAll {
+
+  val system = ActorSystem("SynchronousTestingSpec")
+
+  override def afterAll(): Unit = {
+    system.terminate()
+  }
 
 }
 
