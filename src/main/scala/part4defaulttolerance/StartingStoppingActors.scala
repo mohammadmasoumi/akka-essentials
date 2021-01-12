@@ -2,7 +2,7 @@ package part4defaulttolerance
 
 import akka.actor.{Actor, ActorLogging, ActorRef, ActorSystem, Props}
 
-class StartingStoppingActors extends App {
+object StartingStoppingActors extends App {
 
   val system = ActorSystem("StoppingActorDemo")
 
@@ -17,7 +17,10 @@ class StartingStoppingActors extends App {
       case StartChild(name) =>
         log.info(s"Starting child $name")
         context.become(withChildren(children + (name -> context.actorOf(Props[Child], name))))
-
+      case StopChild(name) =>
+        log.info(s"Stopping child with name $name")
+        val childOption = children.get(name)
+        childOption.foreach(child => context.stop(child))
     }
   }
 
@@ -38,6 +41,7 @@ class StartingStoppingActors extends App {
   }
 
   // testing scenarios
+
   import Parent._
 
   val parent = system.actorOf(Props[Parent], "parent")
