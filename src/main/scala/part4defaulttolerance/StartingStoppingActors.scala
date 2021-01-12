@@ -28,6 +28,11 @@ object StartingStoppingActors extends App {
 
       case Stop =>
         log.info("Stopping myself!")
+
+        /**
+         * Asynchronous
+         * Also stops all its children!
+         */
         context.stop(self)
     }
   }
@@ -60,5 +65,11 @@ object StartingStoppingActors extends App {
 
   parent ! StopChild("child1")
   for (_ <- 1 to 50) child ! "Are you there?"
+
+  // creating another child
+  parent ! StartChild("child2")
+  val child2 = system.actorSelection("/user/parent/child2 ")
+
+
 
 }
