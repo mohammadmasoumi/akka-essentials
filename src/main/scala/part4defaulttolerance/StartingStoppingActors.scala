@@ -32,6 +32,9 @@ object StartingStoppingActors extends App {
         /**
          * Asynchronous
          * Also stops all its children!
+         *
+         * first, stops all its children.
+         * then, stops himself as well.
          */
         context.stop(self)
     }
@@ -60,21 +63,21 @@ object StartingStoppingActors extends App {
   val parent = system.actorOf(Props[Parent], "parent")
   parent ! StartChild("child1")
 
-  val child = system.actorSelection("/user/parent/child1")
-  child ! "Hi kid!"
+  val child1 = system.actorSelection("/user/parent/child1")
+  child1 ! "Hi kid!"
 
   parent ! StopChild("child1")
-  for (_ <- 1 to 50) child ! "Are you there?"
+  for (i <- 1 to 50) child1 ! "[FIRST CHILD $i]: Are you there?"
 
   // creating another child
   parent ! StartChild("child2")
   val child2 = system.actorSelection("/user/parent/child2 ")
-  child2 ! "hi, seocnd child"
+  child2 ! "hi, second child"
 
   // parent stops himself and its children
-  parent ! Stop
-  for (_ <- 1 to 10) parent ! "parent, Are you still there?"
-  for (I <- 1 to 100) child2 ! s"[$I]: second kid, Are you still alive?"
+  //  parent ! Stop
+  for (i <- 1 to 10) parent ! "[PARENT $i]: Are you still there?"
+  for (i <- 1 to 100) child2 ! s"[SECOND CHILD $i]: second kid, Are you still alive?"
 
 
 }
