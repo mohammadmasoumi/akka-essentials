@@ -25,6 +25,10 @@ object StartingStoppingActors extends App {
          * context.stop() is a non-blocking method! asynchronously!
          */
         childOption.foreach(child => context.stop(child))
+
+      case Stop =>
+        log.info("Stopping myself!")
+        context.stop(self)
     }
   }
 
