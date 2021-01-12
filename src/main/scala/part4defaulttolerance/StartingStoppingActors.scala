@@ -69,7 +69,12 @@ object StartingStoppingActors extends App {
   // creating another child
   parent ! StartChild("child2")
   val child2 = system.actorSelection("/user/parent/child2 ")
+  child2 ! "hi, seocnd child"
 
+  // parent stops himself and its children
+  parent ! Stop
+  for (_ <- 1 to 10) parent ! "parent, Are you still there?"
+  for (I <- 1 to 100) child2 ! s"[$I]: second kid, Are you still alive?"
 
 
 }
