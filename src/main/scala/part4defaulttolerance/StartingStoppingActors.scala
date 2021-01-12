@@ -14,8 +14,8 @@ class StartingStoppingActors extends App {
   object Parent {
     case class StartChild(name: String)
     case class StopChild(name: String)
+    case object Stop
   }
-
 
   class Child extends Actor with ActorLogging {
     override def receive: Receive = {
