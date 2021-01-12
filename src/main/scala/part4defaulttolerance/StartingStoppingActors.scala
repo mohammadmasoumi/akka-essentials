@@ -8,9 +8,14 @@ class StartingStoppingActors extends App {
 
 
   class Parent extends Actor with ActorLogging {
+    import Parent._
+
     override def receive: Receive = withChildren(Map())
 
     def withChildren(children: Map[String, ActorRef]): Receive = {
+      case StartChild(name) =>
+        log.info(s"Starting child $name")
+        context.become(withChildren())
 
     }
   }
