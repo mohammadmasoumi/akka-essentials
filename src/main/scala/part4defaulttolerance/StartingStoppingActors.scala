@@ -20,6 +20,10 @@ object StartingStoppingActors extends App {
       case StopChild(name) =>
         log.info(s"Stopping child with name $name")
         val childOption = children.get(name)
+
+        /**
+         * context.stop() is a non-blocking method! asynchronously!
+         */
         childOption.foreach(child => context.stop(child))
     }
   }
@@ -49,5 +53,8 @@ object StartingStoppingActors extends App {
 
   val child = system.actorSelection("/user/parent/child1")
   child ! "Hi kid!"
+
+  parent ! StopChild("child1")
+  for (_ <- 1 to 50) child ! "Are you there?"
 
 }
