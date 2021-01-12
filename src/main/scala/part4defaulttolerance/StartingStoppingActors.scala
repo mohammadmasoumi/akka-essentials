@@ -55,6 +55,7 @@ object StartingStoppingActors extends App {
     }
   }
 
+  import Parent._
 
   /**
    * method #1 - using context.stop
@@ -84,15 +85,15 @@ object StartingStoppingActors extends App {
    * method #2 - using special messages
    */
 
-  val looseActor = system.actorOf(Props[Child])
-  looseActor ! "Hello, loose actor"
-  looseActor ! PoisonPill // so funny :) | commiting suicide
-  looseActor ! "Are you there?" // catch by dead letter
-
-  val abruptlyTerminatedActor = system.actorOf(Props[Child])
-  abruptlyTerminatedActor ! "You are about to be terminated!"
-  abruptlyTerminatedActor ! Kill // more severe than `PoisonPill`
-  abruptlyTerminatedActor ! "You have been terminated!"
+//  val looseActor = system.actorOf(Props[Child])
+//  looseActor ! "Hello, loose actor"
+//  looseActor ! PoisonPill // so funny :) | commiting suicide
+//  looseActor ! "Are you there?" // catch by dead letter
+//
+//  val abruptlyTerminatedActor = system.actorOf(Props[Child])
+//  abruptlyTerminatedActor ! "You are about to be terminated!"
+//  abruptlyTerminatedActor ! Kill // more severe than `PoisonPill`
+//  abruptlyTerminatedActor ! "You have been terminated!"
 
 
   /**
@@ -115,5 +116,13 @@ object StartingStoppingActors extends App {
         log.info(s"The reference that I've been watching $ref has been stoped!")
     }
   }
+
+  val watcher = system.actorOf(Props[Watcher], "watcher")
+  watcher ! StartChild("watchedChild")
+  val watchedChild = system.actorSelection("/user/watcher/watchedChild")
+
+  Thread.sleep(500)
+  watchedChild ! PoisonPill
+
 
 }
