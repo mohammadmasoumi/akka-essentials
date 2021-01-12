@@ -1,5 +1,14 @@
 package part4defaulttolerance
 
-class StartingStoppingActors {
+import akka.actor.{Actor, ActorSystem}
+
+class StartingStoppingActors extends App {
+
+  val system = ActorSystem("StoppingActorDemo")
+
+
+  class Parent extends Actor {
+    override def receive: Receive = ???
+  }
 
 }
