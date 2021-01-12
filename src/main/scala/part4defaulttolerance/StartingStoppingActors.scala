@@ -1,6 +1,6 @@
 package part4defaulttolerance
 
-import akka.actor.{Actor, ActorLogging, ActorRef, ActorSystem, Kill, PoisonPill, Props}
+import akka.actor.{Actor, ActorLogging, ActorRef, ActorSystem, Kill, PoisonPill, Props, Terminated}
 
 object StartingStoppingActors extends App {
 
@@ -79,6 +79,7 @@ object StartingStoppingActors extends App {
   //  for (i <- 1 to 10) parent ! "[PARENT $i]: Are you still there?"
   //  for (i <- 1 to 100) child2 ! s"[SECOND CHILD $i]: second kid, Are you still alive?"
 
+
   /**
    * method #2 - using special messages
    */
@@ -92,5 +93,27 @@ object StartingStoppingActors extends App {
   abruptlyTerminatedActor ! "You are about to be terminated!"
   abruptlyTerminatedActor ! Kill // more severe than `PoisonPill`
   abruptlyTerminatedActor ! "You have been terminated!"
+
+
+  /**
+   * Death watch
+   */
+  class Watcher extends Actor with ActorLogging {
+
+    import Parent._
+
+    override def receive: Receive = {
+      case StartChild(name: String) =>
+        val child = context.actorOf(Props[Child], name)
+        log.info(s"Started and watching child $name")
+
+        // register this actor for the death of child
+        // if this child dies, akka will send a Termination message to this Actor
+        context.watch(child)
+
+      case Terminated(ref) =>
+        log.info(s"The reference that I've been watching $ref has been stoped!")
+    }
+  }
 
 }
