@@ -61,26 +61,24 @@ object StartingStoppingActors extends App {
    * method #1 - using context.stop
    */
 
-  import Parent._
-
-  val parent = system.actorOf(Props[Parent], "parent")
-  parent ! StartChild("child1")
-
-  val child1 = system.actorSelection("/user/parent/child1")
-  child1 ! "Hi kid!"
-
-  parent ! StopChild("child1")
-  for (i <- 1 to 50) child1 ! "[FIRST CHILD $i]: Are you there?"
-
-  // creating another child
-  parent ! StartChild("child2")
-  val child2 = system.actorSelection("/user/parent/child2 ")
-  child2 ! "hi, second child"
-
-  // parent stops himself and its children
-  //  parent ! Stop
-  for (i <- 1 to 10) parent ! "[PARENT $i]: Are you still there?"
-  for (i <- 1 to 100) child2 ! s"[SECOND CHILD $i]: second kid, Are you still alive?"
+  //  val parent = system.actorOf(Props[Parent], "parent")
+  //  parent ! StartChild("child1")
+  //
+  //  val child1 = system.actorSelection("/user/parent/child1")
+  //  child1 ! "Hi kid!"
+  //
+  //  parent ! StopChild("child1")
+  //  for (i <- 1 to 50) child1 ! "[FIRST CHILD $i]: Are you there?"
+  //
+  //  // creating another child
+  //  parent ! StartChild("child2")
+  //  val child2 = system.actorSelection("/user/parent/child2 ")
+  //  child2 ! "hi, second child"
+  //
+  //  // parent stops himself and its children
+  //  //  parent ! Stop
+  //  for (i <- 1 to 10) parent ! "[PARENT $i]: Are you still there?"
+  //  for (i <- 1 to 100) child2 ! s"[SECOND CHILD $i]: second kid, Are you still alive?"
 
   /**
    * method #2 - using special messages
@@ -89,6 +87,6 @@ object StartingStoppingActors extends App {
   val looseActor = system.actorOf(Props[Child])
   looseActor ! "Hello, loose actor"
   looseActor ! PoisonPill // so funny :) | commiting suicide
-  looseActor ! "Are you there?"
+  looseActor ! "Are you there?" // catch by dead letter
 
 }
