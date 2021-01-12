@@ -1,6 +1,6 @@
 package part4defaulttolerance
 
-import akka.actor.{Actor, ActorLogging, ActorRef, ActorSystem}
+import akka.actor.{Actor, ActorLogging, ActorRef, ActorSystem, Props}
 
 class StartingStoppingActors extends App {
 
@@ -8,6 +8,7 @@ class StartingStoppingActors extends App {
 
 
   class Parent extends Actor with ActorLogging {
+
     import Parent._
 
     override def receive: Receive = withChildren(Map())
@@ -15,7 +16,7 @@ class StartingStoppingActors extends App {
     def withChildren(children: Map[String, ActorRef]): Receive = {
       case StartChild(name) =>
         log.info(s"Starting child $name")
-        context.become(withChildren())
+        context.become(withChildren(children + (name -> context.actorOf(Props[Child], name))))
 
     }
   }
