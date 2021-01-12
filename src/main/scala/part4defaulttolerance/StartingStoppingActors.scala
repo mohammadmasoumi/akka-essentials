@@ -11,6 +11,12 @@ class StartingStoppingActors extends App {
     override def receive: Receive = ???
   }
 
+  object Parent {
+    case class StartChild(name: String)
+    case class StopChild(name: String)
+  }
+
+
   class Child extends Actor with ActorLogging {
     override def receive: Receive = {
       case message => log.info(message.toString)
