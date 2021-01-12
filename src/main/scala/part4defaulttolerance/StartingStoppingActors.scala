@@ -1,6 +1,6 @@
 package part4defaulttolerance
 
-import akka.actor.{Actor, ActorLogging, ActorRef, ActorSystem, Props}
+import akka.actor.{Actor, ActorLogging, ActorRef, ActorSystem, PoisonPill, Props}
 
 object StartingStoppingActors extends App {
 
@@ -56,7 +56,10 @@ object StartingStoppingActors extends App {
     }
   }
 
-  // testing scenarios
+
+  /**
+   * method #1 - using context.stop
+   */
 
   import Parent._
 
@@ -79,5 +82,13 @@ object StartingStoppingActors extends App {
   for (i <- 1 to 10) parent ! "[PARENT $i]: Are you still there?"
   for (i <- 1 to 100) child2 ! s"[SECOND CHILD $i]: second kid, Are you still alive?"
 
+  /**
+   * method #2 - using special messages
+   */
+
+  val looseActor = system.actorOf(Props[Child])
+  looseActor ! "Hello, loose actor"
+  looseActor ! PoisonPill // so funny :) | commiting suicide
+  looseActor ! "Are you there?"
 
 }
