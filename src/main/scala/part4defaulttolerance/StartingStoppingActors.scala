@@ -1,11 +1,10 @@
 package part4defaulttolerance
 
-import akka.actor.{Actor, ActorLogging, ActorRef, ActorSystem, PoisonPill, Props}
+import akka.actor.{Actor, ActorLogging, ActorRef, ActorSystem, Kill, PoisonPill, Props}
 
 object StartingStoppingActors extends App {
 
   val system = ActorSystem("StoppingActorDemo")
-
 
   class Parent extends Actor with ActorLogging {
 
@@ -88,5 +87,10 @@ object StartingStoppingActors extends App {
   looseActor ! "Hello, loose actor"
   looseActor ! PoisonPill // so funny :) | commiting suicide
   looseActor ! "Are you there?" // catch by dead letter
+
+  val abruptlyTerminatedActor = system.actorOf(Props[Child])
+  abruptlyTerminatedActor ! "You are about to be terminated!"
+  abruptlyTerminatedActor ! Kill // more severe than `PoisonPill`
+  abruptlyTerminatedActor ! "You have been terminated!"
 
 }
