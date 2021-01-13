@@ -1,4 +1,4 @@
-# StartingStoppingActors
+# StartingStoppingActorsRecap
 
 
 ### Using `context.stop`
@@ -9,6 +9,6 @@
    ```
  - will recursively stop children(**asynchronously**)
    ```scala
-       context.stop(child) 
+   context.stop(child) 
    ```
    
