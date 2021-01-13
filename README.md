@@ -9,6 +9,7 @@ therefore I've created this project to share what I've learned.
  - [Section 2: Scala and Parallel Programming Recap][4]
  - [Section 3: Akka Actors][5]
  - [Section 4: Testing Akka Actors][6]
+ - [Section 5: Fault Tolerance][7]
 
 
 ## Recap
@@ -23,6 +24,9 @@ therefore I've created this project to share what I've learned.
     - [InterceptingLogSpecRecap][113]
     - [SynchronousTestingSpecRecap][114]
 
+ - **Section 5**
+    - [StartingStoppingActorsRecap][120]
+
 
 ### Courses
 
@@ -35,6 +39,7 @@ therefore I've created this project to share what I've learned.
 [4]: https://github.com/mohammadmasoumi/akka-essentials/tree/main/src/main/scala/part1recap
 [5]: https://github.com/mohammadmasoumi/akka-essentials/tree/main/src/main/scala/part2actors
 [6]: https://github.com/mohammadmasoumi/akka-essentials/tree/main/src/main/scala/part3testing
+[6]: https://github.com/mohammadmasoumi/akka-essentials/tree/main/src/main/scala/part4faulttalerance
 
 [100]: https://github.com/mohammadmasoumi/akka-essentials/blob/main/src/main/scala/part2actors/ChildActorRecap.md
 
@@ -43,3 +48,6 @@ therefore I've created this project to share what I've learned.
 [112]: https://github.com/mohammadmasoumi/akka-essentials/blob/main/src/main/scala/part3testing/TimedAssertionSpecRecap.md
 [113]: https://github.com/mohammadmasoumi/akka-essentials/blob/main/src/main/scala/part3testing/InterceptingLogSpecRecap.md
 [114]: https://github.com/mohammadmasoumi/akka-essentials/blob/main/src/main/scala/part3testing/SynchronousTestingSpecRecap.md
+
+
+[120]: https://github.com/mohammadmasoumi/akka-essentials/blob/main/src/main/scala/part3testing/StartingStoppingActorsRecap.md

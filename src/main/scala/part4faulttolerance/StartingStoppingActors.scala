@@ -1,4 +1,4 @@
-package part4defaulttolerance
+package part4faulttolerance
 
 import akka.actor.{Actor, ActorLogging, ActorRef, ActorSystem, Kill, PoisonPill, Props, Terminated}
 
