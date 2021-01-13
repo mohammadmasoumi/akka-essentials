@@ -61,40 +61,39 @@ object StartingStoppingActors extends App {
    * method #1 - using context.stop
    */
 
-  //  val parent = system.actorOf(Props[Parent], "parent")
-  //  parent ! StartChild("child1")
-  //
-  //  val child1 = system.actorSelection("/user/parent/child1")
-  //  child1 ! "Hi kid!"
-  //
-  //  parent ! StopChild("child1")
-  //  for (i <- 1 to 50) child1 ! "[FIRST CHILD $i]: Are you there?"
-  //
-  //  // creating another child
-  //  parent ! StartChild("child2")
-  //  val child2 = system.actorSelection("/user/parent/child2 ")
-  //  child2 ! "hi, second child"
-  //
-  //  // parent stops himself and its children
-  //  //  parent ! Stop
-  //  for (i <- 1 to 10) parent ! "[PARENT $i]: Are you still there?"
-  //  for (i <- 1 to 100) child2 ! s"[SECOND CHILD $i]: second kid, Are you still alive?"
+  val parent = system.actorOf(Props[Parent], "parent")
+  parent ! StartChild("child1")
+
+  val child1 = system.actorSelection("/user/parent/child1")
+  child1 ! "Hi kid!"
+
+  parent ! StopChild("child1")
+  for (i <- 1 to 50) child1 ! "[FIRST CHILD $i]: Are you there?"
+
+  // creating another child
+  parent ! StartChild("child2")
+  val child2 = system.actorSelection("/user/parent/child2 ")
+  child2 ! "hi, second child"
+
+  // parent stops himself and its children
+  //  parent ! Stop
+  for (i <- 1 to 10) parent ! "[PARENT $i]: Are you still there?"
+  for (i <- 1 to 100) child2 ! s"[SECOND CHILD $i]: second kid, Are you still alive?"
 
 
   /**
    * method #2 - using special messages
    */
 
-//  val looseActor = system.actorOf(Props[Child])
-//  looseActor ! "Hello, loose actor"
-//  looseActor ! PoisonPill // so funny :) | commiting suicide
-//  looseActor ! "Are you there?" // catch by dead letter
-//
-//  val abruptlyTerminatedActor = system.actorOf(Props[Child])
-//  abruptlyTerminatedActor ! "You are about to be terminated!"
-//  abruptlyTerminatedActor ! Kill // more severe than `PoisonPill`
-//  abruptlyTerminatedActor ! "You have been terminated!"
+  val looseActor = system.actorOf(Props[Child])
+  looseActor ! "Hello, loose actor"
+  looseActor ! PoisonPill // so funny :) | commiting suicide
+  looseActor ! "Are you there?" // catch by dead letter
 
+  val abruptlyTerminatedActor = system.actorOf(Props[Child])
+  abruptlyTerminatedActor ! "You are about to be terminated!"
+  abruptlyTerminatedActor ! Kill // more severe than `PoisonPill`
+  abruptlyTerminatedActor ! "You have been terminated!"
 
   /**
    * Death watch
@@ -109,11 +108,14 @@ object StartingStoppingActors extends App {
         log.info(s"Started and watching child $name")
 
         // register this actor for the death of child
-        // if this child dies, akka will send a Termination message to this Actor
+        // If this child dies, akka will send a Termination message to this Actor
+        // Also use with its conjunction `context.unwatch`
         context.watch(child)
 
       case Terminated(ref) =>
-        log.info(s"The reference that I've been watching $ref has been stoped!")
+        log.info(s"The reference that I've been watching $ref has been stopped!")
+        context.unwatch(ref)
+
     }
   }
 
@@ -123,6 +125,4 @@ object StartingStoppingActors extends App {
 
   Thread.sleep(500)
   watchedChild ! PoisonPill
-
-
 }
