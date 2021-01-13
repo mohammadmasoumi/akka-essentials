@@ -12,3 +12,17 @@
    context.stop(child) 
    ```
    
+### Using special messages
+
+ - ```scala
+   actor ! PoisonPill 
+   ```
+ - makes the actors throw an **ActorKilledException** 
+    ```scala
+   actor ! PoisonPill 
+    ```
+### Death watch
+
+```scala
+context.watch(actor)
+```
