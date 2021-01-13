@@ -23,6 +23,9 @@
     ```
 ### Death watch
 
-```scala
-context.watch(actor)
-```
+ - It'll receive a **`Terminated`** message when this actor dies
+
+    ```scala
+    context.watch(actor)
+    ```
+ - Can watch more than one actor, **not necessarily children.** 
