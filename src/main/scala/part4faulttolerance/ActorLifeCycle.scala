@@ -20,5 +20,5 @@ object ActorLifeCycle extends App {
   val system = ActorSystem("LifeCycleActor")
   val parent = system.actorOf(Props[LifeCycleActor], "parent")
 
-
+  parent ! StartChild
 }
