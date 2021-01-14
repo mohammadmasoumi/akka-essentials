@@ -20,8 +20,8 @@ object ActorLifeCycle extends App {
   val system = ActorSystem("LifeCycleActor")
   val parent = system.actorOf(Props[LifeCycleActor], "parent")
 
-  parent ! StartChild
-  parent ! PoisonPill
+//  parent ! StartChild
+//  parent ! PoisonPill
 
   /**
    * restart
@@ -44,8 +44,6 @@ object ActorLifeCycle extends App {
     override def preStart(): Unit = log.info("supervisedChild started.")
 
     override def postStop(): Unit = log.info("supervisedChild have stopped.")
-
-    override def postRestart(reason: Throwable): Unit =
 
     override def preRestart(reason: Throwable, message: Option[Any]): Unit =
       log.info(s"supervisedActor is restarting because of $reason")
