@@ -8,6 +8,9 @@ object ActorLifeCycle extends App {
   class LifeCycleActor extends Actor with ActorLogging{
 
     override def preStart(): Unit = log.info("I am starting.")
+
+    override def postStop(): Unit = log.info("I have stopped!")
+
     override def receive: Receive = {
       case StartChild => context.actorOf(Props[LifeCycleActor], "child")
 
