@@ -1,6 +1,6 @@
 package part4faulttolerance
 
-import akka.actor.{Actor, ActorLogging, ActorSystem, PoisonPill, Props}
+import akka.actor.{Actor, ActorLogging, ActorSystem, Props}
 
 object ActorLifeCycle extends App {
 
@@ -20,15 +20,21 @@ object ActorLifeCycle extends App {
   val system = ActorSystem("LifeCycleActor")
   val parent = system.actorOf(Props[LifeCycleActor], "parent")
 
-//  parent ! StartChild
-//  parent ! PoisonPill
+  //  parent ! StartChild
+  //  parent ! PoisonPill
 
   /**
    * restart
    */
 
   object Fail
+
   object FailChild
+
+  object CheckChild
+
+  object Check
+
 
   class Parent extends Actor with ActorLogging {
     private val child = context.actorOf(Props[Child], "supervisedChild")
@@ -36,6 +42,8 @@ object ActorLifeCycle extends App {
     override def receive: Receive = {
       case FailChild =>
         child ! Fail
+      case CheckChild =>
+        child ! Check
     }
   }
 
@@ -55,8 +63,15 @@ object ActorLifeCycle extends App {
       case Fail =>
         log.warning("child will fail now!")
         throw new RuntimeException("I failed")
+      case Check =>
+        log.info("alive and kicking")
     }
   }
 
+  val supervisedParent = system.actorOf(Props[Parent], "supervisedParent")
+  supervisedParent ! FailChild
+  supervisedParent ! CheckChild
 
+  // default super vision strategy!
+  // mailbox still remains untouched!
 }
