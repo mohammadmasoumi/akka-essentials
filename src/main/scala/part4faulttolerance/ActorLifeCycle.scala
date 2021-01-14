@@ -1,5 +1,6 @@
 package part4faulttolerance
 
-object ActorLifeCycle {
+object ActorLifeCycle extends App {
+
 
 }
