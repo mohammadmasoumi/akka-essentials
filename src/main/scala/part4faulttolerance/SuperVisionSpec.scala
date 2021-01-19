@@ -1,9 +1,10 @@
 package part4faulttolerance
 
 import akka.actor.SupervisorStrategy.{Escalate, Restart, Resume, Stop}
-import akka.actor.{Actor, ActorSystem, OneForOneStrategy, Props}
+import akka.actor.{Actor, ActorRef, ActorSystem, OneForOneStrategy, Props}
 import akka.testkit.{ImplicitSender, TestKit}
 import org.scalatest.{BeforeAndAfterAll, WordSpecLike}
+import part3testing.TestProbeSpec.Report
 
 class SuperVisionSpec extends TestKit(ActorSystem("SupervisionSpec"))
   with ImplicitSender
@@ -22,6 +23,18 @@ class SuperVisionSpec extends TestKit(ActorSystem("SupervisionSpec"))
     "resume its child in case of a minor fault" in {
       val supervisor = system.actorOf(Props[Supervisor])
       supervisor ! Props[FussyWordCounter]
+      val child = expectMsgType[ActorRef]
+
+      child ! "I love Akka"
+      child ! Report
+      expectMsg(3)
+
+      /**
+       * In resume strategy the internal state of an Actor wouldn't change.
+       */
+      child ! "Akka is awesome because I am learning to think in a whole new way"
+      child ! Report
+      expectMsg(3)
     }
 
   }
