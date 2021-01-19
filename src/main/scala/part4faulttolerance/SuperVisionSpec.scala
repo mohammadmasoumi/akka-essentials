@@ -29,7 +29,7 @@ object SuperVisionSpec {
       case _: NullPointerException => Restart
       case _: IllegalArgumentException => Stop
       case _: RuntimeException => Resume
-      case _: Exception => Escalate
+      case _: Exception => Escalate // increase rapidly.
     }
 
     override def receive: Receive = {
