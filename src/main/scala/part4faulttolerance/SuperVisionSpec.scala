@@ -29,6 +29,9 @@ object SuperVisionSpec {
       case sentence: String =>
         if (sentence.length > 20)
           throw new RuntimeException("sentence is too big")
+        else if (!Character.isUpperCase(sentence.charAt(0)))
+          throw new IllegalArgumentException("sentence must start with uppercase")
+        else
 
     }
   }
