@@ -74,8 +74,8 @@ class SuperVisionSpec extends TestKit(ActorSystem("SupervisionSpec"))
 
       /**
        * In escalate strategy.
-       *  1- stops all its children
-       *  2- scalate the error to its the parent
+       * 1- stops all its children
+       * 2- scalate the error to its the parent
        */
       watch(child)
       child ! 1
@@ -83,6 +83,13 @@ class SuperVisionSpec extends TestKit(ActorSystem("SupervisionSpec"))
       assert(terminatedMessage.actor == child)
     }
   }
+
+  "A kinder supervisor" should {
+    "not kill children in case it's restarted or escalated failures" in {
+
+    }
+  }
+
 }
 
 object SuperVisionSpec {
@@ -103,6 +110,12 @@ object SuperVisionSpec {
       case props: Props =>
         val childRef = context.actorOf(props)
         sender() ! childRef
+    }
+  }
+
+  class NoDeathOnRestartSupervisor extends Supervisor {
+    override def preRestart(reason: Throwable, message: Option[Any]): Unit = {
+      // this is empty
     }
   }
 
