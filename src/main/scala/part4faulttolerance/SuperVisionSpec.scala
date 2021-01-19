@@ -13,6 +13,9 @@ class SuperVisionSpec extends TestKit(ActorSystem("SupervisionSpec"))
     TestKit.shutdownActorSystem(system)
   }
 
+  // import companion object
+  import SuperVisionSpec._
+
 }
 
 object SuperVisionSpec {
