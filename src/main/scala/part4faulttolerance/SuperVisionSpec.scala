@@ -9,6 +9,10 @@ class SuperVisionSpec extends TestKit(ActorSystem("SupervisionSpec"))
   with WordSpecLike
   with BeforeAndAfterAll {
 
+  override def afterAll(): Unit = {
+    TestKit.shutdownActorSystem(system)
+  }
+
 }
 
 object SuperVisionSpec {
