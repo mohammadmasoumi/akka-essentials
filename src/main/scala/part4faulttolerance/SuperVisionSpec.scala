@@ -22,8 +22,12 @@ object SuperVisionSpec {
 
   class Supervisor extends Actor {
 
+    /**
+     * takes a partial function from a throwable to a strategy
+     */
     override val supervisorStrategy: OneForOneStrategy = OneForOneStrategy() {
       case _: NullPointerException => Restart
+
     }
 
     override def receive: Receive = {
