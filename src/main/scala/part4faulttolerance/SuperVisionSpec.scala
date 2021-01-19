@@ -14,7 +14,6 @@ class SuperVisionSpec extends TestKit(ActorSystem("SupervisionSpec"))
   }
 
   // import companion object
-  import SuperVisionSpec._
 
 }
 
@@ -24,14 +23,14 @@ object SuperVisionSpec {
 
     override def receive: Receive = wordCounterHandler()
 
-    def wordCounterHandler(words: Int =0): Receive = {
+    def wordCounterHandler(words: Int = 0): Receive = {
       case "" => throw new NullPointerException("sentence is empty")
       case sentence: String =>
         if (sentence.length > 20)
           throw new RuntimeException("sentence is too big")
         else if (!Character.isUpperCase(sentence.charAt(0)))
           throw new IllegalArgumentException("sentence must start with uppercase")
-        else
+        else context.become(wordCounterHandler(words + sentence.split(" ").length))
 
     }
   }
