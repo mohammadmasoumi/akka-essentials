@@ -25,8 +25,9 @@ object SuperVisionSpec {
 
     case object Report
 
-
     def wordCounterHandler(words: Int = 0): Receive = {
+      case Report =>
+        sender() ! words
       case "" => throw new NullPointerException("sentence is empty")
       case sentence: String =>
         if (sentence.length > 20)
