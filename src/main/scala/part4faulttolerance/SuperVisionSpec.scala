@@ -1,6 +1,9 @@
 package part4faulttolerance
 
-class SuperVisionSpec {
+import akka.actor.ActorSystem
+import akka.testkit.TestKit
+
+class SuperVisionSpec extends TestKit(ActorSystem("SupervisionSpec")){
 
 }
 
