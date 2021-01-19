@@ -15,6 +15,11 @@ class SuperVisionSpec extends TestKit(ActorSystem("SupervisionSpec"))
   }
 
   // import companion object
+  import SuperVisionSpec._
+
+  "A supervisor" should {
+
+  }
 
 }
 
