@@ -21,7 +21,12 @@ class SuperVisionSpec extends TestKit(ActorSystem("SupervisionSpec"))
 object SuperVisionSpec {
 
   class FussyWordCounter extends Actor {
-    override def receive: Receive = ???
+
+    override def receive: Receive = wordCounterHandler()
+
+    def wordCounterHandler(words: Int =0): Receive = {
+
+    }
   }
 
 }
