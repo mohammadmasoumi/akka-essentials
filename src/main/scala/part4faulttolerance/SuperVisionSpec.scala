@@ -35,7 +35,8 @@ object SuperVisionSpec {
         else if (!Character.isUpperCase(sentence.charAt(0)))
           throw new IllegalArgumentException("sentence must start with uppercase")
         else context.become(wordCounterHandler(words + sentence.split(" ").length))
-
+      case _ =>
+        throw new Exception("can only receive strings")
     }
   }
 
