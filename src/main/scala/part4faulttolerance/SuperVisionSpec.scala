@@ -15,11 +15,13 @@ class SuperVisionSpec extends TestKit(ActorSystem("SupervisionSpec"))
   }
 
   // import companion object
+
   import SuperVisionSpec._
 
   "A supervisor" should {
     "resume its child in case of a minor fault" in {
-
+      val supervisor = system.actorOf(Props[Supervisor])
+      supervisor ! Props[FussyWordCounter]
     }
 
   }
