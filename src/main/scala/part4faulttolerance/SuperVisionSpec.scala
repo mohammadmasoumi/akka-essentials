@@ -1,10 +1,9 @@
 package part4faulttolerance
 
 import akka.actor.SupervisorStrategy.{Escalate, Restart, Resume, Stop}
-import akka.actor.{Actor, ActorRef, ActorSystem, OneForOneStrategy, Props}
+import akka.actor.{Actor, ActorLogging, ActorRef, ActorSystem, OneForOneStrategy, Props, Terminated}
 import akka.testkit.{ImplicitSender, TestKit}
 import org.scalatest.{BeforeAndAfterAll, WordSpecLike}
-import part3testing.TestProbeSpec.Report
 
 class SuperVisionSpec extends TestKit(ActorSystem("SupervisionSpec"))
   with ImplicitSender
@@ -37,13 +36,42 @@ class SuperVisionSpec extends TestKit(ActorSystem("SupervisionSpec"))
       expectMsg(3)
     }
 
-  }
+    "restart its child in case of an empty sentence" in {
+      val supervisor = system.actorOf(Props[Supervisor])
+      supervisor ! Props[FussyWordCounter]
+      val child = expectMsgType[ActorRef]
 
+      child ! "I love Akka"
+      child ! Report
+      expectMsg(3)
+
+      /**
+       * In restart strategy the internal state of an Actor would be destroyed.
+       */
+      child ! ""
+      child ! Report
+      expectMsg(0)
+    }
+
+    "terminate its child in case of a major error" in {
+      val supervisor = system.actorOf(Props[Supervisor])
+      supervisor ! Props[FussyWordCounter]
+      val child = expectMsgType[ActorRef]
+
+      /**
+       * In stop strategy the actor should be terminated!.
+       */
+      watch(child)
+      child ! "akka is nice"
+      val terminatedMessage = expectMsgType[Terminated]
+      assert(terminatedMessage.actor == child)
+    }
+  }
 }
 
 object SuperVisionSpec {
 
-  class Supervisor extends Actor {
+  class Supervisor extends Actor with ActorLogging {
 
     /**
      * takes a partial function from a throwable to a strategy
@@ -62,16 +90,16 @@ object SuperVisionSpec {
     }
   }
 
-  class FussyWordCounter extends Actor {
+  case object Report
 
-    case object Report
-
+  class FussyWordCounter extends Actor with ActorLogging {
     override def receive: Receive = wordCounterHandler()
 
     def wordCounterHandler(words: Int = 0): Receive = {
       case Report =>
         sender() ! words
-      case "" => throw new NullPointerException("sentence is empty")
+      case "" =>
+        throw new NullPointerException("sentence is empty")
       case sentence: String =>
         if (sentence.length > 20)
           throw new RuntimeException("sentence is too big")
