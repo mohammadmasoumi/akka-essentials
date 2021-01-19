@@ -1,6 +1,6 @@
 package part4faulttolerance
 
-import akka.actor.{Actor, ActorSystem}
+import akka.actor.{Actor, ActorSystem, Props}
 import akka.testkit.{ImplicitSender, TestKit}
 import org.scalatest.{BeforeAndAfterAll, WordSpecLike}
 
@@ -20,7 +20,11 @@ class SuperVisionSpec extends TestKit(ActorSystem("SupervisionSpec"))
 object SuperVisionSpec {
 
   class Supervisor extends Actor {
-    override def receive: Receive = ???
+    override def receive: Receive = {
+      case props: Props =>
+        val childRef = context.actorOf(props)
+        sender() ! childRef
+    }
   }
 
   class FussyWordCounter extends Actor {
