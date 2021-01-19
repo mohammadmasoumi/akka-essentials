@@ -1,7 +1,7 @@
 package part4faulttolerance
 
 import akka.actor.SupervisorStrategy.{Escalate, Restart, Resume, Stop}
-import akka.actor.{Actor, ActorLogging, ActorRef, ActorSystem, OneForOneStrategy, Props, Terminated}
+import akka.actor.{Actor, ActorLogging, ActorRef, ActorSystem, AllForOneStrategy, OneForOneStrategy, Props, SupervisorStrategy, Terminated}
 import akka.testkit.{ImplicitSender, TestKit}
 import org.scalatest.{BeforeAndAfterAll, WordSpecLike}
 
@@ -86,10 +86,32 @@ class SuperVisionSpec extends TestKit(ActorSystem("SupervisionSpec"))
 
   "A kinder supervisor" should {
     "not kill children in case it's restarted or escalated failures" in {
+      val supervisor = system.actorOf(Props[NoDeathOnRestartSupervisor], "supervisor")
+      supervisor ! Props[FussyWordCounter]
+      val child = expectMsgType[ActorRef]
 
+      child ! "Akka is cool"
+      child ! Report
+      expectMsg(3)
+
+      /**
+       * child is still alive
+       * but the user guardian restarted everything.
+       */
+      child ! 1
+      child ! Report
+      expectMsg(0)
     }
-  }
 
+    "An all-for-one supervisor" should {
+      "apply the all-for-one strategy" in {
+        val supervisor = system.actorOf(Props[AllForOneSupervisor], "allForOneSupervisor")
+        supervisor ! Props[FussyWordCounter]
+        val child = expectMsgType[ActorRef]
+      }
+    }
+
+  }
 }
 
 object SuperVisionSpec {
@@ -99,7 +121,7 @@ object SuperVisionSpec {
     /**
      * takes a partial function from a throwable to a strategy
      */
-    override val supervisorStrategy: OneForOneStrategy = OneForOneStrategy() {
+    override val supervisorStrategy: SupervisorStrategy = OneForOneStrategy() {
       case _: NullPointerException => Restart
       case _: IllegalArgumentException => Stop
       case _: RuntimeException => Resume
@@ -116,6 +138,20 @@ object SuperVisionSpec {
   class NoDeathOnRestartSupervisor extends Supervisor {
     override def preRestart(reason: Throwable, message: Option[Any]): Unit = {
       // this is empty
+    }
+  }
+
+  class AllForOneSupervisor extends Supervisor {
+    /**
+     * takes a partial function from a throwable to a strategy
+     *
+     * if one of the children cause the failure all children will fail with the same strategy!
+     */
+    override val supervisorStrategy: SupervisorStrategy = AllForOneStrategy() {
+      case _: NullPointerException => Restart
+      case _: IllegalArgumentException => Stop
+      case _: RuntimeException => Resume
+      case _: Exception => Escalate // increase rapidly.
     }
   }
 
