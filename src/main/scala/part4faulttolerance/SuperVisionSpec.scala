@@ -5,6 +5,8 @@ import akka.actor.{Actor, ActorLogging, ActorRef, ActorSystem, AllForOneStrategy
 import akka.testkit.{EventFilter, ImplicitSender, TestKit}
 import org.scalatest.{BeforeAndAfterAll, WordSpecLike}
 
+import scala.concurrent.duration._
+
 class SuperVisionSpec extends TestKit(ActorSystem("SupervisionSpec"))
   with ImplicitSender
   with WordSpecLike
@@ -137,8 +139,10 @@ object SuperVisionSpec {
 
     /**
      * takes a partial function from a throwable to a strategy
+     *
+     * maxNrOfRetries, withinTimeRange => retry strategies
      */
-    override val supervisorStrategy: SupervisorStrategy = OneForOneStrategy() {
+    override val supervisorStrategy: SupervisorStrategy = OneForOneStrategy(maxNrOfRetries = 10, withinTimeRange = 1 minute) {
       case _: NullPointerException => Restart
       case _: IllegalArgumentException => Stop
       case _: RuntimeException => Resume
