@@ -18,6 +18,9 @@ class SuperVisionSpec extends TestKit(ActorSystem("SupervisionSpec"))
   import SuperVisionSpec._
 
   "A supervisor" should {
+    "resume its child in case of a minor fault" in {
+
+    }
 
   }
 
