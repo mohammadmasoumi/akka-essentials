@@ -23,6 +23,9 @@ object SuperVisionSpec {
 
     override def receive: Receive = wordCounterHandler()
 
+    case object Report
+
+
     def wordCounterHandler(words: Int = 0): Receive = {
       case "" => throw new NullPointerException("sentence is empty")
       case sentence: String =>
