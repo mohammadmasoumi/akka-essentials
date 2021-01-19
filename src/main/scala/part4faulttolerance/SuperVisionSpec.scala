@@ -1,6 +1,6 @@
 package part4faulttolerance
 
-import akka.actor.SupervisorStrategy.{Restart, Stop}
+import akka.actor.SupervisorStrategy.{Escalate, Restart, Resume, Stop}
 import akka.actor.{Actor, ActorSystem, OneForOneStrategy, Props}
 import akka.testkit.{ImplicitSender, TestKit}
 import org.scalatest.{BeforeAndAfterAll, WordSpecLike}
@@ -28,7 +28,8 @@ object SuperVisionSpec {
     override val supervisorStrategy: OneForOneStrategy = OneForOneStrategy() {
       case _: NullPointerException => Restart
       case _: IllegalArgumentException => Stop
-
+      case _: RuntimeException => Resume
+      case _: Exception => Escalate
     }
 
     override def receive: Receive = {
