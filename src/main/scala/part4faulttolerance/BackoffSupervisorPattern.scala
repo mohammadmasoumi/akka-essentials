@@ -35,5 +35,6 @@ object BackoffSupervisorPattern extends App {
 
   val system = ActorSystem("BackoffSupervisorDemo")
   val simpleActor = system.actorOf(Props[FileBasedPersistentActor], "simpleActor")
+  simpleActor ! ReadFile
 
 }
