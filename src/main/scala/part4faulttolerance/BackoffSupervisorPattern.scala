@@ -2,7 +2,7 @@ package part4faulttolerance
 
 import java.io.File
 
-import akka.actor.{Actor, ActorLogging, ActorSystem}
+import akka.actor.{Actor, ActorLogging, ActorSystem, Props}
 
 import scala.io.Source
 
@@ -10,7 +10,7 @@ object BackoffSupervisorPattern extends App {
 
   case object ReadFile
 
-  class FileBasePersistentActor extends Actor with ActorLogging {
+  class FileBasedPersistentActor extends Actor with ActorLogging {
 
     override def preStart(): Unit =
       log.info("Persistent actor starting.")
@@ -34,6 +34,6 @@ object BackoffSupervisorPattern extends App {
   }
 
   val system = ActorSystem("BackoffSupervisorDemo")
-
+  val simpleActor = system.actorOf(Props[FileBasedPersistentActor], "simpleActor")
 
 }
