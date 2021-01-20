@@ -12,7 +12,8 @@ object BackoffSupervisorPattern extends App {
     override def receive: Receive = handleIO()
 
     def handleIO(dataSource: Source = null): Receive = {
-
+      case ReadFile =>
+        if (dataSource == null)
     }
 
 
