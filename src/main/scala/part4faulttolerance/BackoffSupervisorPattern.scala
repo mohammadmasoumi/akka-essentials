@@ -11,6 +11,11 @@ object BackoffSupervisorPattern extends App {
   case object ReadFile
 
   class FileBasePersistentActor extends Actor with ActorLogging {
+
+    override def preStart(): Unit =
+      log.info("Persistent actor starting")
+
+
     override def receive: Receive = handleIO()
 
     def handleIO(dataSource: Source = null): Receive = {
