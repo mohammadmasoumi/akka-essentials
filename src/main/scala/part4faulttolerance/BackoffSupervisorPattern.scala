@@ -44,7 +44,7 @@ object BackoffSupervisorPattern extends App {
     Backoff.onFailure(
       Props[FileBasedPersistentActor],
       "simpleBackoffAccor",
-      3 seconds,
+      3 seconds, // then 6s, 12s, 24s
       30 seconds,
       0.2
     )
@@ -56,6 +56,8 @@ object BackoffSupervisorPattern extends App {
    * simpleSupervisor
    *  - child called simpleBackoffActor (props of type FileBasedPersistentActor)
    *  - supervisor strategy is the default one (restarting on everything)
+   *   - first attempt after 3 seconds.
+   *   - next attempt is 2x the previous attempt.
    */
 
 }
