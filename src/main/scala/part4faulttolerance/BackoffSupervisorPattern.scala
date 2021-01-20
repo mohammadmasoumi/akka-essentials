@@ -45,7 +45,7 @@ object BackoffSupervisorPattern extends App {
       "simpleBackoffAccor",
       3 seconds, // then 6s, 12s, 24s, no more(30s)
       30 seconds,
-      0.2
+      0.2 // gap between restarting
     )
   )
 
@@ -58,5 +58,15 @@ object BackoffSupervisorPattern extends App {
    *   - first attempt after 3 seconds.
    *   - next attempt is 2x the previous attempt.
    */
+
+  val stoppedSupervisorProps = BackoffSupervisor.props(
+    Backoff.onStop(
+      Props[FileBasedPersistentActor],
+      "stoppedBackoffActor",
+      3 seconds,
+      30 seconds,
+      0.2
+    )
+  )
 
 }
