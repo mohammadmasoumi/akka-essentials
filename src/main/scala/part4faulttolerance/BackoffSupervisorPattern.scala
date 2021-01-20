@@ -50,8 +50,8 @@ object BackoffSupervisorPattern extends App {
     )
   )
 
-//  val simpleBackoffSupervisor = system.actorOf(simpleSupervisorProps, "simpleSupervisor")
-//  simpleBackoffSupervisor ! ReadFile
+  //  val simpleBackoffSupervisor = system.actorOf(simpleSupervisorProps, "simpleSupervisor")
+  //  simpleBackoffSupervisor ! ReadFile
 
   /**
    * simpleSupervisor
@@ -75,11 +75,15 @@ object BackoffSupervisorPattern extends App {
     )
   )
 
-//  val stopSupervisor = system.actorOf(stoppedSupervisorProps, "stopSupervisor")
-//  stopSupervisor ! ReadFile
+  //  val stopSupervisor = system.actorOf(stoppedSupervisorProps, "stopSupervisor")
+  //  stopSupervisor ! ReadFile
 
   class EagerFileBasedPersistentActor extends FileBasedPersistentActor {
-
+    override def preStart(): Unit = {
+      log.info("Eager actor starting.")
+      val newSource = Source.fromFile(new File("src/main/resources/testfiles/important_data.txt"))
+      context.become(handleIO(newSource))
+    }
   }
 
 }
