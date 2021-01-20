@@ -26,7 +26,7 @@ object BackoffSupervisorPattern extends App {
     def handleIO(dataSource: Source = null): Receive = {
       case ReadFile =>
         if (dataSource == null) {
-          val newSource = Source.fromFile(new File("src/main/resources/testfiles/important.txt"))
+          val newSource = Source.fromFile(new File("src/main/resources/testfiles/important_data.txt"))
           context.become(handleIO(newSource))
           log.info("I've read just some important data: " + newSource.getLines().toList)
         }
