@@ -87,5 +87,7 @@ object BackoffSupervisorPattern extends App {
   }
 
   val eagerActor = system.actorOf(Props[EagerFileBasedPersistentActor], "eagerActor")
+  // default strategy for `ActorInitializationException` => STOP
+
 
 }
