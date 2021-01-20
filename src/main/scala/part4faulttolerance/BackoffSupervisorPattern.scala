@@ -50,4 +50,6 @@ object BackoffSupervisorPattern extends App {
     )
   )
 
+  val simpleBackoffSupervisor = system.actorOf(simpleSupervisorProps, "simpleSupervisor")
+
 }
