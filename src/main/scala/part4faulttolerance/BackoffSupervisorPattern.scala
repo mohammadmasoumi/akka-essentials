@@ -106,7 +106,7 @@ object BackoffSupervisorPattern extends App {
    *  - child eagerActor
    *   - will die on start with ActorInitializationException
    *   - trigger the supervision strategy in eagerSupervisor
-   *  - backoff will kick in after 1 second
+   *  - backoff will kick in after 1 second, 2s, 4s, 8s, 16s
    */
 
 
