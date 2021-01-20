@@ -50,8 +50,9 @@ object BackoffSupervisorPattern extends App {
     )
   )
 
-  val simpleBackoffSupervisor = system.actorOf(simpleSupervisorProps, "simpleSupervisor")
-  simpleBackoffSupervisor ! ReadFile
+//  val simpleBackoffSupervisor = system.actorOf(simpleSupervisorProps, "simpleSupervisor")
+//  simpleBackoffSupervisor ! ReadFile
+
   /**
    * simpleSupervisor
    *  - child called simpleBackoffActor (props of type FileBasedPersistentActor)
@@ -73,5 +74,10 @@ object BackoffSupervisorPattern extends App {
       }
     )
   )
+
+  val stopSupervisor = system.actorOf(stoppedSupervisorProps, "stopSupervisor")
+  stopSupervisor ! ReadFile
+
+
 
 }
