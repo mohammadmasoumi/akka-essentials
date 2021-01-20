@@ -14,6 +14,7 @@ object BackoffSupervisorPattern extends App {
     def handleIO(dataSource: Source = null): Receive = {
       case ReadFile =>
         if (dataSource == null)
+          dataSource = Source.fromFile(new File("src/main/resources/testfiles/important.txt"))
     }
 
 
