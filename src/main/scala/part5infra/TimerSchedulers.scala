@@ -2,7 +2,6 @@ package part5infra
 
 import akka.actor.{Actor, ActorLogging, ActorSystem, Props}
 
-import scala.concurrent.ExecutionContextExecutor
 import scala.concurrent.duration._
 
 object TimerSchedulers extends App {
@@ -19,9 +18,13 @@ object TimerSchedulers extends App {
   system.log.info("scheduling reminder for simpleActor")
 
   // another solution for system.dispatcher
-  implicit val executionContext: ExecutionContextExecutor = system.dispatcher
+  // implicit val executionContext: ExecutionContextExecutor = system.dispatcher
+  // or
+
+  import system.dispatcher
+
   system.scheduler.scheduleOnce(1 seconds) {
     simpleActor ! "reminder"
-  }(system.dispatcher)
+  }
 
 }
