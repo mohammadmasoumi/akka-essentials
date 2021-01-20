@@ -2,7 +2,7 @@ package part4faulttolerance
 
 import java.io.File
 
-import akka.actor.{Actor, ActorLogging}
+import akka.actor.{Actor, ActorLogging, ActorSystem}
 
 import scala.io.Source
 
@@ -31,8 +31,9 @@ object BackoffSupervisorPattern extends App {
           log.info("I've read just some important data: " + newSource.getLines().toList)
         }
     }
-
-
   }
+
+  val system = ActorSystem("BackoffSupervisorDemo")
+
 
 }
