@@ -15,6 +15,8 @@ object BackoffSupervisorPattern extends App {
     override def preStart(): Unit =
       log.info("Persistent actor starting")
 
+    override def postStop(): Unit =
+      log.warning("Persistent actor has stopped!")
 
     override def receive: Receive = handleIO()
 
