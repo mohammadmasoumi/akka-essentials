@@ -1,5 +1,7 @@
 package part4faulttolerance
 
+import java.io.File
+
 import akka.actor.{Actor, ActorLogging}
 
 import scala.io.Source
@@ -13,8 +15,10 @@ object BackoffSupervisorPattern extends App {
 
     def handleIO(dataSource: Source = null): Receive = {
       case ReadFile =>
-        if (dataSource == null)
-          dataSource = Source.fromFile(new File("src/main/resources/testfiles/important.txt"))
+        if (dataSource == null) {
+          val newSource = Source.fromFile(new File("src/main/resources/testfiles/important.txt"))
+          context.become(handleIO(newSource))
+        }
     }
 
 
