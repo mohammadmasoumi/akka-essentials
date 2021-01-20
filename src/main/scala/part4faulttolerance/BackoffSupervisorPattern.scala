@@ -101,6 +101,10 @@ object BackoffSupervisorPattern extends App {
 
   val repeatedSupervisor = system.actorOf(repeatedSupervisorProps, "repeatedSupervisor")
 
+  /**
+   * eagerSupervisor
+   *  - child eagerActor
+   */
 
 
 
