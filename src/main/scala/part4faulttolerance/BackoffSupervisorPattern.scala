@@ -89,5 +89,15 @@ object BackoffSupervisorPattern extends App {
   val eagerActor = system.actorOf(Props[EagerFileBasedPersistentActor], "eagerActor")
   // default strategy for `ActorInitializationException` => STOP
 
+  val repeatedSupervisorProps = BackoffSupervisor.props(
+    Backoff.onStop(
+      Props[EagerFileBasedPersistentActor],
+      "eagerBackoffActor",
+      3 second,
+      30 seconds,
+      0.2
+    )
+  )
+
 
 }
