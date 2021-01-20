@@ -86,4 +86,6 @@ object BackoffSupervisorPattern extends App {
     }
   }
 
+  val eagerActor = system.actorOf(Props[EagerFileBasedPersistentActor], "eagerActor")
+
 }
