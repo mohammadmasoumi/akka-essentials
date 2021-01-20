@@ -18,6 +18,7 @@ object BackoffSupervisorPattern extends App {
         if (dataSource == null) {
           val newSource = Source.fromFile(new File("src/main/resources/testfiles/important.txt"))
           context.become(handleIO(newSource))
+          log.info("I've read just some important data: " + newSource.getLines().toList)
         }
     }
 
