@@ -27,6 +27,7 @@ therefore I've created this project to share what I've learned.
  - **Section 5**
     - [StartingStoppingActorsRecap][120]
     - [SuperVisionSpecRecap][121]
+    - [BackoffSupervisorPatternRecap][122]
 
 
 ### Courses
@@ -51,4 +52,5 @@ therefore I've created this project to share what I've learned.
 [114]: https://github.com/mohammadmasoumi/akka-essentials/blob/main/src/main/scala/part3testing/SynchronousTestingSpecRecap.md
 
 [120]: https://github.com/mohammadmasoumi/akka-essentials/blob/main/src/main/scala/part4faulttolerance/StartingStoppingActorsRecap.md
-[120]: https://github.com/mohammadmasoumi/akka-essentials/blob/main/src/main/scala/part4faulttolerance/SuperVisionSpecRecap.md
+[121]: https://github.com/mohammadmasoumi/akka-essentials/blob/main/src/main/scala/part4faulttolerance/SuperVisionSpecRecap.md
+[122]: https://github.com/mohammadmasoumi/akka-essentials/blob/main/src/main/scala/part4faulttolerance/BackoffSupervisorPatternRecap.md
