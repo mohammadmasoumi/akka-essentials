@@ -1,6 +1,6 @@
 package part5infra
 
-import akka.actor.{Actor, ActorLogging, ActorSystem, Cancellable, Props}
+import akka.actor.{Actor, ActorLogging, ActorSystem, Cancellable, Props, Timers}
 
 import scala.concurrent.duration._
 
@@ -91,5 +91,9 @@ object TimerSchedulers extends App {
   /**
    * Timer: an Akka utility by which you can send message to yourself!
    */
+
+  class TimerBasedSelfClosingActor extends SelfClosingActor with ActorLogging with Timers {
+
+  }
 
 }
