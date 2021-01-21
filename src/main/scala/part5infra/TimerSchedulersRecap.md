@@ -15,4 +15,5 @@
    ```scala
    timers.startSingleTimer(TimerKey, Start, 500 millis)
    timers.startperiodicTimer(TimerKey, Start, 500 millis)
+   timers.cancel(TimerKey)
    ```
