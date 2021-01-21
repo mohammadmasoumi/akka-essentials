@@ -36,5 +36,11 @@ object TimerSchedulers extends App {
     simpleActor ! "heartbeat"
   }
 
+  // Cancellable is an object which can be cancelled
+  system.scheduler.scheduleOnce(5 seconds) {
+    system.log.info("Cancel routine task!")
+    routine.cancel()
+  }
+
 
 }
