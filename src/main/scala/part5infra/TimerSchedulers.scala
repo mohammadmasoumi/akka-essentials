@@ -81,12 +81,12 @@ object TimerSchedulers extends App {
 
   val selfClosingActor = system.actorOf(Props[SelfClosingActor], "selfClosingActor")
 
-  val closingRoutine: Cancellable = system.scheduler.schedule(0.2 seconds, 0.5 seconds) {
-    selfClosingActor ! "Akka is Awesome!"
-  }
-  system.scheduler.scheduleOnce(6 seconds) {
-    closingRoutine.cancel()
-  }
+  //  val closingRoutine: Cancellable = system.scheduler.schedule(0.2 seconds, 0.5 seconds) {
+  //    selfClosingActor ! "Akka is Awesome!"
+  //  }
+  //  system.scheduler.scheduleOnce(6 seconds) {
+  //    closingRoutine.cancel()
+  //  }
 
   /**
    * Timer: an Akka utility by which you can send message to yourself!
@@ -120,6 +120,10 @@ object TimerSchedulers extends App {
   }
 
   val timerHeartbeatActor = system.actorOf(Props[TimerBasedHeartbeatActor], "timerHeartbeatActor")
+
+  system.scheduler.scheduleOnce(5 seconds) {
+    timerHeartbeatActor ! Stop
+  }
 
 
 }
