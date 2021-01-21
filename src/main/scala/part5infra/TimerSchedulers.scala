@@ -101,7 +101,10 @@ object TimerSchedulers extends App {
     // The message that I'm going to send to myself
     timers.startSingleTimer(TimerKey, Start, 500 millis)
 
-    override def receive: Receive = ???
+    override def receive: Receive = {
+      case Start =>
+        log.info("Bootstrapping ...")
+    }
   }
 
 }
