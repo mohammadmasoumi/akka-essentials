@@ -23,30 +23,30 @@ object TimerSchedulers extends App {
 
   import system.dispatcher
 
-  system.scheduler.scheduleOnce(1 seconds) {
-    simpleActor ! "reminder"
-  }
+  //  system.scheduler.scheduleOnce(1 seconds) {
+  //    simpleActor ! "reminder"
+  //  }
 
   // scheduling a repeated message
   /**
    * initialDelay: the amount of time that a scheduler should wait before a task has been initialized
    * interval: the interval between each tasks to be processed
    */
-  val routine: Cancellable = system.scheduler.schedule(1 seconds, 2 seconds) {
-    simpleActor ! "heartbeat"
-  }
+  //  val routine: Cancellable = system.scheduler.schedule(1 seconds, 2 seconds) {
+  //    simpleActor ! "heartbeat"
+  //  }
 
   // Cancellable is an object which can be cancelled
-  system.scheduler.scheduleOnce(5 seconds) {
-    system.log.info("Cancel routine task!")
-    routine.cancel()
-  }
+  //  system.scheduler.scheduleOnce(5 seconds) {
+  //    system.log.info("Cancel routine task!")
+  //    routine.cancel()
+  //  }
 
   /**
    * Exercise: implement a self-closing actor
-   *  - if an actor receive a message (anything), you have 1 second to send it another message.
-   *  - if the time window expires, the actor will stop itself.
-   *  - if you send another message, the time window is reset.
+   * 1) if an actor receive a message (anything), you have 1 second to send it another message.
+   * 2) if the time window expires, the actor will stop itself.
+   * 3) if you send another message, the time window is reset.
    */
 
   class SelfClosingActor extends Actor with ActorLogging {
@@ -54,7 +54,7 @@ object TimerSchedulers extends App {
     import SelfClosingActor._
 
     def createTimeoutWindow(): Cancellable = {
-      context.system.scheduler.scheduleOnce(1 seconds) {
+      context.system.scheduler.scheduleOnce(MIN_WINDOW_INTERVAL) {
         self ! TimeoutMessage
       }
     }
@@ -79,5 +79,13 @@ object TimerSchedulers extends App {
 
   }
 
+  val selfClosingActor = system.actorOf(Props[SelfClosingActor], "selfClosingActor")
+
+  val closingRoutine: Cancellable = system.scheduler.schedule(0.2 seconds, 0.5 seconds) {
+    selfClosingActor ! "Akka is Awesome!"
+  }
+  system.scheduler.scheduleOnce(6 seconds) {
+    closingRoutine.cancel()
+  }
 
 }
