@@ -112,7 +112,8 @@ object TimerSchedulers extends App {
         timers.startPeriodicTimer(TimerKey, Reminder, 1 seconds)
       case Reminder =>
         log.info("I am Alive!")
-        case
+      case Stop =>
+        log.warning("Stopping ...")
 
     }
   }
