@@ -59,13 +59,14 @@ object TimerSchedulers extends App {
       }
     }
 
-    override def receive: Receive = ???
+    override def receive: Receive = closeHandler()
 
-    def handleWindow(lastBeat: Int = 0): Receive = {
-
-      case _ =>
-
-
+    def closeHandler(lastBeat: Int = 0): Receive = {
+      case TimeoutMessage =>
+        log.info("stopping myself")
+        context.stop(self)
+      case message =>
+        log.info(s"received $message staying alive!")
     }
   }
 
