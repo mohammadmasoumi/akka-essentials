@@ -92,7 +92,15 @@ object TimerSchedulers extends App {
    * Timer: an Akka utility by which you can send message to yourself!
    */
 
+  case object TimerKey
+
+  case object Start
+
   class TimerBasedActor extends Actor with ActorLogging with Timers {
+    // ONLY One timer per timerKey
+    // The message that I'm going to send to myself
+    timers.startSingleTimer(TimerKey, Start, 500 millis)
+
     override def receive: Receive = ???
   }
 
