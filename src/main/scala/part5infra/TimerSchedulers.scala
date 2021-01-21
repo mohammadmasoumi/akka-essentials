@@ -55,7 +55,7 @@ object TimerSchedulers extends App {
 
     def createTimeoutWindow(): Cancellable = {
       context.system.scheduler.scheduleOnce(1 seconds) {
-        self ! Terminate
+        self ! TimeoutMessage
       }
     }
 
@@ -72,7 +72,7 @@ object TimerSchedulers extends App {
   object SelfClosingActor {
     private val MIN_WINDOW_INTERVAL = 1 seconds
 
-    case object Terminate
+    case object TimeoutMessage
   }
 
 
