@@ -61,12 +61,14 @@ object TimerSchedulers extends App {
 
     override def receive: Receive = closeHandler()
 
-    def closeHandler(lastBeat: Int = 0): Receive = {
+    def closeHandler(schedule: Cancellable = createTimeoutWindow()): Receive = {
       case TimeoutMessage =>
         log.info("stopping myself")
         context.stop(self)
       case message =>
         log.info(s"received $message staying alive!")
+        schedule.cancel()
+        context.become(closeHandler(createTimeoutWindow()))
     }
   }
 
@@ -74,6 +76,7 @@ object TimerSchedulers extends App {
     private val MIN_WINDOW_INTERVAL = 1 seconds
 
     case object TimeoutMessage
+
   }
 
 
