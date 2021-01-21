@@ -100,7 +100,7 @@ object TimerSchedulers extends App {
 
   case object Start
 
-  class TimerBasedActor extends Actor with ActorLogging with Timers {
+  class TimerBasedHeartbeatActor extends Actor with ActorLogging with Timers {
     // ONLY One timer per timerKey
     // The message that I'm going to send to myself
     timers.startSingleTimer(TimerKey, Start, 500 millis)
@@ -114,7 +114,8 @@ object TimerSchedulers extends App {
         log.info("I am Alive!")
       case Stop =>
         log.warning("Stopping ...")
-
+        timers.cancel(TimerKey)
+        context.stop(self)
     }
   }
 
