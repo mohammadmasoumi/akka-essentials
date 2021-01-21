@@ -45,7 +45,7 @@ therefore I've created this project to share what I've learned.
 [4]: https://github.com/mohammadmasoumi/akka-essentials/tree/main/src/main/scala/part1recap
 [5]: https://github.com/mohammadmasoumi/akka-essentials/tree/main/src/main/scala/part2actors
 [6]: https://github.com/mohammadmasoumi/akka-essentials/tree/main/src/main/scala/part3testing
-[7]: https://github.com/mohammadmasoumi/akka-essentials/tree/main/src/main/scala/part4faulttalerance
+[7]: https://github.com/mohammadmasoumi/akka-essentials/tree/main/src/main/scala/part4faulttolerance
 [8]: https://github.com/mohammadmasoumi/akka-essentials/tree/main/src/main/scala/part5infra
 
 [100]: https://github.com/mohammadmasoumi/akka-essentials/blob/main/src/main/scala/part2actors/ChildActorRecap.md
