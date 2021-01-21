@@ -49,7 +49,9 @@ object TimerSchedulers extends App {
    *  - if you send another message, the time window is reset.
    */
 
-
+  class SelfClosingActor extends Actor with ActorLogging {
+    override def receive: Receive = ???
+  }
 
 
 }
