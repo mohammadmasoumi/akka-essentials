@@ -23,24 +23,24 @@ object TimerSchedulers extends App {
 
   import system.dispatcher
 
-  //  system.scheduler.scheduleOnce(1 seconds) {
-  //    simpleActor ! "reminder"
-  //  }
+  system.scheduler.scheduleOnce(1 seconds) {
+    simpleActor ! "reminder"
+  }
 
   // scheduling a repeated message
   /**
    * initialDelay: the amount of time that a scheduler should wait before a task has been initialized
    * interval: the interval between each tasks to be processed
    */
-  //  val routine: Cancellable = system.scheduler.schedule(1 seconds, 2 seconds) {
-  //    simpleActor ! "heartbeat"
-  //  }
+  val routine: Cancellable = system.scheduler.schedule(1 seconds, 2 seconds) {
+    simpleActor ! "heartbeat"
+  }
 
   // Cancellable is an object which can be cancelled
-  //  system.scheduler.scheduleOnce(5 seconds) {
-  //    system.log.info("Cancel routine task!")
-  //    routine.cancel()
-  //  }
+  system.scheduler.scheduleOnce(5 seconds) {
+    system.log.info("Cancel routine task!")
+    routine.cancel()
+  }
 
   /**
    * Exercise: implement a self-closing actor
@@ -81,12 +81,12 @@ object TimerSchedulers extends App {
 
   val selfClosingActor = system.actorOf(Props[SelfClosingActor], "selfClosingActor")
 
-  //  val closingRoutine: Cancellable = system.scheduler.schedule(0.2 seconds, 0.5 seconds) {
-  //    selfClosingActor ! "Akka is Awesome!"
-  //  }
-  //  system.scheduler.scheduleOnce(6 seconds) {
-  //    closingRoutine.cancel()
-  //  }
+  val closingRoutine: Cancellable = system.scheduler.schedule(0.2 seconds, 0.5 seconds) {
+    selfClosingActor ! "Akka is Awesome!"
+  }
+  system.scheduler.scheduleOnce(6 seconds) {
+    closingRoutine.cancel()
+  }
 
   /**
    * Timer: an Akka utility by which you can send message to yourself!
@@ -124,6 +124,4 @@ object TimerSchedulers extends App {
   system.scheduler.scheduleOnce(5 seconds) {
     timerHeartbeatActor ! Stop
   }
-
-
 }
