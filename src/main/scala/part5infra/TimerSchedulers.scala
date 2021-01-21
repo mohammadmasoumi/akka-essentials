@@ -92,8 +92,8 @@ object TimerSchedulers extends App {
    * Timer: an Akka utility by which you can send message to yourself!
    */
 
-  class TimerBasedSelfClosingActor extends SelfClosingActor with ActorLogging with Timers {
-
+  class TimerBasedActor extends Actor with ActorLogging with Timers {
+    override def receive: Receive = ???
   }
 
 }
