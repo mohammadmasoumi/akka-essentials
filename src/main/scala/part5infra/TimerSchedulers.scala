@@ -88,4 +88,8 @@ object TimerSchedulers extends App {
     closingRoutine.cancel()
   }
 
+  /**
+   * Timer: an Akka utility by which you can send message to yourself!
+   */
+
 }
