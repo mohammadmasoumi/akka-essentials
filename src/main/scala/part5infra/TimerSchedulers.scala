@@ -42,5 +42,14 @@ object TimerSchedulers extends App {
     routine.cancel()
   }
 
+  /**
+   * Exercise: implement a self-closing actor
+   *  - if an actor receive a message (anything), you have 1 second to send it another message.
+   *  - if the time window expires, the actor will stop itself.
+   *  - if you send another message, the time window is reset.
+   */
+
+
+
 
 }
