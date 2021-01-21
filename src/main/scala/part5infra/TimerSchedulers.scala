@@ -28,7 +28,10 @@ object TimerSchedulers extends App {
   }
 
   // scheduling a repeated message
-  //
+  /**
+   * initialDelay: the amount of time that a scheduler should wait before a task has been initialized
+   * interval: the interval between each tasks to be processed
+   */
   val routine: Cancellable = system.scheduler.schedule(1 seconds, 2 seconds) {
     simpleActor ! "heartbeat"
   }
