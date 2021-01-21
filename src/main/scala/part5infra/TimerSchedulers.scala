@@ -119,4 +119,7 @@ object TimerSchedulers extends App {
     }
   }
 
+  val timerHeartbeatActor = system.actorOf(Props[TimerBasedHeartbeatActor], "timerHeartbeatActor")
+
+
 }
