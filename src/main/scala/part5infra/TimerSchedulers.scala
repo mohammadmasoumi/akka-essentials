@@ -1,6 +1,6 @@
 package part5infra
 
-import akka.actor.{Actor, ActorLogging, ActorSystem, Props}
+import akka.actor.{Actor, ActorLogging, ActorSystem, Cancellable, Props}
 
 import scala.concurrent.duration._
 
@@ -26,5 +26,12 @@ object TimerSchedulers extends App {
   system.scheduler.scheduleOnce(1 seconds) {
     simpleActor ! "reminder"
   }
+
+  // scheduling a repeated message
+  //
+  val routine: Cancellable = system.scheduler.schedule(1 seconds, 2 seconds) {
+    simpleActor ! "heartbeat"
+  }
+
 
 }
