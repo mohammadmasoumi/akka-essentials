@@ -94,6 +94,10 @@ object TimerSchedulers extends App {
 
   case object TimerKey
 
+  case object Reminder
+
+  case object Stop
+
   case object Start
 
   class TimerBasedActor extends Actor with ActorLogging with Timers {
@@ -104,6 +108,12 @@ object TimerSchedulers extends App {
     override def receive: Receive = {
       case Start =>
         log.info("Bootstrapping ...")
+        // the previous timer cancelled
+        timers.startPeriodicTimer(TimerKey, Reminder, 1 seconds)
+      case Reminder =>
+        log.info("I am Alive!")
+        case
+
     }
   }
 
