@@ -50,7 +50,19 @@ object TimerSchedulers extends App {
    */
 
   class SelfClosingActor extends Actor with ActorLogging {
+
+    import SelfClosingActor._
+
     override def receive: Receive = ???
+
+    def handleWindow(lastBeat: Int = 0): Receive = {
+
+
+    }
+  }
+
+  object SelfClosingActor {
+    private val MIN_WINDOW_INTERVAL = 1 seconds
   }
 
 
