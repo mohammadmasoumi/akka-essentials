@@ -10,24 +10,28 @@ therefore I've created this project to share what I've learned.
  - [Section 3: Akka Actors][5]
  - [Section 4: Testing Akka Actors][6]
  - [Section 5: Fault Tolerance][7]
+ - [Section 5: Akka Infrastructure][8]
 
 
 ## Recap
     
- - **Section 3**
+ - **Akka Actors**
    - [ChildActorRecap][100]
 
- - **Section 4**
+ - **Testing Akka Actors**
     - [BasicSpecRecap][110]
     - [TestProbeSpecRecap][111]
     - [TimedAssertionSpecRecap][112]
     - [InterceptingLogSpecRecap][113]
     - [SynchronousTestingSpecRecap][114]
 
- - **Section 5**
+ - **Fault Tolerance**
     - [StartingStoppingActorsRecap][120]
     - [SuperVisionSpecRecap][121]
     - [BackoffSupervisorPatternRecap][122]
+
+ - **Akka Infrastructure**
+    - [TimerSchedulersRecap][130]
 
 
 ### Courses
@@ -41,7 +45,8 @@ therefore I've created this project to share what I've learned.
 [4]: https://github.com/mohammadmasoumi/akka-essentials/tree/main/src/main/scala/part1recap
 [5]: https://github.com/mohammadmasoumi/akka-essentials/tree/main/src/main/scala/part2actors
 [6]: https://github.com/mohammadmasoumi/akka-essentials/tree/main/src/main/scala/part3testing
-[6]: https://github.com/mohammadmasoumi/akka-essentials/tree/main/src/main/scala/part4faulttalerance
+[7]: https://github.com/mohammadmasoumi/akka-essentials/tree/main/src/main/scala/part4faulttalerance
+[8]: https://github.com/mohammadmasoumi/akka-essentials/tree/main/src/main/scala/part5infra
 
 [100]: https://github.com/mohammadmasoumi/akka-essentials/blob/main/src/main/scala/part2actors/ChildActorRecap.md
 
@@ -54,3 +59,5 @@ therefore I've created this project to share what I've learned.
 [120]: https://github.com/mohammadmasoumi/akka-essentials/blob/main/src/main/scala/part4faulttolerance/StartingStoppingActorsRecap.md
 [121]: https://github.com/mohammadmasoumi/akka-essentials/blob/main/src/main/scala/part4faulttolerance/SuperVisionSpecRecap.md
 [122]: https://github.com/mohammadmasoumi/akka-essentials/blob/main/src/main/scala/part4faulttolerance/BackoffSupervisorPatternRecap.md
+
+[130]: https://github.com/mohammadmasoumi/akka-essentials/blob/main/src/main/scala/part5infra/TimerSchedulersRecap.md
