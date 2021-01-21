@@ -53,9 +53,17 @@ object TimerSchedulers extends App {
 
     import SelfClosingActor._
 
+    def createTimeoutWindow(): Cancellable = {
+      context.system.scheduler.scheduleOnce(1 seconds) {
+        self ! Terminate
+      }
+    }
+
     override def receive: Receive = ???
 
     def handleWindow(lastBeat: Int = 0): Receive = {
+
+      case _ =>
 
 
     }
@@ -63,6 +71,8 @@ object TimerSchedulers extends App {
 
   object SelfClosingActor {
     private val MIN_WINDOW_INTERVAL = 1 seconds
+
+    case object Terminate
   }
 
 
