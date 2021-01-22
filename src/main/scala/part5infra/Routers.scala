@@ -71,6 +71,7 @@ object Routers extends App {
    * POOL ROUTER
    */
 
+  // 2.1 programmatically (in code)
   val poolMaster = system.actorOf(RoundRobinPool(5).props(Props[Slave]), "simplePoolMaster")
   for (idx <- 1 to 10) {
     poolMaster ! s"[$idx] Hello from the world!"
