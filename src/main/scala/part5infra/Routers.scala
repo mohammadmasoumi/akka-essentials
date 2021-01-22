@@ -1,6 +1,7 @@
 package part5infra
 
 import akka.actor.{Actor, ActorLogging, Props}
+import akka.routing.Router
 
 object Routers extends App {
 
@@ -18,6 +19,11 @@ object Routers extends App {
       ???
     }
   }
+
+  /**
+   * Routing logic
+   */
+  private val router = Router()
 
   class Slave extends Actor with ActorLogging {
     override def receive: Receive = {
