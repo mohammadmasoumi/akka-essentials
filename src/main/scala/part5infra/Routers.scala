@@ -31,8 +31,15 @@ object Routers extends App {
     def routeMessages(router: Router = createDefaultRouter()): Receive = {
       // STEP 4 - handle the termination/lifecycle of the routees
       case Terminated(ref) =>
-        val newRouter = router.removeRoutee(ref)
+        // remove slave from the router
+        var newRouter = router.removeRoutee(ref)
+
+        // create new slave
         val newSlave = context.actorOf(Props[Slave])
+        context.watch(newSlave)
+
+        // add new slave to the router
+        newRouter = router.addRoutee(newSlave)
 
         context.become(routeMessages(newRouter))
 
