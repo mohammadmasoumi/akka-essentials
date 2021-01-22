@@ -6,7 +6,7 @@ import akka.routing.{ActorRefRoutee, RoundRobinRoutingLogic, Router}
 object Routers extends App {
 
   /**
-   * #1 = manual router
+   * Method #1 = manual router
    */
   class Master extends Actor with ActorLogging {
     // STEP 1 - create routees
@@ -62,9 +62,14 @@ object Routers extends App {
   val system = ActorSystem("RoutersDemo" /* TODO add some config here*/)
   val master = system.actorOf(Props[Master])
 
-  for (idx <- 1 to 10) {
-    master ! s"[$idx] Hello from the world!"
-  }
+//  for (idx <- 1 to 10) {
+//    master ! s"[$idx] Hello from the world!"
+//  }
+
+  /**
+   * Method #2 = a router actor with its own children
+   * POOL ROUTER
+   */
 
 
 }
