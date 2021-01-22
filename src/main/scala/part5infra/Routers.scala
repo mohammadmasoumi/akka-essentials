@@ -12,8 +12,8 @@ object Routers extends App {
   class Mater extends Actor with ActorLogging {
     // STEP 1 - create routees
     // 5 actor routees base off the Slave actors
-    private val slaves = for (_ <- 1 to 5) yield {
-      val slave = context.actorOf(Props[Slave])
+    private val slaves = for (idx <- 1 to 5) yield {
+      val slave = context.actorOf(Props[Slave], s"slave_$idx")
       context.watch(slave)
       ActorRefRoutee(slave) // TODO
     }
