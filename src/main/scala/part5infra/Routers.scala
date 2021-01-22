@@ -27,7 +27,7 @@ object Routers extends App {
     private def createDefaultRouter(): Router =
       Router(RoundRobinRoutingLogic(), slaves)
 
-    override def receive: Receive = routeMessages()
+    override def receive(): Receive = routeMessages()
 
     def routeMessages(router: Router = createDefaultRouter()): Receive = {
       // STEP 4 - handle the termination/lifecycle of the routees
