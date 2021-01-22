@@ -74,12 +74,20 @@ object Routers extends App {
 
   // 2.1 programmatically (in code)
   val poolMaster = system.actorOf(RoundRobinPool(5).props(Props[Slave]), "simplePoolMaster")
-  for (idx <- 1 to 10) {
-    poolMaster ! s"[$idx] Hello from the world!"
-  }
+  //  for (idx <- 1 to 10) {
+  //    poolMaster ! s"[$idx] Hello from the world!"
+  //  }
 
   // 2.2 from configuration
   val poolMaster2 = system.actorOf(FromConfig.props(Props[Slave]), "poolMaster2")
+  for (idx <- 1 to 10) {
+    poolMaster2 ! s"[$idx] Hello from the world!"
+  }
+
+  /**
+   * Method #3 = a router actor with its own children
+   */
+
 
 
 }
