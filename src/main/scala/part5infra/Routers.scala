@@ -2,14 +2,13 @@ package part5infra
 
 import akka.actor.{Actor, ActorLogging, ActorSystem, Props, Terminated}
 import akka.routing.{ActorRefRoutee, RoundRobinRoutingLogic, Router}
-import part3testing.TestProbeSpec.Master
 
 object Routers extends App {
 
   /**
    * #1 = manual router
    */
-  class Mater extends Actor with ActorLogging {
+  class Master extends Actor with ActorLogging {
     // STEP 1 - create routees
     // 5 actor routees base off the Slave actors
     private val slaves = for (idx <- 1 to 5) yield {
@@ -24,25 +23,24 @@ object Routers extends App {
      * 1- routing strategy
      * 2- actor
      */
-    private def createDefaultRouter(): Router =
-      Router(RoundRobinRoutingLogic(), slaves)
+    private val router = Router(RoundRobinRoutingLogic(), slaves)
 
-    override def receive(): Receive = routeMessages()
+    override def receive: Receive = onMessage(router)
 
-    def routeMessages(router: Router = createDefaultRouter()): Receive = {
+    private def onMessage(router: Router): Receive = {
       // STEP 4 - handle the termination/lifecycle of the routees
       case Terminated(ref) =>
         // remove slave from the router
-        var newRouter = router.removeRoutee(ref)
+        context.become(onMessage(router.removeRoutee(ref)))
         // create new slave
         val newSlave = context.actorOf(Props[Slave])
         context.watch(newSlave)
         // add new slave to the router
-        newRouter = router.addRoutee(newSlave)
-        context.become(routeMessages(newRouter))
+        context.become(onMessage(router.addRoutee(newSlave)))
 
       // STEP 3 - route the messages
       case message =>
+        log.info(s"message: $message")
         router.route(message, sender())
     }
   }
