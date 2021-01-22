@@ -32,6 +32,8 @@ object Routers extends App {
       // STEP 4 - handle the termination/lifecycle of the routees
       case Terminated(ref) =>
         val newRouter = router.removeRoutee(ref)
+        val newSlave = context.actorOf(Props[Slave])
+
         context.become(routeMessages(newRouter))
 
       // STEP 3 - route the messages
