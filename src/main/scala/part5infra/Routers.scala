@@ -9,7 +9,7 @@ object Routers extends App {
    * #1 = manual router
    */
   class Mater extends Actor with ActorLogging {
-    // step 1 - create routees
+    // STEP 1 - create routees
     // 5 actor routees base off the Slave actors
     private val slaves = for (_ <- 1 to 5) yield {
       val slave = context.actorOf(Props[Slave])
@@ -17,16 +17,19 @@ object Routers extends App {
       ActorRefRoutee(slave) // TODO
     }
 
+    // STEP 2 - define router
     /**
-     * step 2 - define router
      * Routing logic
      * 1- routing strategy
      * 2- actor
      */
     private val router = Router(RoundRobinRoutingLogic(), slaves)
+    // STEP 4 - handle the termination/lifecycle of the routees
 
+    // STEP 3 - route the messages
     override def receive: Receive = {
-      ???
+      case message =>
+        router.route(message, sender())
     }
   }
 
