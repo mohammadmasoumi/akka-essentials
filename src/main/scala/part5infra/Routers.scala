@@ -8,4 +8,8 @@ object Routers extends App {
     override def receive: Receive = ???
   }
 
+  class Slave extends Actor with ActorLogging {
+    override def receive: Receive = ???
+  }
+
 }
