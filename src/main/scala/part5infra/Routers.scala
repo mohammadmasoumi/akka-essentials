@@ -23,13 +23,16 @@ object Routers extends App {
      * 1- routing strategy
      * 2- actor
      */
-    private val router = Router(RoundRobinRoutingLogic(), slaves)
+    private def createDefaultRouter(): Router =
+      Router(RoundRobinRoutingLogic(), slaves)
 
-    override def receive: Receive = {
+    override def receive: Receive = routeMessages()
+
+    def routeMessages(router: Router = createDefaultRouter()): Receive = {
       // STEP 4 - handle the termination/lifecycle of the routees
       case Terminated(ref) =>
         var newRouter = router.removeRoutee(ref)
-
+        context.become(routeMessages(newRouter))
 
       // STEP 3 - route the messages
       case message =>
