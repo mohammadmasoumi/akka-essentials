@@ -56,8 +56,8 @@ object Routers extends App {
   val system = ActorSystem("RoutersDemo" /* TODO add some config here*/)
   val master = system.actorOf(Props[Master])
 
-  for (_ <- 1 to 10) {
-    master ! "Hello from the world!"
+  for (idx <- 1 to 10) {
+    master ! s"[$idx] Hello from the world!"
   }
 
 
