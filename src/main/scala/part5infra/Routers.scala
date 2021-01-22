@@ -9,7 +9,9 @@ object Routers extends App {
   }
 
   class Slave extends Actor with ActorLogging {
-    override def receive: Receive = ???
+    override def receive: Receive = {
+      case message => log.info(message.toString)
+    }
   }
 
 }
