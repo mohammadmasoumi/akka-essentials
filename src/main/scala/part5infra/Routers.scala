@@ -1,7 +1,7 @@
 package part5infra
 
 import akka.actor.{Actor, ActorLogging, ActorSystem, Props, Terminated}
-import akka.routing.{ActorRefRoutee, RoundRobinPool, RoundRobinRoutingLogic, Router}
+import akka.routing.{ActorRefRoutee, FromConfig, RoundRobinPool, RoundRobinRoutingLogic, Router}
 
 object Routers extends App {
 
@@ -78,6 +78,7 @@ object Routers extends App {
   }
 
   // 2.2 from configuration
+  val poolMaster2 = system.actorOf(FromConfig.props(Props[Slave]), "poolMaster2")
 
 
 }
