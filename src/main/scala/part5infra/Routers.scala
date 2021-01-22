@@ -22,6 +22,15 @@ object Routers extends App {
      * Routing logic
      * 1- routing strategy
      * 2- actor
+     *
+     * Strategies:
+     *  - round-robin
+     *  - random
+     *  - smallest mailbox
+     *  - broadcast
+     *  - scatter-gather-first
+     *  - tail-chopping
+     *  - consistent-hashing
      */
     private val router = Router(RoundRobinRoutingLogic(), slaves)
 
