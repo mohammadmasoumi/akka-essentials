@@ -80,12 +80,13 @@ object Routers extends App {
 
   // 2.2 from configuration
   val poolMaster2 = system.actorOf(FromConfig.props(Props[Slave]), "poolMaster2")
-  for (idx <- 1 to 10) {
-    poolMaster2 ! s"[$idx] Hello from the world!"
-  }
+  //  for (idx <- 1 to 10) {
+  //    poolMaster2 ! s"[$idx] Hello from the world!"
+  //  }
 
   /**
-   * Method #3 = a router actor with its own children
+   * Method #3 = a router with actors created elsewhere
+   * GROUP router
    */
 
 
