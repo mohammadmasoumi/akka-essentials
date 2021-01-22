@@ -1,6 +1,6 @@
 package part5infra
 
-import akka.actor.{Actor, ActorLogging}
+import akka.actor.{Actor, ActorLogging, Props}
 
 object Routers extends App {
 
@@ -9,7 +9,7 @@ object Routers extends App {
    */
   class Mater extends Actor with ActorLogging {
     private val slaves = for (_ <- 1 to 5) yield {
-
+      val slave = context.actorOf(Props[Slave])
     }
 
     override def receive: Receive = {
