@@ -1,6 +1,6 @@
 package part5infra
 
-import akka.actor.{Actor, ActorLogging, Props, Terminated}
+import akka.actor.{Actor, ActorLogging, ActorSystem, Props, Terminated}
 import akka.routing.{ActorRefRoutee, RoundRobinRoutingLogic, Router}
 
 object Routers extends App {
@@ -46,11 +46,14 @@ object Routers extends App {
     }
   }
 
-
   class Slave extends Actor with ActorLogging {
     override def receive: Receive = {
       case message => log.info(message.toString)
     }
   }
+
+
+  val system = ActorSystem("RoutersDemo" /* TODO add some config here*/)
+
 
 }
