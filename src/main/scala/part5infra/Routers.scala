@@ -1,7 +1,7 @@
 package part5infra
 
 import akka.actor.{Actor, ActorLogging, Props}
-import akka.routing.Router
+import akka.routing.{ActorRefRoutee, RoundRobinRoutingLogic, Router}
 
 object Routers extends App {
 
@@ -12,18 +12,21 @@ object Routers extends App {
     private val slaves = for (_ <- 1 to 5) yield {
       val slave = context.actorOf(Props[Slave])
       context.watch(slave)
-      slave // TODO
+      ActorRefRoutee(slave) // TODO
     }
+
+    /**
+     * Routing logic
+     * 1- routing strategy
+     * 2- actor
+     */
+    private val router = Router(RoundRobinRoutingLogic(), slaves)
 
     override def receive: Receive = {
       ???
     }
   }
 
-  /**
-   * Routing logic
-   */
-  private val router = Router()
 
   class Slave extends Actor with ActorLogging {
     override def receive: Receive = {
