@@ -9,6 +9,7 @@ object Routers extends App {
    * #1 = manual router
    */
   class Mater extends Actor with ActorLogging {
+    // step 1 - create routees
     // 5 actor routees base off the Slave actors
     private val slaves = for (_ <- 1 to 5) yield {
       val slave = context.actorOf(Props[Slave])
@@ -17,6 +18,7 @@ object Routers extends App {
     }
 
     /**
+     * step 2 - define router
      * Routing logic
      * 1- routing strategy
      * 2- actor
