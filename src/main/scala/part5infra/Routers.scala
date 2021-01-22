@@ -28,7 +28,7 @@ object Routers extends App {
     override def receive: Receive = {
       // STEP 4 - handle the termination/lifecycle of the routees
       case Terminated(ref) =>
-
+        var newRouter = router.removeRoutee(ref)
 
 
       // STEP 3 - route the messages
