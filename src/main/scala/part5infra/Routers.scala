@@ -1,7 +1,8 @@
 package part5infra
 
 import akka.actor.{Actor, ActorLogging, ActorSystem, Props, Terminated}
-import akka.routing.{ActorRefRoutee, FromConfig, RoundRobinPool, RoundRobinRoutingLogic, Router}
+import akka.routing._
+import com.typesafe.config.ConfigFactory
 
 object Routers extends App {
 
@@ -59,7 +60,7 @@ object Routers extends App {
     }
   }
 
-  val system = ActorSystem("RoutersDemo" /* TODO add some config here*/)
+  val system = ActorSystem("RoutersDemo", ConfigFactory.load().getConfig("routersDemo"))
   val master = system.actorOf(Props[Master])
 
   //  for (idx <- 1 to 10) {
