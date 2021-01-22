@@ -33,14 +33,11 @@ object Routers extends App {
       case Terminated(ref) =>
         // remove slave from the router
         var newRouter = router.removeRoutee(ref)
-
         // create new slave
         val newSlave = context.actorOf(Props[Slave])
         context.watch(newSlave)
-
         // add new slave to the router
         newRouter = router.addRoutee(newSlave)
-
         context.become(routeMessages(newRouter))
 
       // STEP 3 - route the messages
