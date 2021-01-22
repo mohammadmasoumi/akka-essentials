@@ -40,7 +40,6 @@ object Routers extends App {
 
       // STEP 3 - route the messages
       case message =>
-        log.info(s"message: $message")
         router.route(message, sender())
     }
   }
