@@ -77,5 +77,7 @@ object Routers extends App {
     poolMaster ! s"[$idx] Hello from the world!"
   }
 
+  // 2.2 from configuration
+
 
 }
