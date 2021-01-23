@@ -113,5 +113,7 @@ object Routers extends App {
    * Handling the special messages
    */
 
+  groupMaster2 ! Broadcast("Hello everyone!")
+
 
 }
