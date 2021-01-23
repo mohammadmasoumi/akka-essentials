@@ -80,9 +80,9 @@ object Routers extends App {
 
   // 2.2 from configuration
   val poolMaster2 = system.actorOf(FromConfig.props(Props[Slave]), "poolMaster2")
-  //  for (idx <- 1 to 10) {
-  //    poolMaster2 ! s"[$idx] Hello from the world!"
-  //  }
+  //    for (idx <- 1 to 10) {
+  //      poolMaster2 ! s"[$idx] Hello from the world!"
+  //    }
 
   /**
    * Method #3 = a router with actors created elsewhere
@@ -95,9 +95,14 @@ object Routers extends App {
   // need their actor path
   val slavePaths = slaveList.map(slaveRef => slaveRef.path.toString)
 
-  // 2.1 in the code
+  // 3.1 in the code
   val groupMaster = system.actorOf(RoundRobinGroup(slavePaths).props())
 
+  //  for (idx <- 1 to 10) {
+  //    groupMaster ! s"[$idx] Hello from the world!"
+  //  }
+
+  // 3.2
 
 
 }
