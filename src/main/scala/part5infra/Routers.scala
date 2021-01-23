@@ -92,5 +92,8 @@ object Routers extends App {
   // .. in another part of my application
   val slaveList = (1 to 5).map(idx => system.actorOf(Props[Slave], s"salve_$idx")).toList
 
+  // need their actor path
+  val slavePaths = slaveList.map(slaveRef => slaveRef.path.toString)
+
 
 }
