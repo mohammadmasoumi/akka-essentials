@@ -118,6 +118,4 @@ object Routers extends App {
 
   // PoisonPill and Kill are NOT routed
   // AddRoutee, Remove, Get handled only by the routing actor
-
-
 }
