@@ -103,6 +103,10 @@ object Routers extends App {
   //  }
 
   // 3.2 from configuration
+  val groupMaster2 = system.actorOf(FromConfig.props(), "groupMaster2")
 
+  for (idx <- 1 to 10) {
+    groupMaster2 ! s"[$idx] Hello from the world!"
+  }
 
 }
