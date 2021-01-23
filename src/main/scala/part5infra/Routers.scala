@@ -109,4 +109,9 @@ object Routers extends App {
     groupMaster2 ! s"[$idx] Hello from the world!"
   }
 
+  /**
+   * Handling the special messages
+   */
+
+
 }
