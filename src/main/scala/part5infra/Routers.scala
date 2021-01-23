@@ -114,7 +114,8 @@ object Routers extends App {
    */
 
   // this message will send to all slaves regardless of the strategy pattern
-    groupMaster2 ! Broadcast("Hello everyone!")
+  groupMaster2 ! Broadcast("Hello everyone!")
 
+  // PoisonPill and Kill are NOT routed
 
 }
