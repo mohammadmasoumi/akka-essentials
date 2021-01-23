@@ -90,7 +90,7 @@ object Routers extends App {
    */
 
   // .. in another part of my application
-  val slaveList = (1 to 5).map(idx => system.actorOf(Props[Slave], s"salve_$idx"))
+  val slaveList = (1 to 5).map(idx => system.actorOf(Props[Slave], s"salve_$idx")).toList
 
 
 }
