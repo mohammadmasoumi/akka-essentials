@@ -89,6 +89,9 @@ object Routers extends App {
    * GROUP router
    */
 
+  // .. in another part of my application
+  val slaveList
+
 
 
 
