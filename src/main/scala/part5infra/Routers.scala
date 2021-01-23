@@ -113,6 +113,7 @@ object Routers extends App {
    * Handling the special messages
    */
 
+  // this message will send to all slaves regardless of the strategy pattern
   groupMaster2 ! Broadcast("Hello everyone!")
 
 
