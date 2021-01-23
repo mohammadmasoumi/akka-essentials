@@ -18,7 +18,11 @@
    ``` 
    ```scala
    val groupMaster2 = system.actorOf(FromConfig.props(), "groupMaster2")
-   ``` 
+   ```
+### Special messages
+
+ BroadCase, PoisonPill, Kill, AddRoutee and ...
+ 
  
 
  
