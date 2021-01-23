@@ -95,7 +95,9 @@ object Routers extends App {
   // need their actor path
   val slavePaths = slaveList.map(slaveRef => slaveRef.path.toString)
 
-  // create groupMaster
+  // 2.1 in the code
   val groupMaster = system.actorOf(RoundRobinGroup(slavePaths).props())
+
+
 
 }
