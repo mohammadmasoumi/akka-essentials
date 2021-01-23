@@ -102,7 +102,7 @@ object Routers extends App {
   //    groupMaster ! s"[$idx] Hello from the world!"
   //  }
 
-  // 3.2
+  // 3.2 from configuration
 
 
 }
