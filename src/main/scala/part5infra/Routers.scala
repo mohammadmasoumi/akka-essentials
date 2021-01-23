@@ -98,23 +98,23 @@ object Routers extends App {
   // 3.1 in the code
   val groupMaster = system.actorOf(RoundRobinGroup(slavePaths).props())
 
-  //  for (idx <- 1 to 10) {
-  //    groupMaster ! s"[$idx] Hello from the world!"
-  //  }
+    for (idx <- 1 to 10) {
+      groupMaster ! s"[$idx] Hello from the world!"
+    }
 
   // 3.2 from configuration
   val groupMaster2 = system.actorOf(FromConfig.props(), "groupMaster2")
 
-  for (idx <- 1 to 10) {
-    groupMaster2 ! s"[$idx] Hello from the world!"
-  }
+//  for (idx <- 1 to 10) {
+//    groupMaster2 ! s"[$idx] Hello from the world!"
+//  }
 
   /**
    * Handling the special messages
    */
 
   // this message will send to all slaves regardless of the strategy pattern
-  groupMaster2 ! Broadcast("Hello everyone!")
+//  groupMaster2 ! Broadcast("Hello everyone!")
 
 
 }
