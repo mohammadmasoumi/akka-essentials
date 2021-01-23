@@ -32,7 +32,7 @@ therefore I've created this project to share what I've learned.
 
  - **Akka Infrastructure**
     - [TimerSchedulersRecap][130]
-    - [RoutersReca][131]
+    - [RoutersRecap][131]
 
 
 ### Courses
@@ -62,4 +62,4 @@ therefore I've created this project to share what I've learned.
 [122]: https://github.com/mohammadmasoumi/akka-essentials/blob/main/src/main/scala/part4faulttolerance/BackoffSupervisorPatternRecap.md
 
 [130]: https://github.com/mohammadmasoumi/akka-essentials/blob/main/src/main/scala/part5infra/TimerSchedulersRecap.md
-[131]: https://github.com/mohammadmasoumi/akka-essentials/blob/main/src/main/scala/part5infra/RoutersReca.md
+[131]: https://github.com/mohammadmasoumi/akka-essentials/blob/main/src/main/scala/part5infra/RoutersRecap.md
