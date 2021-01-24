@@ -41,7 +41,14 @@ object Dispatchers extends App {
 
   /**
    * Dispatchers implement the ExecutionContext trait
+   * Interact with IO
    */
+
+  class DBActor extends Actor with ActorLogging {
+    override def receive: Receive = {
+
+    }
+  }
 
 
 }
