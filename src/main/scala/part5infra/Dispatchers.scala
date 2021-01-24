@@ -39,6 +39,10 @@ object Dispatchers extends App {
    */
   val rtjvm = system.actorOf(Props[Counter], "rtjvm")
 
+  /**
+   * Dispatchers implement the ExecutionContext trait
+   */
+
 
 }
 
