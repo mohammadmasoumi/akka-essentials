@@ -56,6 +56,9 @@ object Dispatchers extends App {
     }
   }
 
+  val dbActor = system.actorOf(Props[DBActor])
+  dbActor ! "The meaning of the life is 24"
+
 
 }
 
