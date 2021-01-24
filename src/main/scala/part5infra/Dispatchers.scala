@@ -1,6 +1,6 @@
 package part5infra
 
-object Dispatchers {
+object Dispatchers extends App {
 
 }
 
