@@ -1,6 +1,7 @@
 package part5infra
 
-import akka.actor.{Actor, ActorLogging}
+import akka.actor.{Actor, ActorLogging, ActorSystem}
+import com.typesafe.config.ConfigFactory
 
 object Dispatchers extends App {
 
@@ -13,6 +14,8 @@ object Dispatchers extends App {
         log.info(s"[$count]: $message")
     }
   }
+
+  val system = ActorSystem("DispatcherDemo", ConfigFactory.load().getConfig("dispatcherDemo"))
 
 }
 
