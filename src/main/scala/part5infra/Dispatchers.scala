@@ -37,6 +37,7 @@ object Dispatchers extends App {
   /**
    * METHOD #2 - from config
    */
+  val rtjvm = system.actorOf(Props[Counter], "rtjvm")
 
 
 }
