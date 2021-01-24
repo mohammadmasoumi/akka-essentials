@@ -1,6 +1,6 @@
 package part5infra
 
-import akka.actor.{Actor, ActorLogging, ActorSystem, Props}
+import akka.actor.{Actor, ActorLogging, ActorRef, ActorSystem, Props}
 import com.typesafe.config.ConfigFactory
 
 import scala.util.Random
@@ -20,12 +20,12 @@ object Dispatchers extends App {
   val system = ActorSystem("DispatcherDemo") // , ConfigFactory.load().getConfig("dispatcherDemo")
 
   /**
-   * METHOD #1
+   * METHOD #1 - programmatic / in code
    *
    * change `fixed-pool-size` to 1 to see what will happen.
    */
 
-  val actors = for (idx <- 1 to 10)
+  val actors: Seq[ActorRef] = for (idx <- 1 to 10)
     yield system.actorOf(Props[Counter].withDispatcher("my-dispatcher"), s"counter_$idx")
 
   // test the actors
