@@ -34,6 +34,10 @@ object Dispatchers extends App {
     actors(r.nextInt(10)) ! idx
   }
 
+  /**
+   * METHOD #2 - from config
+   */
+
 
 }
 
