@@ -1,6 +1,6 @@
 package part5infra
 
-import akka.actor.{Actor, ActorLogging, ActorSystem}
+import akka.actor.{Actor, ActorLogging, ActorSystem, Props}
 import com.typesafe.config.ConfigFactory
 
 object Dispatchers extends App {
@@ -16,6 +16,8 @@ object Dispatchers extends App {
   }
 
   val system = ActorSystem("DispatcherDemo", ConfigFactory.load().getConfig("dispatcherDemo"))
+
+  val simpleCounterActor = system.actorOf(Props[Counter], "simpleCounterActor")
 
 }
 
