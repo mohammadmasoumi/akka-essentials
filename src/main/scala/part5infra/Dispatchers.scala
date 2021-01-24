@@ -3,6 +3,7 @@ package part5infra
 import akka.actor.{Actor, ActorLogging, ActorRef, ActorSystem, Props}
 import com.typesafe.config.ConfigFactory
 
+import scala.concurrent.{ExecutionContext, Future}
 import scala.util.Random
 
 object Dispatchers extends App {
@@ -45,8 +46,13 @@ object Dispatchers extends App {
    */
 
   class DBActor extends Actor with ActorLogging {
+    implicit val executionContext: ExecutionContext = context.dispatcher
     override def receive: Receive = {
-
+      case message => Future {
+        // wait on a resource
+        Thread.sleep(5000)
+        log.info(s"Success: $message")
+      }
     }
   }
 
