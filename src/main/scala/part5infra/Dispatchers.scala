@@ -8,7 +8,9 @@ object Dispatchers extends App {
     override def receive: Receive = onMessage()
 
     private def onMessage(count: Int = 0): Receive = {
-
+      case message =>
+        context.become(onMessage(count + 1))
+        log.info(message.toString)
     }
 
   }
