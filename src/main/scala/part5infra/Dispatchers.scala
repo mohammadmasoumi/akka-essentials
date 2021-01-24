@@ -19,6 +19,12 @@ object Dispatchers extends App {
 
   val system = ActorSystem("DispatcherDemo") // , ConfigFactory.load().getConfig("dispatcherDemo")
 
+  /**
+   * METHOD #1
+   *
+   * change `fixed-pool-size` to 1 to see what will happen.
+   */
+
   val actors = for (idx <- 1 to 10)
     yield system.actorOf(Props[Counter].withDispatcher("my-dispatcher"), s"counter_$idx")
 
@@ -27,6 +33,7 @@ object Dispatchers extends App {
   for (idx <- 1 to 1000) {
     actors(r.nextInt(10)) ! idx
   }
+
 
 }
 
