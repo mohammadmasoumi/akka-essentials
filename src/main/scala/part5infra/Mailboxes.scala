@@ -27,6 +27,10 @@ object Mailboxes extends App {
     extends UnboundedPriorityMailbox(
       PriorityGenerator {
         case message: String if message.startsWith("[P0]") => 0 // higher priority
+        case message: String if message.startsWith("[P1]") => 1
+        case message: String if message.startsWith("[P2]") => 2
+        case message: String if message.startsWith("[P3]") => 3
+        case _ => 4
       }
     )
 
