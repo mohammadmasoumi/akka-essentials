@@ -1,5 +1,5 @@
 package part5infra
 
-object Mailboxes {
+object Mailboxes extends App {
 
 }
