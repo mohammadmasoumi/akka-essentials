@@ -1,6 +1,7 @@
 package part5infra
 
 import akka.actor.{Actor, ActorLogging, ActorSystem}
+import akka.dispatch.{PriorityGenerator, UnboundedPriorityMailbox}
 import com.typesafe.config.Config
 
 object Mailboxes extends App {
@@ -22,9 +23,12 @@ object Mailboxes extends App {
    * P3
    */
 
-  class SupportTicketPriorityMailbox(settings: ActorSystem.Settings, config: Config) {
+  class SupportTicketPriorityMailbox(settings: ActorSystem.Settings, config: Config)
+    extends UnboundedPriorityMailbox(
+      PriorityGenerator {
 
-  }
+      }
+    )
 
 
 }
