@@ -26,7 +26,7 @@ object Mailboxes extends App {
   class SupportTicketPriorityMailbox(settings: ActorSystem.Settings, config: Config)
     extends UnboundedPriorityMailbox(
       PriorityGenerator {
-
+        case message: String if message.startsWith("[P0]") => 0
       }
     )
 
