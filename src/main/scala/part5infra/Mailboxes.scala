@@ -1,6 +1,7 @@
 package part5infra
 
 import akka.actor.{Actor, ActorLogging, ActorSystem}
+import com.typesafe.config.Config
 
 object Mailboxes extends App {
 
@@ -14,8 +15,6 @@ object Mailboxes extends App {
   }
 
   /**
-   *
-   *
    * Interesting case &1 - custom priority mailbox
    * P0 -> most important one
    * P1
@@ -23,8 +22,9 @@ object Mailboxes extends App {
    * P3
    */
 
+  class SupportTicketPriorityMailbox(settings: ActorSystem.Settings, config: Config) {
 
-
+  }
 
 
 }
