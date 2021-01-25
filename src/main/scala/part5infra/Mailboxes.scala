@@ -36,6 +36,7 @@ object Mailboxes extends App {
     )
 
   // step 2 - make it known in the config
+  // step 3 - attach the dispatcher to an Actor
 
 
 }
