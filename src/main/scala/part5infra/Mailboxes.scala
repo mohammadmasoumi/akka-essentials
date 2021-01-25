@@ -13,5 +13,10 @@ object Mailboxes extends App {
     }
   }
 
+  /**
+   * Interesting case &1 - custom priority mailbox
+   */
+
+
 
 }
