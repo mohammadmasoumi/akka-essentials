@@ -23,6 +23,7 @@ object Mailboxes extends App {
    * P3
    */
 
+  // step 1 - mailbox definition
   class SupportTicketPriorityMailbox(settings: ActorSystem.Settings, config: Config)
     extends UnboundedPriorityMailbox(
       PriorityGenerator {
