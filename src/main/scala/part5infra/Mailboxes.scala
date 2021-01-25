@@ -34,6 +34,7 @@ object Mailboxes extends App {
         case _ => 4
       }
     )
+
   // step 2 - make it known in the config
 
 
