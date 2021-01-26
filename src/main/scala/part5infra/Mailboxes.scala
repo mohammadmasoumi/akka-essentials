@@ -71,6 +71,7 @@ object Mailboxes extends App {
   controlAwareActor ! "[P1] do this when you have time!"
   controlAwareActor ! ManagementTicket
 
+  // method #2 - using deployment config
 
 
 
