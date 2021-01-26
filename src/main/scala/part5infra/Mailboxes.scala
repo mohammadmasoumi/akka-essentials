@@ -2,11 +2,11 @@ package part5infra
 
 import akka.actor.{Actor, ActorLogging, ActorSystem, PoisonPill, Props}
 import akka.dispatch.{ControlMessage, PriorityGenerator, UnboundedPriorityMailbox}
-import com.typesafe.config.Config
+import com.typesafe.config.{Config, ConfigFactory}
 
 object Mailboxes extends App {
 
-  val system = ActorSystem("MailboxDemo")
+  val system = ActorSystem("MailboxDemo", ConfigFactory.load().getConfig("mailboxesDemo"))
 
   class SimpleActor extends Actor with ActorLogging {
     override def receive: Receive = {
