@@ -38,8 +38,10 @@ object Mailboxes extends App {
   // step 2 - make it known in the config
   // step 3 - attach the dispatcher to an Actor
   val supportTicketPriorityMailbox = system.actorOf(Props[SimpleActor].withDispatcher("support-ticket-dispatcher"))
+
   // event PoisonPill will postpone
   supportTicketPriorityMailbox ! PoisonPill
+
   // then other message will be sent to the dead letter
   Thread.sleep(1000)
   supportTicketPriorityMailbox ! "[P3] this thing would be nice to have!"
@@ -65,6 +67,10 @@ object Mailboxes extends App {
   val controlAwareActor = system.actorOf(
     Props[SimpleActor].withDispatcher("control-mailbox"), "controlAwareSimpleActor"
   )
+  supportTicketPriorityMailbox ! "[P0] this needs to be solved NOW!"
+  supportTicketPriorityMailbox ! "[P1] do this when you have time!"
+
+
 
 
 
