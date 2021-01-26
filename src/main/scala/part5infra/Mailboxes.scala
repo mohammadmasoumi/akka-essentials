@@ -67,12 +67,16 @@ object Mailboxes extends App {
   val controlAwareActor = system.actorOf(
     Props[SimpleActor].withDispatcher("control-mailbox"), "controlAwareSimpleActor"
   )
-  controlAwareActor ! "[P0] this needs to be solved NOW!"
-  controlAwareActor ! "[P1] do this when you have time!"
-  controlAwareActor ! ManagementTicket
+//  controlAwareActor ! "[P0] this needs to be solved NOW!"
+//  controlAwareActor ! "[P1] do this when you have time!"
+//  controlAwareActor ! ManagementTicket
 
   // method #2 - using deployment config
   val alternativeControlAwareActor = system.actorOf(Props[SimpleActor], "altControlAwareActor")
+  alternativeControlAwareActor ! "[P0] this needs to be solved NOW!"
+  alternativeControlAwareActor ! "[P1] do this when you have time!"
+  alternativeControlAwareActor ! ManagementTicket
+
 
 
 
