@@ -1,7 +1,7 @@
 package part5infra
 
 import akka.actor.{Actor, ActorLogging, ActorSystem, PoisonPill, Props}
-import akka.dispatch.{PriorityGenerator, UnboundedPriorityMailbox}
+import akka.dispatch.{ControlMessage, PriorityGenerator, UnboundedPriorityMailbox}
 import com.typesafe.config.Config
 
 object Mailboxes extends App {
@@ -55,7 +55,14 @@ object Mailboxes extends App {
    */
 
   // step 1 - mark important messages as control messages
+  case object ManagementTicket extends ControlMessage
 
+  /**
+   * step 2 - configure who gets the mailbox
+   *  - make the actor attach to the mailbox
+   */
+
+  val controlAwareActor = system.actorOf(Props[SimpleActor], "controlAwareSimpleActor")
 
 
 
