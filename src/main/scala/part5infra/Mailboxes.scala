@@ -46,4 +46,7 @@ object Mailboxes extends App {
   supportTicketPriorityMailbox ! "[P0] this needs to be solved NOW!"
   supportTicketPriorityMailbox ! "[P1] do this when you have time!"
 
+  // [Q]: after which time can I send another message and be prioritized accordingly?
+  // [A]: neither you can know nor configure it
+
 }
