@@ -63,7 +63,7 @@ object Mailboxes extends App {
    * step 2 - configure who gets the mailbox
    *  - make the actor attach to the mailbox
    */
-
+  // method #1
   val controlAwareActor = system.actorOf(
     Props[SimpleActor].withDispatcher("control-mailbox"), "controlAwareSimpleActor"
   )
