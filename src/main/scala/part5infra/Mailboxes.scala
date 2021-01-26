@@ -72,6 +72,7 @@ object Mailboxes extends App {
   controlAwareActor ! ManagementTicket
 
   // method #2 - using deployment config
+  val alternativeControlAwareActor = system.actorOf(Props[SimpleActor], "altControlAwareActor")
 
 
 
