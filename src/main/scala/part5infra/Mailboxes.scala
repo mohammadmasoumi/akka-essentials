@@ -67,8 +67,9 @@ object Mailboxes extends App {
   val controlAwareActor = system.actorOf(
     Props[SimpleActor].withDispatcher("control-mailbox"), "controlAwareSimpleActor"
   )
-  supportTicketPriorityMailbox ! "[P0] this needs to be solved NOW!"
-  supportTicketPriorityMailbox ! "[P1] do this when you have time!"
+  controlAwareActor ! "[P0] this needs to be solved NOW!"
+  controlAwareActor ! "[P1] do this when you have time!"
+  controlAwareActor ! ManagementTicket
 
 
 
