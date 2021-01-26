@@ -16,7 +16,7 @@ object Mailboxes extends App {
   }
 
   /**
-   * Interesting case &1 - custom priority mailbox
+   * Interesting case #1 - custom priority mailbox
    * P0 -> most important one
    * P1
    * P2
@@ -48,5 +48,12 @@ object Mailboxes extends App {
 
   // [Q]: after which time can I send another message and be prioritized accordingly?
   // [A]: neither you can know nor configure it
+
+  /**
+   * Interesting case #2 - control-aware mailbox
+   */
+
+
+
 
 }
