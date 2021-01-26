@@ -50,7 +50,8 @@ object Mailboxes extends App {
   // [A]: neither you can know nor configure it
 
   /**
-   * Interesting case #2 - control-aware mailbox
+   * Interesting case #2 - control-aware mailbox.
+   * we'll use UnboundedControlAwareMailbox
    */
 
 
