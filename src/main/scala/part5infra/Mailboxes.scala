@@ -40,6 +40,8 @@ object Mailboxes extends App {
   val supportTicketPriorityMailbox = system.actorOf(Props[SimpleActor].withDispatcher("support-ticket-dispatcher"))
   // event PoisonPill will postpone
   supportTicketPriorityMailbox ! PoisonPill
+  // then other message will be sent to the dead letter
+  Thread.sleep(1000)
   supportTicketPriorityMailbox ! "[P3] this thing would be nice to have!"
   supportTicketPriorityMailbox ! "[P0] this needs to be solved NOW!"
   supportTicketPriorityMailbox ! "[P1] do this when you have time!"
