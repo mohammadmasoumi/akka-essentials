@@ -14,6 +14,8 @@ object StashDemo extends App {
        ResourceActor is open.
          - Read/Write are handled.
          - Close => switch to the closed state.
+
+       [Open, Read, Read, Write]
          
     */
 
