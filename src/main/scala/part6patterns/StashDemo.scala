@@ -8,6 +8,10 @@ object StashDemo extends App {
        - otherwise => it will postpone all read/write requests until the state is open.
 
        ResourceActor is closed.
+         - open => it will switch to the open state.
+       
+       ResourceActor is open.
+         
     */
 
     case object Open
