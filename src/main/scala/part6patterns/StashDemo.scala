@@ -4,11 +4,12 @@ object StashDemo extends App {
 
     /**
       ResourceActor
-       - open => it can receivve read/write requests to the resource.
+       - Open => it can receivve read/write requests to the resource.
        - otherwise => it will postpone all read/write requests until the state is open.
 
        ResourceActor is closed.
-         - open => it will switch to the open state.
+         - Open => it will switch to the open state.
+         - Read, Write messages are POSTPONED.
        
        ResourceActor is open.
          - Read/Write are handled.
