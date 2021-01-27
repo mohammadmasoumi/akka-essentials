@@ -12,5 +12,6 @@ object StashDemo extends App {
 
     case object Open
     case object Close
+    case object Write(data: String)
 
 }
