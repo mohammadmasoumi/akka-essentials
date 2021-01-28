@@ -41,6 +41,7 @@ object StashDemo extends App {
           contest.become(open)
         case message => 
           log.info(s"Stashing $message because i can't handle it in the closed state.")
+          stash()
       }
 
       def open: Receive = {
