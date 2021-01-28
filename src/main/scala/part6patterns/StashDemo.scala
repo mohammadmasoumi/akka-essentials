@@ -37,7 +37,8 @@ object StashDemo extends App {
 
       def closed: Receive = {
         case open =>
-        
+          log.info("Opening resource")
+
 
       }
 
