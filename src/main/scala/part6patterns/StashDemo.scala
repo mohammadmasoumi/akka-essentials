@@ -31,7 +31,7 @@ object StashDemo extends App {
     case object Write(data: String)
 
     class ResourceActor extends Actor with ActorLogging with Stash {
-      private var 
+      private var innerData: String = ""
 
 
     }
