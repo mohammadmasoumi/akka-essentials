@@ -1,5 +1,8 @@
 package part6patterns
 
+import akka.actor.{Actor, ActorLogging, ActorSystem, Props, Stash}
+
+
 object StashDemo extends App {
 
     /**
@@ -26,5 +29,10 @@ object StashDemo extends App {
     case object Open
     case object Close
     case object Write(data: String)
+
+    class ResourceActor extends Actor with ActorLogging with Stash{
+
+
+    }
 
 }
