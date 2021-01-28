@@ -39,7 +39,7 @@ object StashDemo extends App {
         case open =>
           log.info("Opening resource")
           contest.become(open)
-        case message
+        case message => 
       }
 
       def open: Receive = {
