@@ -36,6 +36,10 @@ object StashDemo extends App {
       override def receive: Receive = closed 
 
       def closed: Receive = {
+
+      }
+
+      def open: Receive = {
         
       }
 
