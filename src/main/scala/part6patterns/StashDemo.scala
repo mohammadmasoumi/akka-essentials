@@ -33,6 +33,8 @@ object StashDemo extends App {
     class ResourceActor extends Actor with ActorLogging with Stash {
       private var innerData: String = ""
 
+      override def receive: Receive = closed 
+
 
     }
 
