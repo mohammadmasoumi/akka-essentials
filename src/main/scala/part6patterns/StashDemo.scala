@@ -30,7 +30,8 @@ object StashDemo extends App {
     case object Close
     case object Write(data: String)
 
-    class ResourceActor extends Actor with ActorLogging with Stash{
+    class ResourceActor extends Actor with ActorLogging with Stash {
+      private var 
 
 
     }
