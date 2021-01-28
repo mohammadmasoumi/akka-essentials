@@ -16,6 +16,10 @@ object StashDemo extends App {
          - Close => switch to the closed state.
 
        [Open, Read, Read, Write]
+        - swtich to the Open state.
+        - read the data
+        - read the data
+        - write the data
          
     */
 
