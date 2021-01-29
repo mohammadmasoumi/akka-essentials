@@ -32,9 +32,7 @@ object StashDemo extends App {
 
   case object Write
 
-  (data: String
-    )
-
+  // step1 - mix-in the Stash trait
   class ResourceActor extends Actor with ActorLogging with Stash {
     private var innerData: String = ""
 
