@@ -5,50 +5,55 @@ import akka.actor.{Actor, ActorLogging, ActorSystem, Props, Stash}
 
 object StashDemo extends App {
 
-    /**
-      ResourceActor
-       - Open => it can receivve read/write requests to the resource.
-       - otherwise => it will postpone all read/write requests until the state is open.
+  /**
+   * ResourceActor
+   * - Open => it can receivve read/write requests to the resource.
+   * - otherwise => it will postpone all read/write requests until the state is open.
+   *
+   * ResourceActor is closed.
+   * - Open => it will switch to the open state.
+   * - Read, Write messages are POSTPONED.
+   *
+   * ResourceActor is open.
+   * - Read/Write are handled.
+   * - Close => switch to the closed state.
+   *
+   * [Open, Read, Read, Write]
+   * - swtich to the Open state.
+   * - read the data
+   * - read the data
+   * - write the data
+   *
+   */
 
-       ResourceActor is closed.
-         - Open => it will switch to the open state.
-         - Read, Write messages are POSTPONED.
-       
-       ResourceActor is open.
-         - Read/Write are handled.
-         - Close => switch to the closed state.
+  case object Open
 
-       [Open, Read, Read, Write]
-        - swtich to the Open state.
-        - read the data
-        - read the data
-        - write the data
-         
-    */
+  case object Close
 
-    case object Open
-    case object Close
-    case object Write(data: String)
+  case object Write
 
-    class ResourceActor extends Actor with ActorLogging with Stash {
-      private var innerData: String = ""
+  (data: String
+    )
 
-      override def receive: Receive = closed 
+  class ResourceActor extends Actor with ActorLogging with Stash {
+    private var innerData: String = ""
 
-      def closed: Receive = {
-        case open =>
-          log.info("Opening resource")
-          contest.become(open)
-        case message => 
-          log.info(s"Stashing $message because i can't handle it in the closed state.")
-          stash()
-      }
+    override def receive: Receive = closed
 
-      def open: Receive = {
+    def closed: Receive = {
+      case open =>
+        log.info("Opening resource")
+        contest.become(open)
+      case message =>
+        log.info(s"Stashing $message because i can't handle it in the closed state.")
+        stash()
+    }
 
-      }
-
+    def open: Receive = {
 
     }
+
+
+  }
 
 }
