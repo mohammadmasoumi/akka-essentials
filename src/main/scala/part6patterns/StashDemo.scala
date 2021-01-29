@@ -32,7 +32,7 @@ object StashDemo extends App {
 
   case object Write
 
-  // step1 - mix-in the Stash trait
+  // step 1 - mix-in the Stash trait
   class ResourceActor extends Actor with ActorLogging with Stash {
     private var innerData: String = ""
 
@@ -41,6 +41,7 @@ object StashDemo extends App {
     def closed: Receive = {
       case Open =>
         log.info("Opening resource")
+        // step3 - unStashAll when you switch the message handler.
         unstashAll()
         context.become(open)
 
