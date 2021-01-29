@@ -41,7 +41,7 @@ object StashDemo extends App {
     override def receive: Receive = closed
 
     def closed: Receive = {
-      case open =>
+      case Open =>
         log.info("Opening resource")
         unstashAll()
         context.become(open)
