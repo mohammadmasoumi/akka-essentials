@@ -43,8 +43,10 @@ object StashDemo extends App {
         log.info("Opening resource")
         unstashAll()
         context.become(open)
+
       case message =>
         log.info(s"Stashing $message because I can't handle it in the closed state.")
+        // step2 - stash away what you can't handle
         stash()
     }
 
