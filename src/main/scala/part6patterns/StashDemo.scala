@@ -1,6 +1,6 @@
 package part6patterns
 
-import akka.actor.{Actor, ActorLogging, ActorSystem, Props, Stash}
+import akka.actor.{Actor, ActorLogging, Stash}
 
 
 object StashDemo extends App {
@@ -30,6 +30,8 @@ object StashDemo extends App {
 
   case object Close
 
+  case object Read
+
   case object Write
 
   // step 1 - mix-in the Stash trait
@@ -52,7 +54,7 @@ object StashDemo extends App {
     }
 
     def open: Receive = {
-
+      case Read =>
     }
 
 
