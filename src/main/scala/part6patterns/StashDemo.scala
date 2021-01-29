@@ -43,7 +43,7 @@ object StashDemo extends App {
     def closed: Receive = {
       case open =>
         log.info("Opening resource")
-
+        unstashAll()
         context.become(open)
       case message =>
         log.info(s"Stashing $message because I can't handle it in the closed state.")
