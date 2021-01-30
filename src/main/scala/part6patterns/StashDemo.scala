@@ -54,7 +54,7 @@ object StashDemo extends App {
     }
 
     def open: Receive = {
-      case Read =>
+      case Read => 
     }
 
 
