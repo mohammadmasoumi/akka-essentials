@@ -56,7 +56,7 @@ object StashDemo extends App {
     def open: Receive = {
       case Read =>
         // do some actual computation.
-        log.info("I")
+        log.info(s"I have read $innerData")
     }
 
 
