@@ -58,7 +58,8 @@ object StashDemo extends App {
         // do some actual computation.
         log.info(s"I have read $innerData")
 
-      case Write(data)
+      case Write(data) =>
+        log.info(s"I am writing $data")
     }
 
 
