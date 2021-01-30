@@ -78,7 +78,7 @@ object StashDemo extends App {
   resourceActor ! Open // switch to open - then pop the Read: "I have read "
   resourceActor ! Open // stashed
   resourceActor ! Write("I love stash") // I am writing I love stash
-  resourceActor ! Close
+  resourceActor ! Close // switch to close; switched to open
   resourceActor ! Read
 
 
