@@ -63,6 +63,7 @@ object StashDemo extends App {
         innerData = data
       case Close =>
         log.info("Closing resource.")
+        unstashAll()
         context.become(closed)
       case message =>
         log.info(s"Stashing $message because I can't handle it in the open state.")
