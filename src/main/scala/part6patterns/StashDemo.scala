@@ -60,6 +60,10 @@ object StashDemo extends App {
 
       case Write(data) =>
         log.info(s"I am writing $data")
+        innerData = data
+      case Close =>
+        log.info("Closing resource.")
+        context.become(closed)
     }
 
 
