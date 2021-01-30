@@ -32,7 +32,7 @@ object StashDemo extends App {
 
   case object Read
 
-  case object Write
+  case class Write(data: String)
 
   // step 1 - mix-in the Stash trait
   class ResourceActor extends Actor with ActorLogging with Stash {
@@ -57,6 +57,8 @@ object StashDemo extends App {
       case Read =>
         // do some actual computation.
         log.info(s"I have read $innerData")
+
+      case Write(data)
     }
 
 
