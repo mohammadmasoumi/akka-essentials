@@ -74,6 +74,13 @@ object StashDemo extends App {
   val system  = ActorSystem("StashDemo")
   val resourceActor = system.actorOf(Props[ResourceActor])
 
+  resourceActor ! Read
+  resourceActor ! Open
+  resourceActor ! Open
+  resourceActor ! Write("I love stash")
+  resourceActor ! Close
+  resourceActor ! Read
+
 
 
 }
