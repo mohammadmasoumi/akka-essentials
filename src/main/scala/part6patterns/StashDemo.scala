@@ -1,6 +1,6 @@
 package part6patterns
 
-import akka.actor.{Actor, ActorLogging, Stash}
+import akka.actor.{Actor, ActorLogging, ActorSystem, Stash}
 
 
 object StashDemo extends App {
@@ -69,8 +69,9 @@ object StashDemo extends App {
         log.info(s"Stashing $message because I can't handle it in the open state.")
         stash()
     }
-
-
   }
+
+  val system  = ActorSystem("StashDemo")
+
 
 }
