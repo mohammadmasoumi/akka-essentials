@@ -2,7 +2,9 @@ package part6patterns
 
 import akka.actor.{Actor, ActorLogging, ActorSystem, Props}
 import akka.testkit.{ImplicitSender, TestKit}
+import akka.util.Timeout
 import org.scalatest.{BeforeAndAfterAll, WordSpecLike}
+import scala.concurrent.duration._
 
 // the first step
 import akka.pattern.ask
@@ -51,6 +53,9 @@ object AskSpec {
   case object AuthSuccess
 
   class AuthManager extends Actor with ActorLogging {
+    // step 2 = logistic
+    implicit val timeout: Timeout = Timeout(1 second)
+
     private val authDB = context.actorOf(Props[KVActor])
 
     override def receive: Receive = {
