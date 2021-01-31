@@ -4,6 +4,9 @@ import akka.actor.{Actor, ActorLogging, ActorSystem, Props}
 import akka.testkit.{ImplicitSender, TestKit}
 import org.scalatest.{BeforeAndAfterAll, WordSpecLike}
 
+// the first step
+import akka.pattern.ask
+
 class AskSpec extends TestKit(ActorSystem("AskSpec"))
   with ImplicitSender
   with WordSpecLike
