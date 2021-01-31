@@ -9,6 +9,11 @@ class AskSpec extends TestKit(ActorSystem("AskSpec"))
   with WordSpecLike
   with BeforeAndAfterAll {
 
+  override protected def afterAll(): Unit = {
+    TestKit.shutdownActorSystem(system)
+  }
+
+
 }
 
 
