@@ -45,6 +45,10 @@ object AskSpec {
 
   case class Authenticate(username: String, password: String)
 
+  case class AuthFailure(message: String)
+
+  case object AuthSuccess
+
   class AuthManager extends Actor with ActorLogging {
     override def receive: Receive = ???
   }
