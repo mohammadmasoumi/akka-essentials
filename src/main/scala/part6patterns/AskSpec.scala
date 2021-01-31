@@ -4,6 +4,8 @@ import akka.actor.{Actor, ActorLogging, ActorSystem, Props}
 import akka.testkit.{ImplicitSender, TestKit}
 import akka.util.Timeout
 import org.scalatest.{BeforeAndAfterAll, WordSpecLike}
+
+import scala.concurrent.ExecutionContext
 import scala.concurrent.duration._
 
 // the first step
@@ -55,6 +57,7 @@ object AskSpec {
   class AuthManager extends Actor with ActorLogging {
     // step 2 = logistic
     implicit val timeout: Timeout = Timeout(1 second)
+    implicit val executionContext: ExecutionContext = context.dispatcher
 
     private val authDB = context.actorOf(Props[KVActor])
 
