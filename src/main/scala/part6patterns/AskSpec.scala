@@ -15,8 +15,6 @@ class AskSpec extends TestKit(ActorSystem("AskSpec"))
   override protected def afterAll(): Unit = {
     TestKit.shutdownActorSystem(system)
   }
-
-
 }
 
 
@@ -58,6 +56,8 @@ object AskSpec {
     override def receive: Receive = {
       case RegisterUser(username, password) =>
         authDB ! Write(username, password)
+      case Authenticate(username, password) =>
+        authDB ? Read(username)
     }
 
 
