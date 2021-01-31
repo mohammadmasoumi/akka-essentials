@@ -29,7 +29,11 @@ object AskSpec {
 
     override def receive: Receive = online(Map())
 
-    def online(kv: Map[String, String]): Receive = ???
+    def online(kv: Map[String, String]): Receive = {
+      case Read(key: String) =>
+        log.info(s"Trying to read the value of the key $key")
+        sender() ! kv.get(key)
+    }
   }
 
 }
