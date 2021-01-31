@@ -32,7 +32,7 @@ object AskSpec {
     def online(kv: Map[String, String]): Receive = {
       case Read(key: String) =>
         log.info(s"Trying to read the value of the key $key")
-        sender() ! kv.get(key)
+        sender() ! kv.get(key) // Option[String]
 
       case Write(key: String, value: String) =>
         log.info(s"Trying to write value $value for key $key")
