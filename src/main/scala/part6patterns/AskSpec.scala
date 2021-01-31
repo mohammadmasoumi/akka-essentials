@@ -40,4 +40,6 @@ object AskSpec {
     }
   }
 
+  // user authenticator actor
+
 }
