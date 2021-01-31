@@ -21,12 +21,15 @@ object AskSpec {
 
 
   // this code is somewhere else in your application
+  case class Read(key: String)
+
+  case class Write(key: String, value: String)
+
   class KVActor extends Actor with ActorLogging {
-    override def receive: Receive = ???
 
-    def online(kv: Map[String, String]): Receive = {
+    override def receive: Receive = online(Map())
 
-    }
+    def online(kv: Map[String, String]): Receive = ???
   }
 
 }
