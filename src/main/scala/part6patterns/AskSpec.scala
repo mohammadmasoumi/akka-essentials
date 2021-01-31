@@ -1,6 +1,9 @@
 package part6patterns
 
-class AskSpec {
+import akka.actor.ActorSystem
+import akka.testkit.TestKit
+
+class AskSpec extends TestKit(ActorSystem("AskSpec")) {
 
 }
 
