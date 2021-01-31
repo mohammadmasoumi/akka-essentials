@@ -34,6 +34,9 @@ therefore I've created this project to share what I've learned.
     - [TimerSchedulersRecap][130]
     - [RoutersRecap][131]
 
+- **Akka Patterns**
+   - [StashDemoRecap][140]
+   
 
 ### Courses
 
@@ -63,3 +66,5 @@ therefore I've created this project to share what I've learned.
 
 [130]: https://github.com/mohammadmasoumi/akka-essentials/blob/main/src/main/scala/part5infra/TimerSchedulersRecap.md
 [131]: https://github.com/mohammadmasoumi/akka-essentials/blob/main/src/main/scala/part5infra/RoutersRecap.md
+
+[140]: https://github.com/mohammadmasoumi/akka-essentials/blob/main/src/main/scala/part6patterns/StashDemoRecap.md
