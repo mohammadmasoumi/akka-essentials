@@ -42,4 +42,8 @@ object AskSpec {
 
   // user authenticator actor
 
+  class AuthManager extends Actor with ActorLogging {
+    override def receive: Receive = ???
+  }
+
 }
