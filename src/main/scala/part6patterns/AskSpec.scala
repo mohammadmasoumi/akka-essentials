@@ -33,6 +33,10 @@ object AskSpec {
       case Read(key: String) =>
         log.info(s"Trying to read the value of the key $key")
         sender() ! kv.get(key)
+
+      case Write(key: String, value: String) =>
+        log.info(s"Trying to write value $value for key $key")
+        sender() ! kv + (key -> value)
     }
   }
 
