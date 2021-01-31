@@ -36,7 +36,7 @@ object AskSpec {
 
       case Write(key: String, value: String) =>
         log.info(s"Trying to write value $value for key $key")
-        sender() ! kv + (key -> value)
+        context.become(online(kv + (key -> value)))
     }
   }
 
