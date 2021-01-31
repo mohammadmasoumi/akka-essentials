@@ -1,6 +1,6 @@
 package part6patterns
 
-import akka.actor.ActorSystem
+import akka.actor.{Actor, ActorLogging, ActorSystem}
 import akka.testkit.{ImplicitSender, TestKit}
 import org.scalatest.{BeforeAndAfterAll, WordSpecLike}
 
@@ -18,5 +18,11 @@ class AskSpec extends TestKit(ActorSystem("AskSpec"))
 
 
 object AskSpec {
+
+
+  // this code is somewhere else in your application
+  class KVActor extends Actor with ActorLogging {
+    override def receive: Receive = ???
+  }
 
 }
