@@ -1,6 +1,6 @@
 package part6patterns
 
-import akka.actor.{Actor, ActorLogging, ActorSystem}
+import akka.actor.{Actor, ActorLogging, ActorSystem, Props}
 import akka.testkit.{ImplicitSender, TestKit}
 import org.scalatest.{BeforeAndAfterAll, WordSpecLike}
 
@@ -50,7 +50,14 @@ object AskSpec {
   case object AuthSuccess
 
   class AuthManager extends Actor with ActorLogging {
-    override def receive: Receive = ???
+    private val authDB = context.actorOf(Props[KVActor])
+
+    override def receive: Receive = {
+      case RegisterUser(username, password) =>
+        authDB ! Write(username, password)
+    }
+
+
   }
 
 }
