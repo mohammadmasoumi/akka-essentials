@@ -27,28 +27,49 @@ class AskSpec extends TestKit(ActorSystem("AskSpec"))
     import AuthManager._
 
     "fail to authenticate a non-registered user" in {
-      val authManager = system.actorOf(Props[AuthManager], "authManager")
+      val authManager = system.actorOf(Props[AuthManager])
       authManager ! Authenticate("daniel", "rtjvm")
       expectMsg(AuthFailure(AUTH_FAILURE_NOT_FOUND))
     }
 
     "fail to authenticate if invalid password" in {
-      val authManager = system.actorOf(Props[AuthManager], "authManager")
+      val authManager = system.actorOf(Props[AuthManager])
       authManager ! RegisterUser("daniel", "rtjvm")
       authManager ! Authenticate("daniel", "ILoveAkka")
       expectMsg(AuthFailure(AUTH_FAILURE_PASSWORD_INCORRECT))
     }
 
     "successfully authenticate a registered user" in {
-      val authManager = system.actorOf(Props[AuthManager], "authManager")
+      val authManager = system.actorOf(Props[AuthManager])
       authManager ! RegisterUser("daniel", "rtjvm")
       authManager ! Authenticate("daniel", "rtjvm")
       expectMsg(AuthSuccess)
     }
-
-
   }
 
+  "An piped authenticator" should {
+    import AuthManager._
+
+    "fail to authenticate a non-registered user" in {
+      val authManager = system.actorOf(Props[PipedAuthManager])
+      authManager ! Authenticate("daniel", "rtjvm")
+      expectMsg(AuthFailure(AUTH_FAILURE_NOT_FOUND))
+    }
+
+    "fail to authenticate if invalid password" in {
+      val authManager = system.actorOf(Props[PipedAuthManager])
+      authManager ! RegisterUser("daniel", "rtjvm")
+      authManager ! Authenticate("daniel", "ILoveAkka")
+      expectMsg(AuthFailure(AUTH_FAILURE_PASSWORD_INCORRECT))
+    }
+
+    "successfully authenticate a registered user" in {
+      val authManager = system.actorOf(Props[PipedAuthManager])
+      authManager ! RegisterUser("daniel", "rtjvm")
+      authManager ! Authenticate("daniel", "rtjvm")
+      expectMsg(AuthSuccess)
+    }
+  }
 }
 
 
