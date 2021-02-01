@@ -1,6 +1,5 @@
 package part6patterns
 
-import akka.actor.Status.Success
 import akka.actor.{Actor, ActorLogging, ActorSystem, Props}
 import akka.testkit.{ImplicitSender, TestKit}
 import akka.util.Timeout
@@ -8,6 +7,7 @@ import org.scalatest.{BeforeAndAfterAll, WordSpecLike}
 
 import scala.concurrent.ExecutionContext
 import scala.concurrent.duration._
+import scala.util.Success
 
 // the first step
 import akka.pattern.ask
