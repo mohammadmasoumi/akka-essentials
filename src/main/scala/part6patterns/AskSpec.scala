@@ -129,6 +129,9 @@ object AskSpec {
       val future = authDB ? Read(username) // Future[Any]
 
       val passwordFuture = future.mapTo[Option[String]] // Future[Option[String]]
+      val responseFuture = passwordFuture.map {
+
+      }
 
     }
   }
