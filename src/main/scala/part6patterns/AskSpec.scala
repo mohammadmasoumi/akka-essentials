@@ -128,6 +128,7 @@ object AskSpec {
     import AuthManager._
 
     override def handleAuthentication(username: String, password: String): Unit = {
+      // step 3 - ask the actor
       val future = authDB ? Read(username) // Future[Any]
 
       val passwordFuture = future.mapTo[Option[String]] // Future[Option[String]]
