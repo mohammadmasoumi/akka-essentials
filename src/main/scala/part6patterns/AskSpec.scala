@@ -124,4 +124,6 @@ object AskSpec {
     }
   }
 
+  class PipedAuthManager
+
 }
