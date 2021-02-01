@@ -64,6 +64,7 @@ object AskSpec {
 
     /**
      * with future approach; we break the actor encapsulation.
+     * who would be the sender in the future on_complete method?
      * @return
      */
     override def receive: Receive = {
@@ -74,6 +75,8 @@ object AskSpec {
         val future = authDB ? Read(username)
         // step 4 - handle the future for e.g. with onComplete
         future.onComplete {
+          // step 5 the most important
+          // NEVER CALL METHODS ON THE ACTOR INSTANCE OR ACCESS MUTABLE STATE IN ON_COMPLETE
           case Success(None) =>
             sender() ! AuthFailure("username not found!")
           case Success(dbPassword) =>
