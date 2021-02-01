@@ -20,6 +20,13 @@ class AskSpec extends TestKit(ActorSystem("AskSpec"))
   override protected def afterAll(): Unit = {
     TestKit.shutdownActorSystem(system)
   }
+
+  import AskSpec._
+
+  "An authenticator" should {
+
+  }
+
 }
 
 
