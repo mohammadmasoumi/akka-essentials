@@ -70,7 +70,10 @@ object AskSpec {
         val future = authDB ? Read(username)
         future.onComplete {
           case Success(None) =>
-            sender() ! AuthFailure("password not found!")
+            sender() ! AuthFailure("username not found!")
+          case Success(dbPassword) =>
+            if (dbPassword == password)  sender() ! AuthSuccess
+            else sender() ! AuthFailure("password incorrect")
         }
     }
 
