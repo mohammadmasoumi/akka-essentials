@@ -124,6 +124,10 @@ object AskSpec {
     }
   }
 
-  class PipedAuthManager
+  class PipedAuthManager extends AuthManager {
+    override def handleAuthentication(username: String, password: String): Unit = {
+
+    }
+  }
 
 }
