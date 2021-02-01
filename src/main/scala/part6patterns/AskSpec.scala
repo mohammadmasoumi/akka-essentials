@@ -118,6 +118,10 @@ object AskSpec {
           case Failure(_) => originalSender ! AuthFailure(AUTH_FAILURE_SYSTEM)
         }
     }
+
+    def handleAuthentication(username: String , password: String): Receive = {
+
+    }
   }
 
 }
