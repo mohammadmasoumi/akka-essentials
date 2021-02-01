@@ -102,25 +102,25 @@ object AskSpec {
       case RegisterUser(username, password) =>
         authDB ! Write(username, password)
       case Authenticate(username, password) =>
-        val originalSender = sender()
-        // step 3 - ask the actor - futures run in separate thread
-        val future = authDB ? Read(username)
-        // step 4 - handle the future for e.g. with onComplete
-        future.onComplete {
-          // step 5 the most important
-          // NEVER CALL METHODS ON THE ACTOR INSTANCE OR ACCESS MUTABLE STATE IN ON_COMPLETE
-          // Goal: avoid closing over the actor instance or mutable state
-          case Success(None) =>
-            originalSender ! AuthFailure(AUTH_FAILURE_NOT_FOUND)
-          case Success(dbPassword) =>
-            if (dbPassword == password) originalSender ! AuthSuccess
-            else originalSender ! AuthFailure(AUTH_FAILURE_PASSWORD_INCORRECT)
-          case Failure(_) => originalSender ! AuthFailure(AUTH_FAILURE_SYSTEM)
-        }
+        handleAuthentication(username, password)
     }
 
-    def handleAuthentication(username: String , password: String): Receive = {
-
+    def handleAuthentication(username: String , password: String): Unit = {
+      val originalSender = sender()
+      // step 3 - ask the actor - futures run in separate thread
+      val future = authDB ? Read(username)
+      // step 4 - handle the future for e.g. with onComplete
+      future.onComplete {
+        // step 5 the most important
+        // NEVER CALL METHODS ON THE ACTOR INSTANCE OR ACCESS MUTABLE STATE IN ON_COMPLETE
+        // Goal: avoid closing over the actor instance or mutable state
+        case Success(None) =>
+          originalSender ! AuthFailure(AUTH_FAILURE_NOT_FOUND)
+        case Success(dbPassword) =>
+          if (dbPassword == password) originalSender ! AuthSuccess
+          else originalSender ! AuthFailure(AUTH_FAILURE_PASSWORD_INCORRECT)
+        case Failure(_) => originalSender ! AuthFailure(AUTH_FAILURE_SYSTEM)
+      }
     }
   }
 
