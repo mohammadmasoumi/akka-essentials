@@ -140,6 +140,9 @@ object AskSpec {
       } // Future[Any] will be completed with the response
 
       // step 5 - pipe the resulting future to the actor you want to send the result to
+      /*
+        When the future completes, send the response to the actor ref in the arg list
+       */
 
     }
   }
