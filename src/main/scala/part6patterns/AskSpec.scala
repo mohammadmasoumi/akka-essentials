@@ -55,6 +55,11 @@ object AskSpec {
 
   case object AuthSuccess
 
+  object AuthManager {
+    val AUTH_FAILURE_NOT_FOUND = "username not found"
+    val AUTH_FAILURE_PASSWORD_INCORRECT = "password incorrect"
+  }
+
   class AuthManager extends Actor with ActorLogging {
     // step 2 = logistic
     implicit val timeout: Timeout = Timeout(1 second)
@@ -80,10 +85,10 @@ object AskSpec {
           // NEVER CALL METHODS ON THE ACTOR INSTANCE OR ACCESS MUTABLE STATE IN ON_COMPLETE
           // Goal: avoid closing over the actor instance or mutable state
           case Success(None) =>
-            originalSender ! AuthFailure("username not found!")
+            originalSender ! AuthFailure(AuthManager.AUTH_FAILURE_NOT_FOUND)
           case Success(dbPassword) =>
             if (dbPassword == password)  originalSender ! AuthSuccess
-            else originalSender ! AuthFailure("password incorrect")
+            else originalSender ! AuthFailure()
           case Failure(_) => originalSender ! AuthFailure("system error.")
         }
     }
