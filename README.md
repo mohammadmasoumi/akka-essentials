@@ -36,8 +36,8 @@ therefore I've created this project to share what I've learned.
 
 - **Akka Patterns**
    - [StashDemoRecap][140]
+   - [AskSpecRecap][141]
    
-
 ### Courses
 
  - [**akka-essentials**][3]
@@ -68,3 +68,4 @@ therefore I've created this project to share what I've learned.
 [131]: https://github.com/mohammadmasoumi/akka-essentials/blob/main/src/main/scala/part5infra/RoutersRecap.md
 
 [140]: https://github.com/mohammadmasoumi/akka-essentials/blob/main/src/main/scala/part6patterns/StashDemoRecap.md
+[141]: https://github.com/mohammadmasoumi/akka-essentials/blob/main/src/main/scala/part6patterns/AskSpecRecap.md

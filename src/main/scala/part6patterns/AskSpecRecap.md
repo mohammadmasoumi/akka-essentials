@@ -1,4 +1,4 @@
-# AskSpec
+# AskSpecRecap
 
  - Use ask when you expect a single response
    ```scala
