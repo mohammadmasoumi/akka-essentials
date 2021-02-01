@@ -24,8 +24,6 @@ class AskSpec extends TestKit(ActorSystem("AskSpec"))
 
 
 object AskSpec {
-
-
   // this code is somewhere else in your application
   case class Read(key: String)
 
