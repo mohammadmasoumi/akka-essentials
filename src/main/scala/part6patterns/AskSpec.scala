@@ -1,6 +1,6 @@
 package part6patterns
 
-import akka.actor.{Actor, ActorLogging, ActorSystem, Props}
+import akka.actor.{Actor, ActorLogging, ActorRef, ActorSystem, Props}
 import akka.testkit.{ImplicitSender, TestKit}
 import akka.util.Timeout
 import org.scalatest.{BeforeAndAfterAll, WordSpecLike}
@@ -90,7 +90,7 @@ object AskSpec {
     implicit val timeout: Timeout = Timeout(1 second)
     implicit val executionContext: ExecutionContext = context.dispatcher
 
-    private val authDB = context.actorOf(Props[KVActor])
+    protected val authDB: ActorRef = context.actorOf(Props[KVActor], "kv-actor")
 
     /**
      * with future approach; we break the actor encapsulation.
@@ -105,7 +105,7 @@ object AskSpec {
         handleAuthentication(username, password)
     }
 
-    def handleAuthentication(username: String , password: String): Unit = {
+    def handleAuthentication(username: String, password: String): Unit = {
       val originalSender = sender()
       // step 3 - ask the actor - futures run in separate thread
       val future = authDB ? Read(username)
@@ -126,6 +126,7 @@ object AskSpec {
 
   class PipedAuthManager extends AuthManager {
     override def handleAuthentication(username: String, password: String): Unit = {
+      val future = authDB ? Read(username) // Future[Any]
 
     }
   }
