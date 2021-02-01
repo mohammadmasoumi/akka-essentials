@@ -130,7 +130,7 @@ object AskSpec {
     override def handleAuthentication(username: String, password: String): Unit = {
       // step 3 - ask the actor
       val future = authDB ? Read(username) // Future[Any]
-
+      // step 4 - process the future until you get the responses you will send back
       val passwordFuture = future.mapTo[Option[String]] // Future[Option[String]]
       val responseFuture = passwordFuture.map {
         case None => AuthFailure(AUTH_FAILURE_NOT_FOUND)
