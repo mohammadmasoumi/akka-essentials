@@ -71,17 +71,19 @@ object AskSpec {
       case RegisterUser(username, password) =>
         authDB ! Write(username, password)
       case Authenticate(username, password) =>
+        val originalSender = sender()
         // step 3 - ask the actor - futures run in separate thread
         val future = authDB ? Read(username)
         // step 4 - handle the future for e.g. with onComplete
         future.onComplete {
           // step 5 the most important
           // NEVER CALL METHODS ON THE ACTOR INSTANCE OR ACCESS MUTABLE STATE IN ON_COMPLETE
+          // Goal: avoid closing over the actor instance or mutable state
           case Success(None) =>
-            sender() ! AuthFailure("username not found!")
+            originalSender ! AuthFailure("username not found!")
           case Success(dbPassword) =>
-            if (dbPassword == password)  sender() ! AuthSuccess
-            else sender() ! AuthFailure("password incorrect")
+            if (dbPassword == password)  originalSender ! AuthSuccess
+            else originalSender ! AuthFailure("password incorrect")
         }
     }
   }
