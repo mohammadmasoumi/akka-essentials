@@ -58,6 +58,7 @@ object AskSpec {
   object AuthManager {
     val AUTH_FAILURE_NOT_FOUND = "username not found"
     val AUTH_FAILURE_PASSWORD_INCORRECT = "password incorrect"
+    val AUTH_FAILURE_SYSTEM = "system error"
   }
 
   class AuthManager extends Actor with ActorLogging {
@@ -88,8 +89,8 @@ object AskSpec {
             originalSender ! AuthFailure(AuthManager.AUTH_FAILURE_NOT_FOUND)
           case Success(dbPassword) =>
             if (dbPassword == password)  originalSender ! AuthSuccess
-            else originalSender ! AuthFailure()
-          case Failure(_) => originalSender ! AuthFailure("system error.")
+            else originalSender ! AuthFailure(AuthManager.AUTH_FAILURE_PASSWORD_INCORRECT)
+          case Failure(_) => originalSender ! AuthFailure(AuthManager.AUTH_FAILURE_SYSTEM)
         }
     }
   }
