@@ -7,7 +7,7 @@ import org.scalatest.{BeforeAndAfterAll, WordSpecLike}
 
 import scala.concurrent.ExecutionContext
 import scala.concurrent.duration._
-import scala.util.Success
+import scala.util.{Failure, Success}
 
 // the first step
 import akka.pattern.ask
@@ -84,6 +84,7 @@ object AskSpec {
           case Success(dbPassword) =>
             if (dbPassword == password)  originalSender ! AuthSuccess
             else originalSender ! AuthFailure("password incorrect")
+          case Failure(_) => originalSender ! AuthFailure("system error.")
         }
     }
   }
