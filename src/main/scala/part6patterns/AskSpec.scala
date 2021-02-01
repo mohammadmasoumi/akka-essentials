@@ -132,7 +132,10 @@ object AskSpec {
 
       val passwordFuture = future.mapTo[Option[String]] // Future[Option[String]]
       val responseFuture = passwordFuture.map {
-        case None => AuthFailure()
+        case None => AuthFailure(AUTH_FAILURE_NOT_FOUND)
+        case Some(dbPassword) =>
+          if (dbPassword== password) AuthSuccess
+          else AuthFailure(AUTH_FAILURE_PASSWORD_INCORRECT)
       }
 
     }
