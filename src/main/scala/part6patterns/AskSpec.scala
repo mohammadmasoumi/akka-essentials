@@ -24,9 +24,12 @@ class AskSpec extends TestKit(ActorSystem("AskSpec"))
   import AskSpec._
 
   "An authenticator" should {
+    import AuthManager._
+
     "fail to authenticate a non-registered user" in {
       val authManager = system.actorOf(Props[AuthManager], "authManager")
       authManager ! Authenticate("daniel", "rtjvm")
+      expectMsg(AuthFailure(AUTH_FAILURE_NOT_FOUND))
     }
   }
 
@@ -34,6 +37,7 @@ class AskSpec extends TestKit(ActorSystem("AskSpec"))
 
 
 object AskSpec {
+
   // this code is somewhere else in your application
   case class Read(key: String)
 
@@ -70,6 +74,9 @@ object AskSpec {
   }
 
   class AuthManager extends Actor with ActorLogging {
+
+    import AuthManager._
+
     // step 2 = logistic
     implicit val timeout: Timeout = Timeout(1 second)
     implicit val executionContext: ExecutionContext = context.dispatcher
@@ -79,6 +86,7 @@ object AskSpec {
     /**
      * with future approach; we break the actor encapsulation.
      * who would be the sender in the future on_complete method?
+     *
      * @return
      */
     override def receive: Receive = {
@@ -94,11 +102,11 @@ object AskSpec {
           // NEVER CALL METHODS ON THE ACTOR INSTANCE OR ACCESS MUTABLE STATE IN ON_COMPLETE
           // Goal: avoid closing over the actor instance or mutable state
           case Success(None) =>
-            originalSender ! AuthFailure(AuthManager.AUTH_FAILURE_NOT_FOUND)
+            originalSender ! AuthFailure(AUTH_FAILURE_NOT_FOUND)
           case Success(dbPassword) =>
-            if (dbPassword == password)  originalSender ! AuthSuccess
-            else originalSender ! AuthFailure(AuthManager.AUTH_FAILURE_PASSWORD_INCORRECT)
-          case Failure(_) => originalSender ! AuthFailure(AuthManager.AUTH_FAILURE_SYSTEM)
+            if (dbPassword == password) originalSender ! AuthSuccess
+            else originalSender ! AuthFailure(AUTH_FAILURE_PASSWORD_INCORRECT)
+          case Failure(_) => originalSender ! AuthFailure(AUTH_FAILURE_SYSTEM)
         }
     }
   }
