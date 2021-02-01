@@ -66,9 +66,9 @@ object AskSpec {
       case RegisterUser(username, password) =>
         authDB ! Write(username, password)
       case Authenticate(username, password) =>
-        // step 3 - ask the actor
+        // step 3 - ask the actor - futures run in separate thread
         val future = authDB ? Read(username)
-        // step 4 - handle the future
+        // step 4 - handle the future for e.g. with onComplete
         future.onComplete {
           case Success(None) =>
             sender() ! AuthFailure("username not found!")
