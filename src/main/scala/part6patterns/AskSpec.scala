@@ -62,6 +62,10 @@ object AskSpec {
 
     private val authDB = context.actorOf(Props[KVActor])
 
+    /**
+     * with future approach; we break the actor encapsulation.
+     * @return
+     */
     override def receive: Receive = {
       case RegisterUser(username, password) =>
         authDB ! Write(username, password)
