@@ -33,7 +33,7 @@ class AskSpec extends TestKit(ActorSystem("AskSpec"))
     }
 
     "fail to authenticate if invalid password" in {
-
+      val authManager = system.actorOf(Props[AuthManager], "authManager")
 
     }
 
