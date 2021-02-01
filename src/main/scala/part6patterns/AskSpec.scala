@@ -31,6 +31,13 @@ class AskSpec extends TestKit(ActorSystem("AskSpec"))
       authManager ! Authenticate("daniel", "rtjvm")
       expectMsg(AuthFailure(AUTH_FAILURE_NOT_FOUND))
     }
+
+    "fail to authenticate if invalid password" in {
+
+
+    }
+
+
   }
 
 }
