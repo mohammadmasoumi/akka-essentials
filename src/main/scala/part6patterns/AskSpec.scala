@@ -66,8 +66,9 @@ object AskSpec {
       case RegisterUser(username, password) =>
         authDB ! Write(username, password)
       case Authenticate(username, password) =>
-        // ask
+        // step 3 - ask the actor
         val future = authDB ? Read(username)
+        // step 4 - handle the future
         future.onComplete {
           case Success(None) =>
             sender() ! AuthFailure("username not found!")
@@ -76,8 +77,6 @@ object AskSpec {
             else sender() ! AuthFailure("password incorrect")
         }
     }
-
-
   }
 
 }
