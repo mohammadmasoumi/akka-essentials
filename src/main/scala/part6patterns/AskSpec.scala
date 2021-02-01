@@ -118,7 +118,7 @@ object AskSpec {
     implicit val timeout: Timeout = Timeout(1 second)
     implicit val executionContext: ExecutionContext = context.dispatcher
 
-    protected val authDB: ActorRef = context.actorOf(Props[KVActor], "kv-actor")
+    protected val authDB: ActorRef = context.actorOf(Props[KVActor])
 
     /**
      * with future approach; we break the actor encapsulation.
@@ -144,7 +144,7 @@ object AskSpec {
         // Goal: avoid closing over the actor instance or mutable state
         case Success(None) =>
           originalSender ! AuthFailure(AUTH_FAILURE_NOT_FOUND)
-        case Success(dbPassword) =>
+        case Success(Some(dbPassword)) =>
           if (dbPassword == password) originalSender ! AuthSuccess
           else originalSender ! AuthFailure(AUTH_FAILURE_PASSWORD_INCORRECT)
         case Failure(_) => originalSender ! AuthFailure(AUTH_FAILURE_SYSTEM)
