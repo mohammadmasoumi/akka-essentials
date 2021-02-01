@@ -125,6 +125,7 @@ object AskSpec {
   }
 
   class PipedAuthManager extends AuthManager {
+    import AuthManager._
 
     override def handleAuthentication(username: String, password: String): Unit = {
       val future = authDB ? Read(username) // Future[Any]
