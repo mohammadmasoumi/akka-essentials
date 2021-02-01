@@ -128,6 +128,8 @@ object AskSpec {
     override def handleAuthentication(username: String, password: String): Unit = {
       val future = authDB ? Read(username) // Future[Any]
 
+      val passwordFuture = future.mapTo[Option[String]] // Future[Option[String]]
+
     }
   }
 
