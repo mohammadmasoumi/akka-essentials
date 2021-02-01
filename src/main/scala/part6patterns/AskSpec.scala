@@ -11,6 +11,7 @@ import scala.util.{Failure, Success}
 
 // the first step
 import akka.pattern.ask
+import akka.pattern.pipe
 
 class AskSpec extends TestKit(ActorSystem("AskSpec"))
   with ImplicitSender
@@ -143,7 +144,7 @@ object AskSpec {
       /*
         When the future completes, send the response to the actor ref in the arg list
        */
-
+      responseFuture.pipeTo(sender())
     }
   }
 
