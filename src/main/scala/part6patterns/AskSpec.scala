@@ -137,7 +137,9 @@ object AskSpec {
         case Some(dbPassword) =>
           if (dbPassword== password) AuthSuccess
           else AuthFailure(AUTH_FAILURE_PASSWORD_INCORRECT)
-      }
+      } // Future[Any] will be completed with the response
+
+      // step 5 - pipe the resulting future to the actor you want to send the result to
 
     }
   }
