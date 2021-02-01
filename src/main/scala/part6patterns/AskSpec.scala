@@ -10,8 +10,7 @@ import scala.concurrent.duration._
 import scala.util.{Failure, Success}
 
 // the first step
-import akka.pattern.ask
-import akka.pattern.pipe
+import akka.pattern.{ask, pipe}
 
 class AskSpec extends TestKit(ActorSystem("AskSpec"))
   with ImplicitSender
@@ -126,6 +125,7 @@ object AskSpec {
   }
 
   class PipedAuthManager extends AuthManager {
+
     import AuthManager._
 
     override def handleAuthentication(username: String, password: String): Unit = {
@@ -136,7 +136,7 @@ object AskSpec {
       val responseFuture = passwordFuture.map {
         case None => AuthFailure(AUTH_FAILURE_NOT_FOUND)
         case Some(dbPassword) =>
-          if (dbPassword== password) AuthSuccess
+          if (dbPassword == password) AuthSuccess
           else AuthFailure(AUTH_FAILURE_PASSWORD_INCORRECT)
       } // Future[Any] will be completed with the response
 
