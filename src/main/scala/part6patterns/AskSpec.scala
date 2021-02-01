@@ -1,5 +1,6 @@
 package part6patterns
 
+import akka.actor.Status.Success
 import akka.actor.{Actor, ActorLogging, ActorSystem, Props}
 import akka.testkit.{ImplicitSender, TestKit}
 import akka.util.Timeout
@@ -65,7 +66,12 @@ object AskSpec {
       case RegisterUser(username, password) =>
         authDB ! Write(username, password)
       case Authenticate(username, password) =>
-        authDB ? Read(username)
+        // ask
+        val future = authDB ? Read(username)
+        future.onComplete {
+          case Success(None) =>
+            sender() ! AuthFailure("password not found!")
+        }
     }
 
 
